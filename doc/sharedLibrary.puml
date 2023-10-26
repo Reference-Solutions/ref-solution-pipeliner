@@ -1,0 +1,158 @@
+@startuml
+package pipeliner <<Folder>> {
+    package com.bosch.pipeliner <<Folder>> {
+        package BasePipeline <<Node>> {
+            class BasePipeline{
+                #String defaultInputs
+                #List<String> alwaysExposed
+                #List parallel
+                #List combinations
+                #String nodeLabelExpr
+                #String altNodeLabelExpr
+                #String altTargets
+                #Integer pipelineTimeout
+                #Map inputs
+                #def script
+                #String message
+                #Map env
+                #Map ioMap
+                #String checkoutCredentialsId
+                #String currentUser
+                #String currentUserId
+                #String currentGroupId
+
+                +BasePipeline()
+                +run() : Map
+                +setupNodeWithStages() : void
+                {abstract} +stages() : void
+                +prePipeline() : void
+                +preNode() : void
+                +preNode() : void
+                +postPipeline() : void
+            }
+        }
+        package InputParser <<Node>> {
+            class InputParser{
+                +parse(String, Map) : void
+            }
+        }
+        package LoggerDynamic <<Node>> {
+            class LoggerDynamic{
+                +init():void
+                +info(String) : void
+                +warn(String) : void
+                +error(String) : void
+            }
+        }
+    }
+}
+package refSolutions-Pipeliner <<Folder>> {
+    package com.refSolution <<Folder>> {
+        package pipelines {
+            package CommonPipeline <<Node>> {
+                class CommonPipeline{
+                    +stages() : void
+                    +prePipeline() : void
+                    +preNode() : void
+                    +preNode() : void
+                    +postPipeline() : void
+                    +getCustomStage() : void
+                }
+            }
+            package ComponentPipeline1 <<Node>> {
+                class ComponentPipeline1{
+                    +getCustomStage() : void
+                }
+            }
+            package ComponentPipeline2 <<Node>> {
+                class ComponentPipeline2{
+                    +getCustomStage() : void
+                }
+            }
+        }
+        package stages <<Folder>> {
+            package CommonGitStages <<Node>> {
+                class CommonGitStages{
+                    +stageCheckout() : void
+                    +stageCheckoutSCM() : void
+                }
+            } 
+            package CommonSonarStages <<Node>> {
+                class CommonSonarStages{
+                    +stageSonarAnalysis() : void
+                }
+            }
+            package CommonArtifactoryStages <<Node>> {
+                class CommonArtifactoryStages{
+                    +stageUploadToArtifactory() : void
+                    +stageDownloadToArtifactory() : void
+                }
+            } 
+            package CommonArchiveStages <<Node>> {
+                class CommonArchiveStages{
+                    +stageArchive() : void
+                }
+            }
+            
+            package ComponentStages1 <<Node>> {
+                class ComponentStages1{
+                    +componentStage1() : void
+                    +componentStage2() : void
+                }
+            }
+            package ComponentStages2 <<Node>> {
+                class ComponentStages2{
+                    +componentStage1() : void
+                    +componentStage2() : void
+                }
+            }
+        }
+        
+        package utils {
+            package Git <<Node>> {
+                class Git{
+                    +checkout() : void
+                }
+            } 
+            package Sonar <<Node>> {
+                class Sonar{
+                    +sonarAnalysis() : void
+                }
+            }
+            package Artifactory <<Node>> {
+                class Artifactory{
+                    +initializeFromEnvironment() : void
+                    +publishBuildInfoToArtifactory() : void
+                    +uploadToArtifactory() : void
+                    +downloadFromArtifactory() : void
+                    +copyInArtifactory() : void
+                    +moveInArtifactory() : void
+                    +deleteInArtifactory() : void
+                    +checkInArtifactory() : void
+                    +getArtifactoryCredentialsFromEnvironment() : void
+                }
+            }
+        }
+    }
+}
+
+InputParser <.. BasePipeline : <<uses>>
+LoggerDynamic <.. BasePipeline : <<uses>>
+
+BasePipeline <|-- CommonPipeline : <<extends>>
+CommonPipeline <|-- ComponentPipeline1 : <<extends>>
+CommonPipeline <|-- ComponentPipeline2 : <<extends>>
+
+CommonPipeline --*  CommonGitStages
+CommonPipeline --*  CommonSonarStages
+CommonPipeline --*  CommonArtifactoryStages
+CommonPipeline --*  CommonArchiveStages
+
+ComponentPipeline1 --*  ComponentStages1
+ComponentPipeline2 --*  ComponentStages2
+
+CommonGitStages --* Git
+CommonSonarStages --* Sonar
+CommonArtifactoryStages --* Artifactory
+
+@enduml
