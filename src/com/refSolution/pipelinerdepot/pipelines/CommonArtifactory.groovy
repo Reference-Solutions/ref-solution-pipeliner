@@ -2,7 +2,7 @@ package com.refSolution.pipelinerdepot.pipelines
 
 import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
-import com.refSolution.pipelinerdepot.stages.QnxStages
+
 
 
 class CommonArtifactory extends BasePipeline {
