@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="unitTests.StagesTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-10-31T08:26:14" hostname="KOR-C-0073N" time="0.011">
+  <properties/>
+  <testcase name="teststageArchiveStages" classname="unitTests.StagesTest" time="0.011"/>
+  <system-out><![CDATA[mock.stage: Build
+mock.echo: INFO: Build
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
