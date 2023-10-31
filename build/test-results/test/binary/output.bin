@@ -1,0 +1,112 @@
+mock.stage: Checkout
+‰mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo_1.git, CHECKOUT_BRANCH_1:branch_1, CHECKOUT_CREDENTIALS_ID_1:credential_1, CHECKOUT_URL_2:https://domain/gitrepo_2.git, CHECKOUT_BRANCH_2:null, CHECKOUT_CREDENTIALS_ID_2:credential_2, CHECKOUT_COUNT:2]
+5mock.echo: INFO: url : https://domain/gitrepo_1.git
+1mock.echo: INFO: Running parameterized checkout
+4mock.echo: INFO: Url: https://domain/gitrepo_1.git
+#mock.echo: INFO: Branch: branch_1
+mock.checkout
+$mock.echo: INFO: Checkout complete
+5mock.echo: INFO: url : https://domain/gitrepo_2.git
+1mock.echo: INFO: Running parameterized checkout
+4mock.echo: INFO: Url: https://domain/gitrepo_2.git
+!mock.echo: INFO: Branch: master
+mock.checkout
+$mock.echo: INFO: Checkout complete
+mock.stage: Checkout
+–mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo.git, CHECKOUT_BRANCH_1:master, CHECKOUT_CREDENTIALS_ID_1:credential, CHECKOUT_COUNT:1]
+3mock.echo: INFO: url : https://domain/gitrepo.git
+1mock.echo: INFO: Running parameterized checkout
+2mock.echo: INFO: Url: https://domain/gitrepo.git
+!mock.echo: INFO: Branch: master
+mock.checkout
+$mock.echo: INFO: Checkout complete
+mock.stage: Checkout
+–mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo.git, CHECKOUT_BRANCH_1:master, CHECKOUT_CREDENTIALS_ID_1:credential, CHECKOUT_COUNT:2]
+3mock.echo: INFO: url : https://domain/gitrepo.git
+1mock.echo: INFO: Running parameterized checkout
+2mock.echo: INFO: Url: https://domain/gitrepo.git
+!mock.echo: INFO: Branch: master
+mock.checkout
+$mock.echo: INFO: Checkout complete
+Jmock.echo: INFO: checkout url not provided, so checkout scm is triggered
+,mock.echo: INFO: Running standard checkout
+mock.checkout
+$mock.echo: INFO: Checkout complete
+mock.stage: Checkout
+…mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo_1.git, CHECKOUT_BRANCH_1:master, CHECKOUT_CREDENTIALS_ID_1:credential, CHECKOUT_URL_2:https://domain/gitrepo_2.git, CHECKOUT_BRANCH_2:master, CHECKOUT_CREDENTIALS_ID_2:credential, CHECKOUT_COUNT:2]
+5mock.echo: INFO: url : https://domain/gitrepo_1.git
+1mock.echo: INFO: Running parameterized checkout
+4mock.echo: INFO: Url: https://domain/gitrepo_1.git
+!mock.echo: INFO: Branch: master
+mock.checkout
+$mock.echo: INFO: Checkout complete
+5mock.echo: INFO: url : https://domain/gitrepo_2.git
+1mock.echo: INFO: Running parameterized checkout
+4mock.echo: INFO: Url: https://domain/gitrepo_2.git
+!mock.echo: INFO: Branch: master
+mock.checkout
+$mock.echo: INFO: Checkout complete
+mock.stage: Checkout
+‰mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo_1.git, CHECKOUT_BRANCH_1:branch_1, CHECKOUT_CREDENTIALS_ID_1:credential_1, CHECKOUT_URL_2:https://domain/gitrepo_2.git, CHECKOUT_BRANCH_2:null, CHECKOUT_CREDENTIALS_ID_2:credential_2, CHECKOUT_COUNT:2]
+5mock.echo: INFO: url : https://domain/gitrepo_1.git
+1mock.echo: INFO: Running parameterized checkout
+4mock.echo: INFO: Url: https://domain/gitrepo_1.git
+#mock.echo: INFO: Branch: branch_1
+mock.checkout
+$mock.echo: INFO: Checkout complete
+5mock.echo: INFO: url : https://domain/gitrepo_2.git
+1mock.echo: INFO: Running parameterized checkout
+4mock.echo: INFO: Url: https://domain/gitrepo_2.git
+!mock.echo: INFO: Branch: master
+mock.checkout
+$mock.echo: INFO: Checkout complete
+mock.bat: 
+            cd vip-project-uC
+[            python build.py --variant vip-mainboard --subsystem s32g-uC --os arc --verbose
+
+        
+	mock.stage: BSW Apply Patches
+	mock.bat: 
+	            cd cubas-nxp-s32g
+	            call Pre_Build.bat
+	
+        
+	mock.stage: BSW Generation
+	mock.bat: 
+	9            call tini -useEnv:cdg.de aeee_pro 2021.2.0.3
+	R            call aeee_pro -convertbcttoabacus -p cubas-nxp-s32g -m VIP_MAIN_BOARD
+	L            call aeee_pro -cdgb rebuild -p cubas-nxp-s32g -m VIP_MAIN_BOARD
+	
+        
+	 mock.stage: Generate Libraries
+	mock.bat: 
+	            cd cubas-nxp-s32g
+	            call Build.bat
+	
+        
+	mock.stage: Build
+	mock.bat: 
+	            cd vip-project-uC
+	[            python build.py --variant vip-mainboard --subsystem s32g-uC --os arc --verbose
+	
+        
+
+mock.bat: 
+
+            cd cubas-nxp-s32g
+
+            call Build.bat
+
+
+        
+mock.bat: 
+9            call tini -useEnv:cdg.de aeee_pro 2021.2.0.3
+R            call aeee_pro -convertbcttoabacus -p cubas-nxp-s32g -m VIP_MAIN_BOARD
+L            call aeee_pro -cdgb rebuild -p cubas-nxp-s32g -m VIP_MAIN_BOARD
+
+        
+mock.bat: 
+            cd cubas-nxp-s32g
+            call Pre_Build.bat
+
+        

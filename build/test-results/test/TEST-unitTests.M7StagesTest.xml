@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="unitTests.M7StagesTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-10-31T04:25:13" hostname="KOR-C-0073N" time="0.044">
+  <properties/>
+  <testcase name="testBuild" classname="unitTests.M7StagesTest" time="0.023"/>
+  <testcase name="testStageBuild" classname="unitTests.M7StagesTest" time="0.013"/>
+  <testcase name="testGenerateLibraries" classname="unitTests.M7StagesTest" time="0.001"/>
+  <testcase name="testBSWGeneration" classname="unitTests.M7StagesTest" time="0.001"/>
+  <testcase name="testBSWApplyPatches" classname="unitTests.M7StagesTest" time="0.002"/>
+  <system-out><![CDATA[mock.bat: 
+            cd vip-project-uC
+            python build.py --variant vip-mainboard --subsystem s32g-uC --os arc --verbose
+        
+mock.stage: BSW Apply Patches
+mock.bat: 
+            cd cubas-nxp-s32g
+            call Pre_Build.bat
+        
+mock.stage: BSW Generation
+mock.bat: 
+            call tini -useEnv:cdg.de aeee_pro 2021.2.0.3
+            call aeee_pro -convertbcttoabacus -p cubas-nxp-s32g -m VIP_MAIN_BOARD
+            call aeee_pro -cdgb rebuild -p cubas-nxp-s32g -m VIP_MAIN_BOARD
+        
+mock.stage: Generate Libraries
+mock.bat: 
+            cd cubas-nxp-s32g
+            call Build.bat
+        
+mock.stage: Build
+mock.bat: 
+            cd vip-project-uC
+            python build.py --variant vip-mainboard --subsystem s32g-uC --os arc --verbose
+        
+mock.bat: 
+            cd cubas-nxp-s32g
+            call Build.bat
+        
+mock.bat: 
+            call tini -useEnv:cdg.de aeee_pro 2021.2.0.3
+            call aeee_pro -convertbcttoabacus -p cubas-nxp-s32g -m VIP_MAIN_BOARD
+            call aeee_pro -cdgb rebuild -p cubas-nxp-s32g -m VIP_MAIN_BOARD
+        
+mock.bat: 
+            cd cubas-nxp-s32g
+            call Pre_Build.bat
+        
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
