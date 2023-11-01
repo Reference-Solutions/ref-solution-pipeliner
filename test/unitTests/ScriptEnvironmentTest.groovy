@@ -1,7 +1,13 @@
 package unitTests
+import org.jfrog.hudson.pipeline.common.types.ArtifactoryServer
+import org.jfrog.hudson.pipeline.common.types.buildInfo.BuildInfo
+import unitTests.Artifactory
+import com.refSolution.pipelinerdepot.utils.Artifactory
+import static org.mockito.Mockito.*;
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 
 
-// Mock for the scm object used by the checkout method
 
 
 class ScriptEnvironment {
@@ -143,4 +149,40 @@ class ScriptEnvironment {
 
     }
 
+    BuildInfo artifactoryDownload(Map map) {
+        println("mock.artifactoryDownload: " + map.inspect())
+        callList.add(['artifactoryDownload', map.inspect()])
+        //return newBuildInfo()
+        return newBuildInfo()
+    }
+    BuildInfo artifactoryUpload(Map map) {
+        println("mock.artifactoryUpload: " + map.inspect())
+        callList.add(['artifactoryUpload', map.inspect()])
+        return newBuildInfo()
+    }
+    BuildInfo publishBuildInfo(Map map) {
+        println("mock.publishBuildInfo: " + map.inspect())
+        callList.add(['publishBuildInfo', map.inspect()])
+        return newBuildInfo()
+    }
+    ArtifactoryServer getArtifactoryServer(String serverId) {
+        ArtifactoryServer server = mock(ArtifactoryServer)
+        when(server.getServerName()).thenReturn(serverId)
+        return server
+        
+    }
+    BuildInfo newBuildInfo() {
+        BuildInfo buildInfo = new BuildInfo()
+        buildInfo.name = env.JOB_BASE_NAME
+        buildInfo.number = env.BUILD_NUMBER
+        return buildInfo
+    }
+   def sh(Map map) {
+        println("mock.sh: " + map.inspect())
+        def lst = new ArrayList<String>()
+        lst.add("sh")
+        lst.add(map.inspect())
+        callList.add(lst)
+
+    }
 }

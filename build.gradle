@@ -11,6 +11,9 @@ repositories {
         url 'https://repo.jenkins-ci.org/public/'
 
     }
+    maven {
+        url 'https://dl.bintray.com/jfrog/jfrog-jars/'
+    }
 
 }
 
@@ -23,6 +26,7 @@ dependencies {
     implementation 'com.cloudbees:groovy-cps:1.32'
 
     implementation 'org.jenkins-ci.main:jenkins-core:2.263.4'
+    implementation 'org.jfrog.buildinfo:build-info-extractor:2.17.1'
 
  
 
@@ -44,7 +48,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'com.lesfurets:jenkins-pipeline-unit:1.2'
-
+    testImplementation "org.mockito:mockito-inline:+"
 }
 sourceSets {
 

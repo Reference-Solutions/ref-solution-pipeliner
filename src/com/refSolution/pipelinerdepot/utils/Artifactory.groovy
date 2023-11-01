@@ -332,6 +332,9 @@ public class Artifactory {
      * Initialize internal Artifactory credential id from environment
      * @return artifactoryCredentialsId
      */
+    boolean isDirectory(String path) {
+    return (script.sh(script: "test -d " + path, returnStatus: true) == 0) ? true : false
+    }
     def getArtifactoryCredentialsFromEnvironment() {
         String artifactoryCredentialsId = ""
         try {
