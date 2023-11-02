@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="unitTests.ArchiveStagesTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-11-02T09:43:11" hostname="KOR-C-0073N" time="0.138">
+  <properties/>
+  <testcase name="teststageArchiveStages" classname="unitTests.ArchiveStagesTest" time="0.138"/>
+  <system-out><![CDATA[mock.stage: Archive
+mock.archiveArtifacts: patterns
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
