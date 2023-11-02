@@ -11,7 +11,7 @@ import groovy.json.JsonSlurperClassic
  * This class provides helper functions to improve Jenkins scripting
  */
 
-public class Artifactory {
+public class Jfrog {
     /**
      * The artifactory object instance from Jenkins
      */
@@ -41,7 +41,7 @@ public class Artifactory {
      * @param script Reference to the Jenkins scripted environment
      * @param env Reference to the Jenkins environment
      */
-    public Artifactory(def script, def env) {
+    public Jfrog(def script, def env) {
         this.script = script
         this.env = env
         this.logger = new LoggerDynamic(script)

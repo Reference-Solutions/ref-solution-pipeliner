@@ -1,11 +1,11 @@
-import com.refSolution.pipelinerdepot.pipelines.M7Pipeline
+import com.refSolution.pipelinerdepot.pipelines.PullGithubReleases
 
 import com.bosch.pipeliner.*
 
 /**
- * execM7Pipeline
- * The script is used to run M7Pipeline.
- * It can be invoked from a Jenkinsfile by writing 'execM7Pipeline()'
+ * execPullGithubReleases
+ * The script is used to run PullGithubReleases.
+ * It can be invoked from a Jenkinsfile by writing 'execPullGithubReleases()'
  *
 
  */
@@ -21,6 +21,6 @@ def call(Map stageOverriders=[:]) {
     }
 
     // Run the pipeline
-    M7Pipeline pipeline = new M7Pipeline(this, environment, ioMap)
-    ioMap = pipeline.run()
+    PullGithubReleases pipeline = new PullGithubReleases(this, environment, ioMap)
+    ioMap = pipeline.runStages()
 }
