@@ -5,12 +5,15 @@ import com.refSolution.pipelinerdepot.stages.CommonStages
 import com.refSolution.pipelinerdepot.stages.CommonGitStages
 import com.refSolution.pipelinerdepot.stages.CommonSonarStages
 import com.refSolution.pipelinerdepot.stages.CommonArchiveStages
+import com.refSolution.pipelinerdepot.stages.CommonDacStages
 
 
 class CommonPipeline extends BasePipeline {
     CommonGitStages commonGitStages
     CommonSonarStages commonSonarStages
     CommonArchiveStages commonArchiveStages
+    CommonDacStages commonDacStages
+
     
     Boolean skipPipeline = false
 
@@ -24,6 +27,7 @@ class CommonPipeline extends BasePipeline {
                 build_stage = true
                 sonar_stage = true
                 archive_stage = true
+                dac_stage = true
                 label = windows-lab-pc
             """ + defaults.defaultInputs,
             // the keys exposed to the user for modification
@@ -43,7 +47,11 @@ class CommonPipeline extends BasePipeline {
                 'clone_shallow',
                 'clone_no_tags',
                 'clone_reference',
-                'sonarPropertyFilePath'
+                'sonarPropertyFilePath',
+                'dac_stage',
+                'doc_build', 
+                'doc_publish',
+                'docsurl'
             ] + defaults.exposed,
             // the keys for which pipeline should be parallelized
             parallel: [] + defaults.parallel
@@ -52,6 +60,7 @@ class CommonPipeline extends BasePipeline {
         commonGitStages = new CommonGitStages(script, env)
         commonSonarStages = new CommonSonarStages(script, env)
         commonArchiveStages = new CommonArchiveStages(script, env)
+        commonDacStages = new CommonDacStages(script, env)
     }
 
     // /**
@@ -80,6 +89,10 @@ class CommonPipeline extends BasePipeline {
             customStages.stageBuild(env,stageInput)
         if (stageInput.archive_stage == "true")
             commonArchiveStages.stageArchive(stageInput)
+        if (stageInput.dac_stage == "true")  
+            commonDacStages.stageDacBuild(env, stageInput)
+            commonDacStages.stageDacPublish(env, stageInput)
+
     }
 
     void getCustomStages(){
