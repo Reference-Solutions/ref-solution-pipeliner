@@ -1,8 +1,6 @@
 package unitTests
 
-
 // Mock for the scm object used by the checkout method
-
 
 class ScriptEnvironment {
 
@@ -94,6 +92,20 @@ class ScriptEnvironment {
         lst.add(cmd)
         callList.add(lst)
     }
+    // Mock for withSonarQubeEnv
+    def withSonarQubeEnv(String toolName, Closure closure) {
+        println("mock.withSonarQubeEnv: " + toolName)
+        def lst = new ArrayList<String>()
+        lst.add("withSonarQubeEnv")
+        lst.add(toolName)
+        callList.add(lst)
+        return closure.call()
+    }
+
+    boolean isUnix() {
+    String osName = System.getProperty("os.name").toLowerCase()
+    return osName.contains("win") || osName.contains("nix") || osName.contains("nux") || osName.contains("mac") || false
+    }
 
     
     /**
@@ -142,5 +154,4 @@ class ScriptEnvironment {
     Map usernameColonPassword(Map map) {
 
     }
-
 }
