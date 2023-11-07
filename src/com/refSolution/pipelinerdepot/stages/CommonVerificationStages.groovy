@@ -52,7 +52,7 @@ class CommonVerificationStages {
         }
     }
 
-    void prepareConfigForRobotTest(Map stageInput = [:]){
+    Map prepareConfigForRobotTest(Map stageInput = [:]){
         Map config = [:]
         //checkout param configurations
         config["url"] = stageInput.robot_url?.trim() ?: "https://sourcecode.socialcoding.bosch.com/scm/~pow2kor/refsolution-rf-ci.git"
