@@ -37,7 +37,9 @@ class FlashingStages {
     def stageFlashing(Map env, Map stageInput = [:]){
         String arcbsw_binary_path = stageInput.arcbsw_binary_dir?.trim() ?: ''
         String qnx_binary_path = stageInput.qnx_binary_dir?.trim() ?: ''
+        String scm_checkout_dir = stageInput.custom_scm_checkout_dir?.trim() ?: ''
         script.bat """
+            cd ${scm_checkout_dir}
             echo 'Flashing to VIP Board...'
             FlashVIP.bat "M7 + QNX" "${arcbsw_binary_path}" "${qnx_binary_path}"
         """

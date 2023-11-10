@@ -16,10 +16,12 @@ class Flashing extends BasePipeline {
             defaultInputs: '''
                 arcbsw_binary_dir = C:/FlashScriptsS32G2/Final_Auto/binary/vip_int.bin
                 qnx_binary_dir = C:/FlashScriptsS32G2/Final_Auto/binary/ifs-s32g-vip.ui
+                custom_scm_checkout_dir = vip_flashing
             ''',
             // the keys exposed to the user for modification
             exposed: [
                 'arcbsw_binary_dir',
+                'custom_scm_checkout_dir',
                 'qnx_binary_dir'
             ],
             // the keys for which pipeline should be parallelized
