@@ -25,18 +25,21 @@ class FlashingStages {
     }
 
     def stageVerifyT32(Map env, Map stageInput = [:]){
-        script.powershell """
-            $process = Get-Process -Name "t32marm"
-            if ($process -ne null) {
+    script.with {
+        def process = powershell """
+            Get-Process -Name "t32marm"
+        """
+        if (process) {
+            powershell """
                 $process.Kill()
                 Write-Host "The app is not running!!"
                 Start-Sleep -Seconds 30
-                }
-                else {
-                    Write-Host "The app is not running."
-                    }
-                """
+            """
+        } else {
+            Write-Host "The app is not running."
         }
+    }
+}
 
     def stageFlashing(Map env, Map stageInput = [:]){
         String arcbsw_binary_path = stageInput.arcbsw_binary_dir?.trim() ?: ''
