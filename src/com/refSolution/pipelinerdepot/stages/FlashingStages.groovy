@@ -25,22 +25,22 @@ class FlashingStages {
     }
 
     def stageVerifyT32(Map env, Map stageInput = [:]){
-    script {
+        script {
         def process = powershell(script: """
             Get-Process -Name "t32marm"
         """)
         if (process) {
-            powershell(script: """
-                $process.Kill()
-                echo "The app is not running!!"
-                Start-Sleep -Seconds 30
-            """)
-        } else {
-            echo "The app is not running."
+            script {
+                powershell(script: """
+                    $process.Kill()
+                    echo "The app is not running!!"
+                    Start-Sleep -Seconds 30
+                """)
+            }
+            } else {
+            echo "The app is not running." }
         }
     }
-}
-
 
 
     def stageFlashing(Map env, Map stageInput = [:]){
