@@ -25,15 +25,13 @@ class FlashingStages {
     }
 
     def stageVerifyT32(Map env, Map stageInput = [:]){
-        def appPath = "C:\\toolbase\\_ldata\\lauterbach_debugger\\t32_2022_r1_alpha2fp_x64\\bin\\windows64\\t32marm.exe"
-        def isRunning = bat(script: "tasklist /FI \"IMAGENAME eq t32marm.exe\" 2>NUL | find /I /N \"t32marm.exe\" >NUL", returnStatus: true) == 0
-        if (isRunning) {
-            echo "App is running. Stopping ..."
-            bat "taskkill /F /IM t32marm.exe"
-            sleep 20
-            } else {
-                echo "App is not running!!"
-            }
+        String arcbsw_binary_path = stageInput.arcbsw_binary_dir?.trim() ?: ''
+        String qnx_binary_path = stageInput.qnx_binary_dir?.trim() ?: ''
+        script.bat """
+            echo 'Testing flashing'
+            echo '${arcbsw_binary_path}'
+            echo '${qnx_binary_path}'
+        """
     }
 
     def stageFlashing(Map env, Map stageInput = [:]){
