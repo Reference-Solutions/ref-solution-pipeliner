@@ -25,7 +25,7 @@ class FlashingStages {
     }
 
     def stageVerifyT32(Map env, Map stageInput = [:]){
-    script.with {
+    script {
         def process = powershell(script: """
             Get-Process -Name "t32marm"
         """)
@@ -40,6 +40,7 @@ class FlashingStages {
         }
     }
 }
+
 
 
     def stageFlashing(Map env, Map stageInput = [:]){
