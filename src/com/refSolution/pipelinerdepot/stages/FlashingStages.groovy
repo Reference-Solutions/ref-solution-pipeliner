@@ -1,6 +1,7 @@
 package com.refSolution.pipelinerdepot.stages
 
 import com.bosch.pipeliner.LoggerDynamic
+import com.bosch.pipeliner.ScriptUtils
 
 
 /**
@@ -11,6 +12,7 @@ class FlashingStages {
     private def script
     private Map env
     private LoggerDynamic logger
+    private ScriptUtils utils
 
     /**
      * Constructor
@@ -22,6 +24,7 @@ class FlashingStages {
         this.script = script
         this.env = env
         this.logger = new LoggerDynamic(script)
+        this.utils = new ScriptUtils(script, env)
     }
 
     def stageVerifyT32(Map env, Map stageInput = [:]) {
