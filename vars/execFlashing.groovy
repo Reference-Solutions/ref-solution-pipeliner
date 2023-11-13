@@ -21,6 +21,6 @@ def call(Map stageOverriders=[:]) {
     }
 
     // Run the pipeline
-    Flashing pipeline = new Flashing(this, environment, ioMap)
+    Flashing pipeline = new Flashing(this, environment, ioMap, params.NODE_LABEL_EXPR)
     ioMap = pipeline.runStages()
 }
