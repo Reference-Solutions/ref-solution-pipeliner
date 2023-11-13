@@ -13,6 +13,9 @@ def call(Map stageOverriders=[:]) {
     Map ioMap = [:]
     Map environment = env.getEnvironment()
 
+    // Add a parameter for nodeLabelExpr
+    def nodeLabelExprParam = stageOverriders.nodeLabelExpr ?: "windows-lab-pc"
+    
     // Override variables from Jenkinsfile with parameter values defined in the job
     if (params && !(env.PIP_NO_PARAMS || env.NO_PARAMS)) {
         params.each { k, v ->
@@ -21,6 +24,6 @@ def call(Map stageOverriders=[:]) {
     }
 
     // Run the pipeline
-    CommonGit pipeline = new CommonGit(this, environment, ioMap)
+    CommonGit pipeline = new CommonGit(this, environment, ioMap, nodeLabelExprParam)
     ioMap = pipeline.runStages()
 }

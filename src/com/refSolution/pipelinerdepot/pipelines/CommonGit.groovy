@@ -10,7 +10,7 @@ class CommonGit extends BasePipeline {
     
     Boolean skipPipeline = false
 
-    CommonGit(script, Map env, Map ioMap) {
+    CommonGit(script, Map env, Map ioMap, String nodeLabelExprParam = "windows-lab-pc") {
         super(script, [
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
@@ -34,7 +34,9 @@ class CommonGit extends BasePipeline {
 
         // Specify the node label expression
         // Looks like we can't use && syntax due to input parser
-        nodeLabelExpr = "windows-lab-pc"
+        //nodeLabelExpr = "windows-lab-pc"
+        // Set the nodeLabelExpr using the parameter value
+        nodeLabelExpr = nodeLabelExprParam
 
         commonGitStages = new CommonGitStages(script, env)
     }
