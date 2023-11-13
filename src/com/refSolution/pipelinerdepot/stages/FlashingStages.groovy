@@ -28,21 +28,17 @@ class FlashingStages {
     }
 
     def stageVerifyT32(Map env, Map stageInput = [:]) {
-        script.stage("Check if T32app is running") {
-            script.bat """
-            echo 'Checking if T32app is running on PC...'
-            powershell '''
-            $process = Get-Process -Name "t32marm"
-            if ($process -ne $null) {
-            $process | ForEach-Object { $_.Kill() }
-            Write-Host "The app is running and has been closed."
+        powershell '''
+        $process = Get-Process -Name "t32marm"
+        if ($process -ne $null) {
+            $process.Kill()
+            Write-Host "The app is not running!!"
             Start-Sleep -Seconds 30
-            } else {
-            Write-Host "The app is not running."
-            }
-            '''
-        """
         }
+        else {
+            Write-Host "The app is not running."
+        }
+    '''
     }
 
     def stageFlashing(Map env, Map stageInput = [:]){
