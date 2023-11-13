@@ -34,7 +34,6 @@ class Flashing extends BasePipeline {
         // Specify the node label expression
         // Looks like we can't use && syntax due to input parser
         //nodeLabelExpr = "sdv-lab"
-        this.nodeLabelExpr = nodeLabelExpr
 
         
         flashingStages = new FlashingStages(script, env)
