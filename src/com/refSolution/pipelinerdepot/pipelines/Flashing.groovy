@@ -8,8 +8,10 @@ class Flashing extends BasePipeline {
     FlashingStages flashingStages
     
     Boolean skipPipeline = false
+    // Add a new parameter for nodeLabelExpr
+    String nodeLabelExpr
 
-    Flashing(script, Map env, Map ioMap, String nodeLabelExpr = "windows-lab-pc") {
+    Flashing(script, Map env, Map ioMap) {
         super(script, [
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
@@ -18,6 +20,7 @@ class Flashing extends BasePipeline {
                 qnx_binary_dir = C:/FlashScriptsS32G2/Final_Auto/binary/ifs-s32g-vip.ui
                 custom_scm_checkout_dir = vip_flashing
             ''',
+            nodeLabelExpr: nodeLabelExpr ?: "windows-pc",
             // the keys exposed to the user for modification
             exposed: [
                 'arcbsw_binary_dir',
