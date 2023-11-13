@@ -20,10 +20,7 @@ def call(Map stageOverriders=[:]) {
         }
     }
 
-    // Pass nodeLabelExpr parameter to the Flashing constructor
-    String nodeLabelExpr = params.NODE_LABEL_EXPR ?: "windows-lab-pc"
-
     // Run the pipeline
-    Flashing pipeline = new Flashing(this, environment, ioMap, nodeLabelExpr)
+    Flashing pipeline = new Flashing(this, environment, ioMap)
     ioMap = pipeline.runStages()
 }
