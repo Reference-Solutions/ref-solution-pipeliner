@@ -24,11 +24,22 @@ class FlashingStages {
         this.logger = new LoggerDynamic(script)
     }
 
-    def stageVerifyT32(Map env, Map stageInput = [:]){
+    def stageVerifyT32(Map env, Map stageInput = [:]) {
         script.stage("Check if T32app is running") {
             script.bat """
-            echo 'Testing flashing'
-            """
+            echo 'Checking if T32app is running on PC...'
+            powershell '''
+            $process = Get-Process -Name "t32marm"
+            if ($process -ne $null) {
+                $process.Kill()
+                Write-Host "The app is not running!!"
+                Start-Sleep -Seconds 30
+                }
+                else {
+                Write-Host "The app is not running."
+                }
+            '''
+        """
         }
     }
 
