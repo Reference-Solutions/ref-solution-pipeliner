@@ -8,8 +8,6 @@ class Flashing extends BasePipeline {
     FlashingStages flashingStages
     
     Boolean skipPipeline = false
-    // Add a new parameter for nodeLabelExpr
-    String nodeLabelExpr
 
     Flashing(script, Map env, Map ioMap) {
         super(script, [
@@ -20,7 +18,6 @@ class Flashing extends BasePipeline {
                 qnx_binary_dir = C:/FlashScriptsS32G2/Final_Auto/binary/ifs-s32g-vip.ui
                 custom_scm_checkout_dir = vip_flashing
             ''',
-            nodeLabelExpr: nodeLabelExpr ?: "windows-pc",
             // the keys exposed to the user for modification
             exposed: [
                 'arcbsw_binary_dir',
@@ -33,7 +30,7 @@ class Flashing extends BasePipeline {
 
         // Specify the node label expression
         // Looks like we can't use && syntax due to input parser
-        //nodeLabelExpr = "sdv-lab"
+        nodeLabelExpr = "sdv-lab"
 
         
         flashingStages = new FlashingStages(script, env)
