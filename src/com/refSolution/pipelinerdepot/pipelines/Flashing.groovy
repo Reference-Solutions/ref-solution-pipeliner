@@ -9,7 +9,7 @@ class Flashing extends BasePipeline {
     
     Boolean skipPipeline = false
 
-    Flashing(script, Map env, Map ioMap, String nodeLabelExpr = "windows-pc") {
+    Flashing(script, Map env, Map ioMap, String nodeLabelExpr = "windows-lab-pc") {
         super(script, [
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
