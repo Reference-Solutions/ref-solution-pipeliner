@@ -23,17 +23,21 @@ class NotificationTest {
               ]
         script = new ScriptEnvironment(env)
         commonNotificationStages = new CommonNotificationStages(script, env)
+        
     }
 
     @Test
     void testEmailNotification() {
-        Map stageInput = [
+        env = [
         from: "Refsolutions XSPACE (MS/PJ-MNT) <XSPACE.Refsolutions@in.bosch.com>",
         mimeType: "",
+        currentBuild: "SUCCESS",
         subject: "Build ${script.currentBuild.currentResult} in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER} - TRIGGERED BY: ${getBuildUser()}",
         to: "duraisamy.hariharan@in.bosch.com,r.thejeswarareddy@in.bosch.com,sreenathreddy.bandapalli@in.bosch.com,k.karthickraja@in.bosch.com,pooja.jitendrabhandari@in.bosch.com"
         ]
+        Map stageInput = [:]
         commonNotificationStages.stageNotificationEmail(env, stageInput)
+        this.notification.sendEmail(from, mimeType, subject, to)
 
         assert script.filter_calls('stage', 'Email Notification').size() == 1
        
@@ -42,12 +46,14 @@ class NotificationTest {
 
     @Test
     void testTeamsNotification() {
-        Map stageInput = [webhookurl: "https//bosch.webhook.office.com/webhookb2/15f2b8ac-ac44-4cf8-8ea7-15d9ac74af42@0ae51e19-07c8-4e4b-bb6d-648ee58410f4/JenkinsCI/a10ceccd01454db8b5ab28750cbc9056/7890af85-64c2-475d-b0d2-a5689d8799a1",
+        env = [webhookurl: "https//bosch.webhook.office.com/webhookb2/15f2b8ac-ac44-4cf8-8ea7-15d9ac74af42@0ae51e19-07c8-4e4b-bb6d-648ee58410f4/JenkinsCI/a10ceccd01454db8b5ab28750cbc9056/7890af85-64c2-475d-b0d2-a5689d8799a1",
         color: "green,red,gray",
-        status: "SUCCESS, FAILURE, UNSTABLE" ,
+        currentBuild: "SUCCESS",
         message: "Build ${env.BUILD_DISPLAY_NAME}<br>Duration: ${script.currentBuild.durationString}<br>Node:${script.env.NODE_NAME} <br>TRIGGERED BY: ${getBuildUser()}<br>Build Url : &QUOT;<a href='${env.BUILD_URL}/console'>${env.JOB_NAME} #${env.BUILD_NUMBER}</a>"
         ]
+        Map stageInput = [:]
         commonNotificationStages.stageNotificationTeams(env, stageInput)
+        this.notification.sendTeams(webhookUrl, message, status, color)
 
         assert script.filter_calls('stage', 'Team Notification').size() == 1
         

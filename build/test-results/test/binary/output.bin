@@ -1,0 +1,92 @@
+mock.stage: Checkout
+‰mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo_1.git, CHECKOUT_BRANCH_1:branch_1, CHECKOUT_CREDENTIALS_ID_1:credential_1, CHECKOUT_URL_2:https://domain/gitrepo_2.git, CHECKOUT_BRANCH_2:null, CHECKOUT_CREDENTIALS_ID_2:credential_2, CHECKOUT_COUNT:2]
+5mock.echo: INFO: url : https://domain/gitrepo_1.git
+1mock.echo: INFO: Running parameterized checkout
+4mock.echo: INFO: Url: https://domain/gitrepo_1.git
+#mock.echo: INFO: Branch: branch_1
+mock.checkout
+$mock.echo: INFO: Checkout complete
+5mock.echo: INFO: url : https://domain/gitrepo_2.git
+1mock.echo: INFO: Running parameterized checkout
+4mock.echo: INFO: Url: https://domain/gitrepo_2.git
+!mock.echo: INFO: Branch: master
+mock.checkout
+$mock.echo: INFO: Checkout complete
+mock.stage: Checkout
+–mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo.git, CHECKOUT_BRANCH_1:master, CHECKOUT_CREDENTIALS_ID_1:credential, CHECKOUT_COUNT:1]
+3mock.echo: INFO: url : https://domain/gitrepo.git
+1mock.echo: INFO: Running parameterized checkout
+2mock.echo: INFO: Url: https://domain/gitrepo.git
+!mock.echo: INFO: Branch: master
+mock.checkout
+$mock.echo: INFO: Checkout complete
+mock.stage: Checkout
+–mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo.git, CHECKOUT_BRANCH_1:master, CHECKOUT_CREDENTIALS_ID_1:credential, CHECKOUT_COUNT:2]
+3mock.echo: INFO: url : https://domain/gitrepo.git
+1mock.echo: INFO: Running parameterized checkout
+2mock.echo: INFO: Url: https://domain/gitrepo.git
+!mock.echo: INFO: Branch: master
+mock.checkout
+$mock.echo: INFO: Checkout complete
+Jmock.echo: INFO: checkout url not provided, so checkout scm is triggered
+,mock.echo: INFO: Running standard checkout
+mock.checkout
+$mock.echo: INFO: Checkout complete
+	mock.stage: Checkout
+	…mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo_1.git, CHECKOUT_BRANCH_1:master, CHECKOUT_CREDENTIALS_ID_1:credential, CHECKOUT_URL_2:https://domain/gitrepo_2.git, CHECKOUT_BRANCH_2:master, CHECKOUT_CREDENTIALS_ID_2:credential, CHECKOUT_COUNT:2]
+	5mock.echo: INFO: url : https://domain/gitrepo_1.git
+	1mock.echo: INFO: Running parameterized checkout
+	4mock.echo: INFO: Url: https://domain/gitrepo_1.git
+	!mock.echo: INFO: Branch: master
+	mock.checkout
+	$mock.echo: INFO: Checkout complete
+	5mock.echo: INFO: url : https://domain/gitrepo_2.git
+	1mock.echo: INFO: Running parameterized checkout
+	4mock.echo: INFO: Url: https://domain/gitrepo_2.git
+	!mock.echo: INFO: Branch: master
+	mock.checkout
+	$mock.echo: INFO: Checkout complete
+
+mock.stage: Checkout
+
+‰mock.echo: INFO: env : [CHECKOUT_URL_1:https://domain/gitrepo_1.git, CHECKOUT_BRANCH_1:branch_1, CHECKOUT_CREDENTIALS_ID_1:credential_1, CHECKOUT_URL_2:https://domain/gitrepo_2.git, CHECKOUT_BRANCH_2:null, CHECKOUT_CREDENTIALS_ID_2:credential_2, CHECKOUT_COUNT:2]
+
+5mock.echo: INFO: url : https://domain/gitrepo_1.git
+
+1mock.echo: INFO: Running parameterized checkout
+
+4mock.echo: INFO: Url: https://domain/gitrepo_1.git
+
+#mock.echo: INFO: Branch: branch_1
+
+mock.checkout
+
+$mock.echo: INFO: Checkout complete
+
+5mock.echo: INFO: url : https://domain/gitrepo_2.git
+
+1mock.echo: INFO: Running parameterized checkout
+
+4mock.echo: INFO: Url: https://domain/gitrepo_2.git
+
+!mock.echo: INFO: Branch: master
+
+mock.checkout
+
+$mock.echo: INFO: Checkout complete
+mock.stage: Sonar Analysis
+'mock.echo: INFO: SONAR ANALYSIS STAGE
+;mock.echo: INFO: sonarPropertyFilePath : sonar.properties
+"mock.withSonarQubeEnv: SonarQube
+
+mock.sh: 
+F                    sonar-scanner -Dproject.settings=sonar.properties
+                
+mock.stage: Sonar Analysis
+'mock.echo: INFO: SONAR ANALYSIS STAGE
+;mock.echo: INFO: sonarPropertyFilePath : sonar.properties
+"mock.withSonarQubeEnv: SonarQube
+
+mock.sh: 
+F                    sonar-scanner -Dproject.settings=sonar.properties
+                
