@@ -26,30 +26,11 @@ class NotificationTest {
         script = new ScriptEnvironment(env)
         commonNotificationStages = new CommonNotificationStages(script, env)
         notification = new Notification(script, env)
-        office365ConnectorSend("Test webhook url", "Test message", "success", "green")
+        //office365ConnectorSend("Test webhook url", "Test message", "success", "green")
 
        
     }
  
-    // @Test
-    // void testEmailNotification() {
-    //     env = [
-    //     from: "Refsolutions XSPACE (MS/PJ-MNT) <XSPACE.Refsolutions@in.bosch.com>",
-    //     mimeType: "",
-    //     currentBuild: "SUCCESS",
-    //     subject: "Test Subject",
-    //     to: "duraisamy.hariharan@in.bosch.com,r.thejeswarareddy@in.bosch.com,sreenathreddy.bandapalli@in.bosch.com,k.karthickraja@in.bosch.com,pooja.jitendrabhandari@in.bosch.com"
-    //     ]
-    //     Map stageInput = [:]
-    //     String webhookUrl = "Test webhook url"
-    //     String message =  "Test message"
-    //     String status = "success"
-    //     String color = "green"
-    //     notification.sendTeams(webhookUrl, message, status, color)
-    //     //assert script.filter_calls('stage', 'Email Notification').size() == 1
-       
- 
-    // }
  
     @Test
     void testTeamsNotification() {
