@@ -154,13 +154,11 @@ class ScriptEnvironment {
     Map usernameColonPassword(Map map) {
 
     }
+   def publishoffice365ConnectorSend(Map map) {
+        println("mock.office365ConnectorSend: " + map.inspect())
+        callList.add(['office365ConnectorSend', map.inspect()])
+        return newoffice365ConnectorSend()
+    }
+}
     
-void currentBuild(Map patternMap) {
-        println("mock.currentBuild: " + patternMap.inspect())
-        def lst = new ArrayList<String>()
-        lst.add("currentBuild")
-        lst.add(patternMap.inspect())
-        callList.add(lst)
 
-}
-}
