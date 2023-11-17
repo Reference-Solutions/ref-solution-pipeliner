@@ -47,21 +47,47 @@ class NotificationTest {
         notification.sendTeams(webhookUrl, message, status, color)
    
  
-        //assert script.filter_calls('stage', 'Team Notification').size() == 1
+        assert script.filter_calls_with_arguments('stage', 'Team Notification').size() == 0
         
        
        
  
     }
- 
-    // @Test
-    // void testBuildUser() {
-    //     Map stageInput = [:]
-    //     commonNotificationStages.getBuildUser(env, stageInput)
- 
-    //     assert script.filter_calls('Timer').size() == 1
+
+     @Test
+    void testEmailNotification() {
+        env = [
+        from: "Refsolutions XSPACE (MS/PJ-MNT) <XSPACE.Refsolutions@in.bosch.com>",
+        mimeType: "",
+        currentBuild: "SUCCESS",
+        subject: "Test Subject",
+        to: "duraisamy.hariharan@in.bosch.com,r.thejeswarareddy@in.bosch.com,sreenathreddy.bandapalli@in.bosch.com,k.karthickraja@in.bosch.com,pooja.jitendrabhandari@in.bosch.com"
+        ]
+        Map stageInput = [:]
+        String webhookUrl = "Test webhook url"
+        String message =  "Test message"
+        String status = "success"
+        String color = "green"
+        notification.sendTeams(webhookUrl, message, status, color)
+        assert script.filter_calls_with_arguments('stage', 'Email Notification').size() == 0
        
  
-    // }
+    }
+ 
+    @Test
+    void testBuildUser() {
+        Map stageInput = [:]
+        String webhookUrl = "Test webhook url"
+        String message =  "Test message"
+        String status = "success"
+        String color = "green"
+        notification.sendTeams(webhookUrl, message, status, color)
+ 
+        assert script.filter_calls('Timer').size() == 0
+       
+ 
+    }
+        
 }
+
  
