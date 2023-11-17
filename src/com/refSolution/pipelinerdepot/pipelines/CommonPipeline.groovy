@@ -5,6 +5,7 @@ import com.refSolution.pipelinerdepot.stages.CommonStages
 import com.refSolution.pipelinerdepot.stages.CommonGitStages
 import com.refSolution.pipelinerdepot.stages.CommonSonarStages
 import com.refSolution.pipelinerdepot.stages.CommonArchiveStages
+import com.refSolution.pipelinerdepot.stages.CommonVersioningStages
 import com.refSolution.pipelinerdepot.stages.CommonDacStages
 
 
@@ -13,6 +14,7 @@ class CommonPipeline extends BasePipeline {
     CommonSonarStages commonSonarStages
     CommonArchiveStages commonArchiveStages
     CommonDacStages commonDacStages
+    CommonVersioningStages commonVersioningStages
 
     
     Boolean skipPipeline = false
@@ -24,18 +26,22 @@ class CommonPipeline extends BasePipeline {
             defaultInputs: """
                 checkout_scm_stage = true
                 checkout_stage = true
-                build_stage = true
                 sonar_stage = true
+                build_stage = true
+                versioning_stage = true
                 archive_stage = true
                 dac_stage = true
                 label = windows-lab-pc
+                artifact_version
+                archive_patterns
             """ + defaults.defaultInputs,
             // the keys exposed to the user for modification
             exposed: [
                 'checkout_scm_stage',
                 'checkout_stage',
-                'build_stage',
                 'sonar_stage',
+                'build_stage',
+                'versioning_stage',
                 'archive_stage',
                 'submodules_depth',
                 'submodules_shallow',
@@ -48,6 +54,8 @@ class CommonPipeline extends BasePipeline {
                 'clone_no_tags',
                 'clone_reference',
                 'sonarPropertyFilePath',
+                'artifact_version',
+                'archive_patterns',
                 'dac_stage',
                 'doc_build', 
                 'doc_publish',
@@ -60,7 +68,9 @@ class CommonPipeline extends BasePipeline {
         commonGitStages = new CommonGitStages(script, env)
         commonSonarStages = new CommonSonarStages(script, env)
         commonArchiveStages = new CommonArchiveStages(script, env)
+        commonVersioningStages = new CommonVersioningStages(script, env)
         commonDacStages = new CommonDacStages(script, env)
+
     }
 
     // /**
@@ -87,6 +97,8 @@ class CommonPipeline extends BasePipeline {
             commonSonarStages.stageSonarAnalysis(env,stageInput)
         if (stageInput.build_stage == "true")
             customStages.stageBuild(env,stageInput)
+        if (stageInput.versioning_stage == "true")
+            commonVersioningStages.stageVersioningArtifacts(env,stageInput)
         if (stageInput.archive_stage == "true")
             commonArchiveStages.stageArchive(stageInput)
         if (stageInput.dac_stage == "true")  
