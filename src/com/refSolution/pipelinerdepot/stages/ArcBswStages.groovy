@@ -28,9 +28,15 @@ class ArcBswStages {
         this.utils = new ScriptUtils(script, env)
     }
     
-    def stageBuild(Map env, Map stageInput = [:]){
+    def stageBuild(Map env, Map stageInput = [:]){ 
+
+        String bswBuild = stageInput.bsw_build?.trim() ?: "false"
+        String aswBuild = stageInput.asw_build?.trim() ?: "false"
+        
         script.stage("BSW Apply Patches") {
-            bswPatches(env, stageInput)
+            String bswDirPath = stageInput.bsw_build_dir_path.trim()
+            String bswPreBuildFileName = stageInput.bsw_pre_build_file_name?.trim() ?: "PreBuild.bat"
+            callBatFile(bswDirPath, bswPreBuildFileName)
         }
         script.stage("BSW Generation") {
             String autosarTool = stageInput.autosar_tool.trim()
@@ -38,33 +44,49 @@ class ArcBswStages {
                 bswGenerationAeeePro(env, stageInput)
             }
         }
-        script.stage("Generate Libraries") {
-            generateLibraries(env, stageInput)
+        logger.info("env : " + env) 
+        logger.info("Script env : " + script.env)
+        logger.info("This env : " + this.env)
+        if (bswBuild == "true" && aswBuild == "true"){
+            script.stage("BSW and ASW build") {            
+                String bswBuildDirPath = stageInput.bsw_build_dir_path.trim()
+                String bswBuildFileName = stageInput.bsw_build_file_name?.trim() ?: "Build.bat"
+                String aswBuildDirPath = stageInput.asw_build_dir_path.trim()
+                String aswBuildFileName = stageInput.asw_build_file_name?.trim() ?: "Build.bat"
+                  script.bat """
+                    cd ${script.env.WORKSPACE}/${bswBuildDirPath}
+                    call ${bswBuildFileName}
+                    cd ${script.env.WORKSPACE}/${aswBuildDirPath}
+                    call ${aswBuildFileName}
+                """
+            }
         }
-        script.stage("Build") {
-            build(env, stageInput)
+        else{
+            if (bswBuild == "true"){
+                script.stage("BSW build") {            
+                    String bswBuildDirPath = stageInput.bsw_build_dir_path.trim()
+                    String bswBuildFileName = stageInput.bsw_build_file_name?.trim() ?: "Build.bat"
+                    callBatFile(bswBuildDirPath, bswBuildFileName)
+                }
+            }
+            
+            if (aswBuild == "true"){
+                script.stage("ASW build") {  
+                    String aswBuildDirPath = stageInput.asw_build_dir_path.trim()
+                    String aswBuildFileName = stageInput.asw_build_file_name?.trim() ?: "Build.bat"
+                    callBatFile(aswBuildDirPath, aswBuildFileName)
+                }
+            }
+            script.stage("Integeration") {
+                String integerationDirPath = stageInput.integeration_dir_path.trim()
+                String integerationBuildFileName = stageInput.integeration_file_name?.trim() ?: "Build.bat"
+                callBatFile(integerationDirPath, integerationBuildFileName)
+            }
         }
-    }
-
-    def build(Map env, Map stageInput = [:]){
-        String buildDirPath = stageInput.build_dir_path.trim()
-        script.bat """
-            cd ${buildDirPath}
-            call Build.bat
-        """
-    }
-
-    def bswPatches(Map env, Map stageInput = [:]){
-        String bswDirPath = stageInput.bsw_dir_path.trim()
-        String bswPreBuildFileName = stageInput.bsw_pre_build_file_name?.trim() ?: "PreBuild.bat"
-        script.bat """
-            cd ${bswDirPath}
-            call ${bswPreBuildFileName}
-        """
     }
 
     def bswGenerationAeeePro(Map env, Map stageInput = [:]){
-        String autosarProject = stageInput.bsw_dir_path.trim()
+        String autosarProject = stageInput.bsw_build_dir_path.trim()
         String autosarTool = stageInput.autosar_tool.trim()
         String autosarToolVersion = stageInput.autosar_tool_version.trim()
         String autosarToolEnv = stageInput.autosar_tool_env.trim()
@@ -76,11 +98,10 @@ class ArcBswStages {
         """
     }
 
-    def generateLibraries(Map env, Map stageInput = [:]){
-        String bswDirPath = stageInput.bsw_dir_path?.trim()
+    def callBatFile(def batDirPath, def batFile){
         script.bat """
-            cd ${bswDirPath}
-            call Build.bat
+            cd ${batDirPath}
+            call ${batFile}
         """
     }
 }
