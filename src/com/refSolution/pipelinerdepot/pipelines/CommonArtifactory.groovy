@@ -20,7 +20,25 @@ class CommonArtifactory extends BasePipeline {
             // the keys exposed to the user for modification
             exposed: [
                 'artifactory_target',
-                'artifactory_pattern'
+                'artifactory_pattern',
+                'artifactory_upload',
+                'artifactory_upload_type',
+                'artifactory_download',
+                'artifactory_download_type',
+                'conan_remote_name_to_upload',
+                'conan_package_ref_to_upload',
+                'nexus_tool_version',
+                'nexus_protocol',
+                'nexus_url',
+                'nexus_group_Id',
+                'build_version',
+                'nexus_repository',
+                'nexus_credentials_id',
+                'nexus_project_name',
+                'nexus_classifier',
+                'nexus_file_pattern',
+                'nexus_packaging',
+                'nexus_download_dir'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
@@ -47,6 +65,13 @@ class CommonArtifactory extends BasePipeline {
         }
         logger.info("stageInput")
         logger.info(stageInput.inspect())
-        commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
+
+        String artifactoryUpload = stageInput.artifactory_upload?.trim() ?: "false"
+        String artifactoryDownload = stageInput.artifactory_download?.trim() ?: "false"
+
+        if (artifactoryUpload == "true")
+            commonArtifactoryStages.stageArtifactoryUpload(env, stageInput)
+        if (artifactoryDownload == "true")
+            commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
     }
 }

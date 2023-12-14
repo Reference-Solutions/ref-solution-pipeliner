@@ -5,6 +5,7 @@ import com.refSolution.pipelinerdepot.stages.CommonStages
 import com.refSolution.pipelinerdepot.stages.CommonGitStages
 import com.refSolution.pipelinerdepot.stages.CommonSonarStages
 import com.refSolution.pipelinerdepot.stages.CommonArchiveStages
+import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
 import com.refSolution.pipelinerdepot.stages.CommonDacStages
 
 
@@ -12,6 +13,7 @@ class CommonPipeline extends BasePipeline {
     CommonGitStages commonGitStages
     CommonSonarStages commonSonarStages
     CommonArchiveStages commonArchiveStages
+    CommonArtifactoryStages commonArtifactoryStages
     CommonDacStages commonDacStages
 
     
@@ -28,6 +30,7 @@ class CommonPipeline extends BasePipeline {
                 sonar_stage = true
                 archive_stage = true
                 dac_stage = true
+                artifactory_upload_stage = true
                 label = windows-lab-pc
             """ + defaults.defaultInputs,
             // the keys exposed to the user for modification
@@ -37,6 +40,7 @@ class CommonPipeline extends BasePipeline {
                 'build_stage',
                 'sonar_stage',
                 'archive_stage',
+                'artifactory_upload_stage',
                 'submodules_depth',
                 'submodules_shallow',
                 'submodules_disable',
@@ -51,7 +55,22 @@ class CommonPipeline extends BasePipeline {
                 'dac_stage',
                 'doc_build', 
                 'doc_publish',
-                'docsurl'
+                'docsurl',
+                'artifactory_upload_type',
+                'conan_remote_name_to_upload',
+                'conan_package_ref_to_upload',
+                'nexus_tool_version',
+                'nexus_protocol',
+                'nexus_url',
+                'nexus_group_id',
+                'build_version',
+                'nexus_repository',
+                'nexus_credentials_id',
+                'nexus_project_name',
+                'nexus_classifier',
+                'nexus_file_pattern',
+                'nexus_packaging',
+                'nexus_download_dir'
             ] + defaults.exposed,
             // the keys for which pipeline should be parallelized
             parallel: [] + defaults.parallel
@@ -61,6 +80,7 @@ class CommonPipeline extends BasePipeline {
         commonSonarStages = new CommonSonarStages(script, env)
         commonArchiveStages = new CommonArchiveStages(script, env)
         commonDacStages = new CommonDacStages(script, env)
+        commonArtifactoryStages = new CommonArtifactoryStages(script, env)
     }
 
     // /**
@@ -89,9 +109,12 @@ class CommonPipeline extends BasePipeline {
             customStages.stageBuild(env,stageInput)
         if (stageInput.archive_stage == "true")
             commonArchiveStages.stageArchive(stageInput)
-        if (stageInput.dac_stage == "true")  
+        if (stageInput.dac_stage == "true") {
             commonDacStages.stageDacBuild(env, stageInput)
             commonDacStages.stageDacPublish(env, stageInput)
+        } 
+        if (stageInput.artifactory_upload_stage == "true")  
+            commonArtifactoryStages.stageArtifactoryUpload(env, stageInput)
 
     }
 
