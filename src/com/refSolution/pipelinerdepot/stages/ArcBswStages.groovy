@@ -77,11 +77,11 @@ class ArcBswStages {
                     callBatFile(aswBuildDirPath, aswBuildFileName)
                 }
             }
-            script.stage("Integeration") {
-                String integerationDirPath = stageInput.integeration_dir_path.trim()
-                String integerationBuildFileName = stageInput.integeration_file_name?.trim() ?: "Build.bat"
-                callBatFile(integerationDirPath, integerationBuildFileName)
-            }
+        }
+        script.stage("Integeration") {
+            String integerationDirPath = stageInput.integeration_dir_path.trim()
+            String integerationBuildFileName = stageInput.integeration_file_name?.trim() ?: "Build.bat"
+            callBatFile(integerationDirPath, integerationBuildFileName)
         }
     }
 
