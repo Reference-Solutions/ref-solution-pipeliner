@@ -17,14 +17,14 @@ class CommonMplPipeline extends BasePipeline {
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: """
                artifactory_stage = true
-               build_stage = true
+
                label = windows-lab-pc
 
             """+ defaults.defaultInputs,
             // the keys exposed to the user for modification
             exposed:['artifactory_stage',
                 'target',
-                'build_stage',
+                
                 'pattern'
                 
                 ] + defaults.exposed,
