@@ -57,9 +57,7 @@ class CommonMplPipeline extends BasePipeline {
 
               }
 
-    void getCustomStages(){
-        CommonMplStages customStages = new CommonMplStages(script, env)
-    }   
+    
 
 }
 
