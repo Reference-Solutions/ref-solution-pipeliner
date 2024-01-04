@@ -21,7 +21,7 @@ class CommonMplPipeline extends BasePipeline {
 
             """+ defaults.defaultInputs,
             // the keys exposed to the user for modification
-            exposed:['artifactory_stage'
+            exposed:['artifactory_stage',
                 'target',
                 'pattern'
                 
@@ -54,8 +54,6 @@ class CommonMplPipeline extends BasePipeline {
 
         if (stageInput.artifactory_stage  == "true")
             commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
-
-        if (stageInput.artifactory_stage  == "true")
             commonArtifactoryStages.stageArtifactoryUpload(env, stageInput)   
 
               }
