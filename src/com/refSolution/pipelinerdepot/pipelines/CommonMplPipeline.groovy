@@ -22,8 +22,8 @@ class CommonMplPipeline extends BasePipeline {
             """+ defaults.defaultInputs,
             // the keys exposed to the user for modification
             exposed:['artifactory_stage'
-                'artifactory_target',
-                'artifactory_pattern'
+                'target',
+                'pattern'
                 
                 ]
 
