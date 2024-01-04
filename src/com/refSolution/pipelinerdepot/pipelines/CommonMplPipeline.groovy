@@ -18,6 +18,8 @@ class CommonMplPipeline extends BasePipeline {
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: """
                artifactory_stage = true
+               artifactory_pattern
+               artifactory_target
 
                label = windows-lab-pc
 
@@ -25,7 +27,8 @@ class CommonMplPipeline extends BasePipeline {
             // the keys exposed to the user for modification
             exposed:['artifactory_stage',
                 'target',
-                
+                'artifactory_pattern'
+                'artifactory_target'
                 'pattern'
                 
                 ] + defaults.exposed,
