@@ -6,7 +6,7 @@ import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
 class QnxPipeline extends CommonPipeline {
-    CommonStages commonStages
+      CommonQnxStages commonQnxStages
     
     Boolean skipPipeline = false
 
