@@ -18,8 +18,8 @@ class CommonMplPipeline extends BasePipeline {
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: """
                artifactory_stage = true
-               artifactory_pattern
-               artifactory_target
+               artifactory_pattern = true
+               artifactory_target = true
 
                label = windows-lab-pc
 
