@@ -17,12 +17,14 @@ class CommonMplPipeline extends BasePipeline {
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: """
                artifactory_stage = true
+               build_stage = true
                label = windows-lab-pc
 
             """+ defaults.defaultInputs,
             // the keys exposed to the user for modification
             exposed:['artifactory_stage',
                 'target',
+                'build_stage',
                 'pattern'
                 
                 ] + defaults.exposed,
@@ -51,13 +53,18 @@ class CommonMplPipeline extends BasePipeline {
         logger.info("stageInput")
         logger.info(stageInput.inspect())
 
+        if (stageInput.build_stage == "true")
+            customStages.stageBuild(env,stageInput)
+
         if (stageInput.artifactory_stage  == "true")
             commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
             commonArtifactoryStages.stageArtifactoryUpload(env, stageInput)   
 
               }
 
-    
+    void getCustomStages(){
+        CommonMplStages customStages = new CommonMplStages(script, env)
+    }   
 
 }
 
