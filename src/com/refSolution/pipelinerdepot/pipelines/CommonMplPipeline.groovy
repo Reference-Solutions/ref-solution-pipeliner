@@ -2,6 +2,7 @@ package com.refSolution.pipelinerdepot.pipelines
 
 import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
+import com.refSolution.pipelinerdepot.stages.CommonMplStages
 
 
 
@@ -53,8 +54,7 @@ class CommonMplPipeline extends BasePipeline {
         logger.info("stageInput")
         logger.info(stageInput.inspect())
 
-        if (stageInput.build_stage == "true")
-            customStages.stageBuild(env,stageInput)
+        
 
         if (stageInput.artifactory_stage  == "true")
             commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
