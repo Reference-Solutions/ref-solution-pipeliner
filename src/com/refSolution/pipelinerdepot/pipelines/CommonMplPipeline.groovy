@@ -25,8 +25,7 @@ class CommonMplPipeline extends BasePipeline {
                 'target',
                 'pattern'
                 
-                ]
-
+                ] + defaults.exposed,
              // the keys for which pipeline should be parallelized
             parallel: [] + defaults.parallel
         ] as Map, env, ioMap)
