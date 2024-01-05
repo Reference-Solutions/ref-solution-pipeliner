@@ -30,8 +30,8 @@ class CommonArtifactoryStages {
     def stageArtifactoryDownload(Map env, Map stageInput = [:]){
         script.stage("Artifactory Downlaod") { 
             logger.info('DOWNLOAD FROM ARTIFACTORY STAGE')
-            String pattern = stageInput.artifactory_pattern.trim()
-            String target = stageInput.artifactory_target.trim()
+            String pattern = stageInput.artifactory_pattern.trim() :" "
+            String target = stageInput.artifactory_target.trim() : " "
             artifactory.downloadFromArtifactory(pattern, target)
         }
     }
@@ -39,8 +39,8 @@ class CommonArtifactoryStages {
     def stageArtifactoryUpload(Map env, Map stageInput = [:]){
         script.stage("Artifactory Downlaod") { 
             logger.info('DOWNLOAD FROM ARTIFACTORY STAGE')
-            String pattern = stageInput.artifactory_upload_pattern.trim()
-            String target = stageInput.artifactory_upload_target.trim()
+            String pattern = stageInput.artifactory_upload_pattern.trim() : " "
+            String target = stageInput.artifactory_upload_target.trim() : " "
             artifactory.uploadToArtifactory(pattern, target)
         }
     }
