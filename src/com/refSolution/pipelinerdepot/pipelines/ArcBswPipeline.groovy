@@ -18,7 +18,15 @@ class ArcBswPipeline extends CommonPipeline {
                 archive_patterns
                 build_dir_path
                 bsw_dir_path
+                asw_build_dir_path
+                bsw_build_dir_path
+                integeration_dir_path
                 bsw_pre_build_file_name
+                asw_build_file_name
+                bsw_build_file_name
+                asw_build
+                bsw_build
+                integeration_file_name
                 autosar_tool
                 autosar_tool_version
                 autosar_tool_env
@@ -29,7 +37,15 @@ class ArcBswPipeline extends CommonPipeline {
                 'archive_patterns',
                 'build_dir_path',
                 'bsw_dir_path',
+                'asw_build_dir_path',
+                'bsw_build_dir_path',
+                'integeration_dir_path',
                 'bsw_pre_build_file_name',
+                'asw_build_file_name',
+                'bsw_build_file_name',
+                'asw_build',
+                'bsw_build',
+                'integeration_file_name',
                 'autosar_tool',
                 'autosar_tool_version',
                 'autosar_tool_env',
