@@ -17,14 +17,15 @@ class CommonRestApi extends BasePipeline {
             defaultInputs: '''
                 accessTokenUrl = https://p2.authz.bosch.com/auth/realms/EU_RB_FLEATEST/protocol/openid-connect/token
                 proxiesValue = ['http': 'http://rb-proxy-in.bosch.com:8080', 'https': 'http://rb-proxy-in.bosch.com:8080']
-                def client_id = ['tech-client-03']
-                def client_secret = ['xMTjYq7Prp2vIETEHYZ4eG6bOUIXIOBD']
+                client_id = ['tech-client-03']
+                client_secret = ['MMTjYq7Prp2vIETEHYZ4eG6bOUIXIOBD']
             ''',
             // the keys exposed to the user for modification
             exposed: [
-                'doc_build', 
-                'doc_publish',
-                'docsurl' 
+                'accessTokenUrl', 
+                'proxiesValue',
+                'client_id',
+                'client_secret' 
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
@@ -51,7 +52,7 @@ class CommonRestApi extends BasePipeline {
         }
         logger.info("stageInput")
         logger.info(stageInput.inspect())
-        commonRestApiStages.stageDacBuild(env, stageInput)
-        commonRestApiStages.stageDacPublish(env, stageInput)
+        commonRestApiStages.method1(env, stageInput)
+        commonRestApiStages.method2(env, stageInput)
     }
 }
