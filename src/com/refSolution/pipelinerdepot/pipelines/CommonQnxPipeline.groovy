@@ -1,6 +1,6 @@
 package com.refSolution.pipelinerdepot.pipelines
 
-import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
+import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonQnxStages
 
 
