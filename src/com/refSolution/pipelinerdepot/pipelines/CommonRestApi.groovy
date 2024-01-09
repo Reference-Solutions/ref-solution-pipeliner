@@ -53,7 +53,7 @@ class CommonRestApi extends BasePipeline {
         }
         logger.info("stageInput")
         logger.info(stageInput.inspect())
-        commonRestApiStages.getDesirtedStateByName(env, stageInput)
+        commonRestApiStages.accessToken(env, stageInput)
         commonRestApiStages.method2(env, stageInput)
     }
 }

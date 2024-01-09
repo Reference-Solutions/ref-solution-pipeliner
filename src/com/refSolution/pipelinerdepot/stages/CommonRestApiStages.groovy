@@ -27,6 +27,13 @@ class CommonRestApiStages {
         this.logger = new LoggerDynamic(script)
     }
 
+
+    def accessToken(){
+        def task = "py python.py".execute()
+        task.waitFor()
+        println task.text
+    }
+
     def getDesirtedStateByName(Map env, Map stageInput = [:]){
         script.stage("getDesirtedStateByName"){
             logger.info("getDesirtedStateByName")
