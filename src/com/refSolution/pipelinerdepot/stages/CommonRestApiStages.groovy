@@ -27,9 +27,12 @@ class CommonRestApiStages {
         this.logger = new LoggerDynamic(script)
     }
 
-    def method1(Map env, Map stageInput = [:]){
-        script.stage("method1 stage"){
-            logger.info("method1")
+    def getDesirtedStateByName(Map env, Map stageInput = [:]){
+        script.stage("getDesirtedStateByName"){
+            logger.info("getDesirtedStateByName")
+            String tToken = stageInput.accessToken
+            def command = ["curl", "-X", "GET", "-H", "Authorization: Bearer $tToken", "https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install"]
+            def generatedResponse = command.execute().text
         }
         
     }

@@ -25,7 +25,8 @@ class CommonRestApi extends BasePipeline {
                 'accessTokenUrl', 
                 'proxiesValue',
                 'client_id',
-                'client_secret' 
+                'client_secret',
+                'accessToken' 
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
