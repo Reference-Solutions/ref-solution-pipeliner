@@ -35,7 +35,7 @@ class CommonQnxPipeline extends CommonMplPipeline {
         nodeLabelExpr = "windows-lab-pc"
 
         
-        commonStages = new CommonStages(script, env)
+       commmonQnxStages = new CommmonQnxStages(script, env)
     }
 
     @Override
