@@ -2,30 +2,34 @@ package com.refSolution.pipelinerdepot.pipelines
 
 import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonRestApiStages
-
+import com.refSolution.pipelinerdepot.stages.CommonGitStages
 
 
 class CommonRestApi extends BasePipeline {
     CommonRestApiStages commonRestApiStages
-    
+    CommonGitStages commonGitStages
+
     Boolean skipPipeline = false
 
     CommonRestApi(script, Map env, Map ioMap) {
         super(script, [
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
-            defaultInputs: '''
-                accessTokenUrl = https://p2.authz.bosch.com/auth/realms/EU_RB_FLEATEST/protocol/openid-connect/token
-                proxiesValue = ['http': 'http://rb-proxy-in.bosch.com:8080', 'https': 'http://rb-proxy-in.bosch.com:8080']
-                client_id = ['tech-client-03']
-                client_secret = ['MMTjYq7Prp2vIETEHYZ4eG6bOUIXIOBD']
-            ''',
+            defaultInputs: """
+                create_blob_and_desiredstate = false
+                verify_device_with_Id = true
+                verify_blob_with_Id = true
+                checkout_scm_stage = true
+            """,
             // the keys exposed to the user for modification
             exposed: [
-                'accessTokenUrl', 
-                'proxiesValue',
-                'client_id',
-                'client_secret' 
+                'create_blob_and_desiredstate', 
+                'verify_device_with_Id',
+                'verify_blob_with_Id',
+                'blob_Id',
+                'device_Id',
+                'vehicle_Id',
+                'checkout_scm_stage' 
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
@@ -33,9 +37,10 @@ class CommonRestApi extends BasePipeline {
 
         // Specify the node label expression
         // Looks like we can't use && syntax due to input parser
-        nodeLabelExpr = "windows-lab-pc"
+        nodeLabelExpr = "Karthick"
 
         commonRestApiStages = new CommonRestApiStages(script, env)
+        commonGitStages = new CommonGitStages(script, env)
     }
 
     // /**
@@ -52,7 +57,14 @@ class CommonRestApi extends BasePipeline {
         }
         logger.info("stageInput")
         logger.info(stageInput.inspect())
-        commonRestApiStages.method1(env, stageInput)
-        commonRestApiStages.method2(env, stageInput)
+        
+        commonGitStages.stageCheckoutSCM(env, stageInput)
+        //commonRestApiStages.createBlobAndDesiredState(env, stageInput)
+        commonRestApiStages.verifyDeviceStatus(env, stageInput)
+        commonRestApiStages.verifyVehicleStatus(env, stageInput)
+        
+
+        
+
     }
 }
