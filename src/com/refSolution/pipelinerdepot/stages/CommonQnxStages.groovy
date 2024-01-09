@@ -9,13 +9,13 @@ import com.refSolution.pipelinerdepot.stages.CommonMplStages
 /**
 * Contains stages that can be reused across pipelines
 */
-class QnxStages {
+class CommonQnxStages {
 
     private def script
     private Map env
     private LoggerDynamic logger
     private ScriptUtils utils
-    private CommonStages commonStages
+    private CommonMplStages commonMplStages
 
     /**
      * Constructor
