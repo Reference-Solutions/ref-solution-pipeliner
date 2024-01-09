@@ -2,12 +2,14 @@ package com.refSolution.pipelinerdepot.pipelines
 
 import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
-import com.refSolution.pipelinerdepot.stages.CommonMplStages
+//import com.refSolution.pipelinerdepot.stages.CommonMplStages
+import com.refSolution.pipelinerdepot.stages.CommonQnxStages
 
 
 
 class CommonMplPipeline extends BasePipeline {
-      CommonArtifactoryStages commonArtifactoryStages
+      //CommonArtifactoryStages commonArtifactoryStages
+      CommonQnxStages commonQnxStages
       
 
       Boolean skipPipeline = false
@@ -35,8 +37,8 @@ class CommonMplPipeline extends BasePipeline {
             parallel: [] + defaults.parallel
         ] as Map, env, ioMap)
 
-        commonArtifactoryStages = new CommonArtifactoryStages(script, env)
-
+        //commonArtifactoryStages = new CommonArtifactoryStages(script, env)
+        commonQnxStages = new CommonQnxStages(script ,env)
     }
 
      // /**
@@ -56,9 +58,8 @@ class CommonMplPipeline extends BasePipeline {
         logger.info("stageInput")
         logger.info(stageInput.inspect())
 
-        
-
-        if (stageInput.artifactory_stage  == "true")
+            
+            if (stageInput.artifactory_stage  == "true")
             commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
             commonArtifactoryStages.stageArtifactoryUpload(env, stageInput)   
 

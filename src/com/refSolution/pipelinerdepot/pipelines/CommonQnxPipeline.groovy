@@ -2,10 +2,10 @@ package com.refSolution.pipelinerdepot.pipelines
 
 import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
 import com.refSolution.pipelinerdepot.stages.CommonStages
-import com.refSolution.pipelinerdepot.stages.QnxStages
+import com.refSolution.pipelinerdepot.stages.CommmonQnxStages
 
 
-class QnxPipeline extends CommonPipeline {
+class CommonQnxPipeline extends BasePipeline {
       CommonQnxStages commonQnxStages
     
     Boolean skipPipeline = false
@@ -40,6 +40,6 @@ class QnxPipeline extends CommonPipeline {
 
     @Override
     void getCustomStages(){
-        QnxStages customStages = new QnxStages(script, env)
+        CommonQnxStages customStages = new CommonQnxStages(script, env)
     }
 }
