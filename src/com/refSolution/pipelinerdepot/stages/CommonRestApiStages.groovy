@@ -28,7 +28,7 @@ class CommonRestApiStages {
     }
 
 
-    def accessToken(){
+    def accessToken(Map env, Map stageInput = [:]){
         def task = "py python.py".execute()
         task.waitFor()
         println task.text
