@@ -9,7 +9,7 @@ import com.cloudbees.groovy.cps.NonCPS
 
  */
 
-public class Dac {
+public class RestApi {
     /**
      * The script object instance from Jenkins
      */
@@ -25,29 +25,15 @@ public class Dac {
      * @param script Reference to the Jenkins scripted environment
      * @param env Reference to the Jenkins environment
      */
-    public Dac(def script, def env) {
+    public RestApi(def script, def env) {
         this.script = script
         this.logger = new LoggerDynamic(script)
     }
 
     def sphinxBuildDac (String docsPath){
-        //logger.info("calling Dac from Utils")
-        script.bat """
-            call $docsPath/make.bat clean
-            call $docsPath/make.bat html  
-        """
+        
     }
     def ghPublishDac (String docsurl,String ghFolder, String html_source_path, String html_destination_path){
-        logger.info("Dac publish ")
-        script.withCredentials([script.usernamePassword(credentialsId: 'DAC', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-            script.bat """
-                git clone ${docsurl}
-                robocopy ${html_source_path} ${html_destination_path} /COPYALL /E
-                cd ${ghFolder}
-                git add .
-                git commit -m "commit to publish : "
-                git push
-            """
-       }
+        
     }
 }
