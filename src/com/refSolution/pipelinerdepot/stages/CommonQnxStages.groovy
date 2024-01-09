@@ -23,7 +23,7 @@ class QnxStages {
      * @param script Reference to the Jenkins scripted environment
      * @param env Map of Jenkins environment files
      */
-    QnxStages(script, Map env) {
+    CommonQnxStages(script, Map env) {
         this.script = script
         this.env = env
         this.logger = new LoggerDynamic(script)

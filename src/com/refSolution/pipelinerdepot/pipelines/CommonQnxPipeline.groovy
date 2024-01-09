@@ -10,7 +10,7 @@ class CommonQnxPipeline extends BasePipeline {
     
     Boolean skipPipeline = false
 
-    QnxPipeline(script, Map env, Map ioMap) {
+    CommonQnxPipeline(script, Map env, Map ioMap) {
         super(script, [
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
