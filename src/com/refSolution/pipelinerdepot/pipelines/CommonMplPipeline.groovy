@@ -3,13 +3,13 @@ package com.refSolution.pipelinerdepot.pipelines
 import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
 //import com.refSolution.pipelinerdepot.stages.CommonMplStages
-import com.refSolution.pipelinerdepot.stages.CommonQnxStages
+import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
 
 class CommonMplPipeline extends BasePipeline {
       //CommonArtifactoryStages commonArtifactoryStages
-      CommonQnxStages commonQnxStages
+      CommonStages commonStages
       
 
       Boolean skipPipeline = false
@@ -18,19 +18,26 @@ class CommonMplPipeline extends BasePipeline {
         super(script, [
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
-            defaultInputs: """
-               artifactory_stage = true
-               artifactory_pattern = true
-               artifactory_target = true
+            defaultInputs: 
+               //artifactory_stage = true
+               //artifactory_pattern = true
+               //artifactory_target = true
+               """
+               qnx_stage = true
+               qnx_sdk_path = true
+               custom_scm_checkout_dir = true
 
                label = windows-lab-pc
 
             """+ defaults.defaultInputs,
             // the keys exposed to the user for modification
-            exposed:['artifactory_stage',
-                'target',
-                
-                'pattern'
+            exposed:[//'artifactory_stage',
+                //'target',
+                //'pattern'
+                'qnx_stage',
+                'qnx_sdk_path',
+                'custom_scm_checkout_dir',
+
                 
                 ] + defaults.exposed,
              // the keys for which pipeline should be parallelized
@@ -38,7 +45,7 @@ class CommonMplPipeline extends BasePipeline {
         ] as Map, env, ioMap)
 
         //commonArtifactoryStages = new CommonArtifactoryStages(script, env)
-        commonQnxStages = new CommonQnxStages(script ,env)
+        commonStages = new CommonStages(script, env)
     }
 
      // /**
@@ -59,9 +66,12 @@ class CommonMplPipeline extends BasePipeline {
         logger.info(stageInput.inspect())
 
             
-            if (stageInput.artifactory_stage  == "true")
-            commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
-            commonArtifactoryStages.stageArtifactoryUpload(env, stageInput)   
+            //if (stageInput.artifactory_stage  == "true")
+            //commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
+            //commonArtifactoryStages.stageArtifactoryUpload(env, stageInput) 
+            if (stageInput.qnx_stage  == "true") 
+            commonQnxStages.makeBuild(env, stageInput)
+            commonQnxStages.copyPFE(env, stageInput)
 
               }
 
