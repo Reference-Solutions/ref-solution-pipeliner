@@ -1,16 +1,16 @@
 package com.refSolution.pipelinerdepot.pipelines
 
 import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
-import com.refSolution.pipelinerdepot.stages.CommonStages
-import com.refSolution.pipelinerdepot.stages.QnxStages
+import com.refSolution.pipelinerdepot.stages.CommonQnxStages
 
 
-class QnxPipeline extends CommonPipeline {
-    CommonStages commonStages
+
+class CommonQnxPipeline extends BasePipeline {
+    CommonQnxStages commonQnxStages
     
     Boolean skipPipeline = false
 
-    QnxPipeline(script, Map env, Map ioMap) {
+    CommonQnxPipeline(script, Map env, Map ioMap) {
         super(script, [
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
@@ -35,11 +35,11 @@ class QnxPipeline extends CommonPipeline {
         nodeLabelExpr = "windows-lab-pc"
 
         
-        commonStages = new CommonStages(script, env)
+        commonQnxStages = new CommonQnxStages(script, env)
     }
 
     @Override
     void getCustomStages(){
-        QnxStages customStages = new QnxStages(script, env)
+        commonQnxStages customStages = new CommonQnxStages(script, env)
     }
 }

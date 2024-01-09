@@ -2,14 +2,14 @@ package com.refSolution.pipelinerdepot.stages
 
 import com.bosch.pipeliner.LoggerDynamic
 import com.bosch.pipeliner.ScriptUtils
-import com.refSolution.pipelinerdepot.stages.CommonStages
-import com.refSolution.pipelinerdepot.stages.CommonMplStages
+import com.refSolution.pipelinerdepot.stages.CommonQnxStages
+
 
 
 /**
 * Contains stages that can be reused across pipelines
 */
-class QnxStages {
+class CommonQnxStages {
 
     private def script
     private Map env
@@ -23,7 +23,7 @@ class QnxStages {
      * @param script Reference to the Jenkins scripted environment
      * @param env Map of Jenkins environment files
      */
-    QnxStages(script, Map env) {
+    CommonQnxStages(script, Map env) {
         this.script = script
         this.env = env
         this.logger = new LoggerDynamic(script)
