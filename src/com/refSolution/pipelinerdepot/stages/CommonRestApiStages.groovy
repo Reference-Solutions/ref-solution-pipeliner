@@ -40,8 +40,8 @@ class CommonRestApiStages {
             String tToken = stageInput.accessToken
 
 
-            def getCommand = ["curl", "-X", "GET", "-H", "Authorization: Bearer $tToken", "https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install"].execute().text
-            def generatedResponse = command.execute().text
+            def getCommand = ["curl", "-X", "GET", "-H", "Authorization: Bearer $tToken", "https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install"]
+            def generatedResponse = getCommand.execute().text
             logger.info("getDesirtedStateByName executed")
             //def generatedResponse = command.execute().text
             logger.info(generatedResponse)
