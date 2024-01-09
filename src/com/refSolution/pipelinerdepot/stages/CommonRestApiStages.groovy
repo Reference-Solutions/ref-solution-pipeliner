@@ -28,10 +28,16 @@ class CommonRestApiStages {
     }
 
     def method1(Map env, Map stageInput = [:]){
-        logger.info(method1)
+        script.stage("method1 stage"){
+            logger.info("method1")
+        }
+        
     }
     def method2(Map env, Map stageInput = [:]){
-        logger.info(method2)
+        script.stage("method2 stage"){
+            logger.info("method2")
+        }
+        
     
     }
 }
