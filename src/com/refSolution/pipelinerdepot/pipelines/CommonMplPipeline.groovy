@@ -71,10 +71,10 @@ class CommonMplPipeline extends BasePipeline {
             //commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
             //commonArtifactoryStages.stageArtifactoryUpload(env, stageInput) 
             if (stageInput.qnx_stage  == "true") 
-            commonQnxStages.makeBuild(env, stageInput)
-            commonQnxStages.copyPFE(env, stageInput)
+            commonStages.makeBuild(env, stageInput)
+            commonStages.copyPFE(env, stageInput)
 
-              }
+            }
 
     void getCustomStages(){
         CommonMplStages customStages = new CommonMplStages(script, env)
