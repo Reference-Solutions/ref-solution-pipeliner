@@ -35,8 +35,8 @@ class CommonRestApiStages {
 
             def getCommand = ["curl", "-X", "GET", "-H", "Authorization: Bearer $tToken", "https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install"].execute()
             def generatedResponse = getCommand.waitFor()
-            println writeCommand.err.text
-            println writeCommand.text
+            println getCommand.err.text
+            println getCommand.text
             logger.info("getDesirtedStateByName executed")
             //def generatedResponse = command.execute().text
             logger.info(generatedResponse)
