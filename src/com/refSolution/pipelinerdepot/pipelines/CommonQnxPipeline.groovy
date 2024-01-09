@@ -1,12 +1,12 @@
 package com.refSolution.pipelinerdepot.pipelines
 
-import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
-import com.refSolution.pipelinerdepot.stages.CommonStages
+import com.refSolution.pipelinerdepot.pipelines.CommonMplPipeline
+import com.refSolution.pipelinerdepot.stages.CommonMplStages
 import com.refSolution.pipelinerdepot.stages.CommmonQnxStages
 
 
-class CommonQnxPipeline extends BasePipeline {
-      CommonQnxStages commonQnxStages
+class CommonQnxPipeline extends CommonMplPipeline {
+       CommonMplStages commonMplStages
     
     Boolean skipPipeline = false
 
