@@ -73,10 +73,10 @@ class CommonMplPipeline extends BasePipeline {
             //if (stageInput.artifactory_stage  == "true")
             //commonArtifactoryStages.stageArtifactoryDownload(env, stageInput)
             //commonArtifactoryStages.stageArtifactoryUpload(env, stageInput) 
-            if (stageInput.qnx_stage  == "true") 
-            commonStages.makeBuild(env, stageInput)
-            commonStages.copyPFE(env, stageInput)
-            
+            //if (stageInput.qnx_stage  == "true") 
+            //commonStages.makeBuild(env, stageInput)
+            //commonStages.copyPFE(env, stageInput)
+            echo "qnx stages"
              
 
             }
