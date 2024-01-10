@@ -53,6 +53,17 @@ class CommonMplStages {
             cd ${scm_checkout_dir}
             Copy-Item -Path 'pfe_1_1_0/*' -Destination 'pfe/' -Recurse -force
         """
+
+    }
+        def stageBuild(Map env, Map stageInput = [:]){
+        script.stage("Build") {
+             logger.info("Build")
  
     }
+
 }
+
+
+}
+
+
