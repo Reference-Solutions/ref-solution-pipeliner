@@ -37,6 +37,7 @@ class CommonMplPipeline extends BasePipeline {
                 //'pattern'
                 'qnx_stage',
                 'qnx_sdk_path',
+                'pfe_copy',
                 'custom_scm_checkout_dir',
 
                 
