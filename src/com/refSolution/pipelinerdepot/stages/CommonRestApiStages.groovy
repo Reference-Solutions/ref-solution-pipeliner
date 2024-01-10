@@ -65,7 +65,7 @@ def compareJSONStrings(String expectedJSON, String actualJSON) {
     if (expected == actual) {
         logger.info ("The JSON responses are same.")
     } else {
-        logget.info("The JSON responses are different.") 
+        logger.info("The JSON responses are different.") 
        // echo "Expected JSON: $expected"
        // echo "Actual JSON: $actual"
         def jsonFile = 'C:/Users/POW2Kor/DesiredStateJsonData.json'
