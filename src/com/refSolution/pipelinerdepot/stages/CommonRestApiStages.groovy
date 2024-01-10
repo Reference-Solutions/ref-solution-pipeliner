@@ -44,9 +44,10 @@ class CommonRestApiStages {
     }
 
     def readDesiredState(String tToken){
-        def command = """curl -X GET -H "Authorization: Bearer $tToken " https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install"""
-        String response = sh(script: """curl -X GET -H "Authorization: Bearer $tToken " https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install""", returnStdout: true).trim()
-        return script.bat(script: command, returnStdout: true).trim()
+        //def command = """curl -X GET -H "Authorization: Bearer $tToken " https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install"""
+        String response = script.sh(script: """curl -X GET -H "Authorization: Bearer $tToken " https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install""", returnStdout: true).trim()
+        return response
+        //return script.bat(script: command, returnStdout: true).trim()
 
     }
 
