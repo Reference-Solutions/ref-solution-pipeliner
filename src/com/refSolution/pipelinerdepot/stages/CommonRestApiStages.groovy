@@ -39,7 +39,8 @@ class CommonRestApiStages {
         script.stage("desirted state creation"){
             logger.info("calling python script from groovy")
             script.bat'''
-            cd
+            cd restapi
+            py createDesiredState.py xMTjYq7Prp2vIETEHYZ4eG6bOUIXIOBD
             '''
 
         }
