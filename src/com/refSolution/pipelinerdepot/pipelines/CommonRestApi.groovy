@@ -53,6 +53,7 @@ class CommonRestApi extends BasePipeline {
         }
         logger.info("stageInput")
         logger.info(stageInput.inspect())
+        commonGitStages.stageCheckoutSCM(env, stageInput)
         commonRestApiStages.getDesirtedStateByName(env, stageInput)
         //commonRestApiStages.method2(env, stageInput)
     }
