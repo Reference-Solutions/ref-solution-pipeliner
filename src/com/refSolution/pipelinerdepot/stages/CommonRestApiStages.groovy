@@ -38,8 +38,9 @@ class CommonRestApiStages {
     def getDesirtedStateByName(Map env, Map stageInput = [:]){
         script.stage("desirted state creation"){
             logger.info("calling python script from groovy")
-            def cmd = "py ./restapi/createDesiredState.py xMTjYq7Prp2vIETEHYZ4eG6bOUIXIOBD"
-            def proc = cmd.execute()
+            script.bat'''
+            cd
+            '''
 
         }
         
