@@ -34,7 +34,7 @@ class CommonRestApi extends BasePipeline {
 
         // Specify the node label expression
         // Looks like we can't use && syntax due to input parser
-        nodeLabelExpr = "windows-lab-pc"
+        nodeLabelExpr = "Karthick"
 
         commonRestApiStages = new CommonRestApiStages(script, env)
     }
