@@ -2,12 +2,13 @@ package com.refSolution.pipelinerdepot.pipelines
 
 import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonRestApiStages
-
+import com.refSolution.pipelinerdepot.stages.CommonGitStages
 
 
 class CommonRestApi extends BasePipeline {
     CommonRestApiStages commonRestApiStages
-    
+    CommonGitStages commonGitStages
+
     Boolean skipPipeline = false
 
     CommonRestApi(script, Map env, Map ioMap) {
@@ -37,6 +38,7 @@ class CommonRestApi extends BasePipeline {
         nodeLabelExpr = "Karthick"
 
         commonRestApiStages = new CommonRestApiStages(script, env)
+        commonGitStages = new CommonGitStages(script, env)
     }
 
     // /**
