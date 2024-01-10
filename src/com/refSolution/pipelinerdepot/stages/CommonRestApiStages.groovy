@@ -39,8 +39,8 @@ class CommonRestApiStages {
             logger.info("getDesirtedStateByName")
             String tToken = stageInput.accessToken
             logger.info(tToken)
-            def command = """curl -X GET -H 'Authorization: Bearer $tToken' https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install"""
-            return script.sh(script: command, returnStdout: true).trim()
+            // def command = """curl -X GET -H 'Authorization: Bearer $tToken' https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install"""
+            // return script.sh(script: command, returnStdout: true).trim()
            
            
             // def command = 'curl -X GET -H "Authorization: Bearer '$tToken' " https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install'
