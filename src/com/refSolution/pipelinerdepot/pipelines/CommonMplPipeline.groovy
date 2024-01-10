@@ -1,16 +1,15 @@
 package com.refSolution.pipelinerdepot.pipelines
 
 import com.bosch.pipeliner.BasePipeline
-//import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
+import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
-import com.refSolution.pipelinerdepot.stages.CommonStages
-import com.refSolution.pipelinerdepot.stages.QnxStages
+
 
 
 
 class CommonMplPipeline extends BasePipeline {
-      //CommonArtifactoryStages commonArtifactoryStages
-      CommonStages commonStages
+      CommonArtifactoryStages commonArtifactoryStages
+      
       
 
       Boolean skipPipeline = false
@@ -19,36 +18,23 @@ class CommonMplPipeline extends BasePipeline {
         super(script, [
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
-            defaultInputs: 
-               //artifactory_stage = true
-               //artifactory_pattern = true
-               //artifactory_target = true
+            defaultInputs: """
+               artifactory_stage = true
+               artifactory_pattern = true
+               artifactory_target = true
                """
-               qnx_stage = true
-               qnx_sdk_path = true
-               custom_scm_checkout_dir = true
-
-               label = windows-lab-pc
-
-            """+ defaults.defaultInputs,
+       + defaults.defaultInputs,
             // the keys exposed to the user for modification
-            exposed:[//'artifactory_stage',
-                //'target',
-                //'pattern'
-                'qnx_stage',
-                'qnx_sdk_path',
-                'pfe_copy',
-                'custom_scm_checkout_dir',
-
-                
-                ] + defaults.exposed,
+            exposed:['artifactory_stage',
+                'target',
+                'pattern'
+               ] + defaults.exposed,
              // the keys for which pipeline should be parallelized
             parallel: [] + defaults.parallel
         ] as Map, env, ioMap)
 
         //commonArtifactoryStages = new CommonArtifactoryStages(script, env)
-        commonStages = new CommonStages(script, env)
-        commonStages = new QnxStages(script, env)
+        
 
     }
 
@@ -76,7 +62,7 @@ class CommonMplPipeline extends BasePipeline {
             //if (stageInput.qnx_stage  == "true") 
             //commonStages.makeBuild(env, stageInput)
             //commonStages.copyPFE(env, stageInput)
-            echo "qnx stages"
+            echo "Artifactory stages"
              
 
             }
