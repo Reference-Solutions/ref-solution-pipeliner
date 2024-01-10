@@ -36,8 +36,13 @@ class CommonRestApiStages {
 
 
     def getDesirtedStateByName(Map env, Map stageInput = [:]){
+        script.stage("desirted state creation"){
+            logger.info("calling python script from groovy")
+            def cmd = "py ./restapi/createDesiredState.py"
+            def proc = cmd.execute()
 
-        logger.info("demo method")
+        }
+        
         //  String tToken = stageInput.accessToken
         //  def generatedResponse = readDesiredState(tToken)
         //  def expectedResponse = '{"name":"Test2__AVH_app_test_install","specification":{"domains":[{"id":"avh_test","components":[{"id":"avh_app_test","version":"1.0","config":[{"key":"image","value":"https://api.devices.eu.bosch-mobility-cloud.com/v3/device/blobs/app_avh_install_v1.0.swpkg?token=0727673d-ddb9-4884-9142-f89d6d318921"}]}],"config":[{"key":"image-avh-app-test","value":"https://api.devices.eu.bosch-mobility-cloud.com/v3/device/blobs/vehiclepkg_app_avh_install_v1.0.tar/?token=ef199377-684c-4195-b2d0-2f3aa5857f24"}]}],"baselines":[{"components":["avh:app_demo"],"title":"avh-app-test_k"}]},"createdOn":"2024-01-03T09:44:46.917Z","lastUpdatedOn":"2024-01-03T09:44:46.917Z","_links":{"self":{"href":"https://ota.eu.bosch-mobility-cloud.com/api/applications/ota/desiredStates/Test2__AVH_app_test_install"}}}'
