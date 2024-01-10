@@ -47,7 +47,9 @@ class CommonMplPipeline extends BasePipeline {
         ] as Map, env, ioMap)
 
         //commonArtifactoryStages = new CommonArtifactoryStages(script, env)
-        commonStages = new CommonStages(script, env)
+        //commonStages = new CommonStages(script, env)
+        commonStages = new QnxStages(script, env)
+
     }
 
      // /**
