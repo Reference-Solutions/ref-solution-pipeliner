@@ -16,18 +16,17 @@ class CommonRestApi extends BasePipeline {
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: '''
-                accessTokenUrl = https://p2.authz.bosch.com/auth/realms/EU_RB_FLEATEST/protocol/openid-connect/token
-                proxiesValue = ['http': 'http://rb-proxy-in.bosch.com:8080', 'https': 'http://rb-proxy-in.bosch.com:8080']
-                client_id = ['tech-client-03']
-                client_secret = ['MMTjYq7Prp2vIETEHYZ4eG6bOUIXIOBD']
+                create_blob_and_desiredstate = false
+                verify_device_with_Id = true
+                verify_blob_with_Id = true
             ''',
             // the keys exposed to the user for modification
             exposed: [
-                'accessTokenUrl', 
-                'proxiesValue',
-                'client_id',
-                'client_secret',
-                'accessToken' 
+                'create_blob_and_desiredstate', 
+                'verify_device_with_Id',
+                'verify_blob_with_Id',
+                'blob_Id',
+                'device_Id' 
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
@@ -56,8 +55,12 @@ class CommonRestApi extends BasePipeline {
         logger.info("stageInput")
         logger.info(stageInput.inspect())
         commonGitStages.stageCheckoutSCM(env, stageInput)
-        //commonRestApiStages.createBlobAndDesiredState(env, stageInput)
-        commonRestApiStages.verifyDeviceStatus(env, stageInput)
-        
+        if (stageInput.verify_device_with_Id == "true")    
+            commonRestApiStages.verifyDeviceStatus(env, stageInput)
+        if (stageInput.verfy_blob_with_Id == "true")
+            commonRestApiStages.verifyblob(env, stageInput)
+        if (stageInput.create_blob_and_desiredstate == "true")
+            commonRestApiStages.createBlobAndDesiredState(env, stageInput)
+
     }
 }
