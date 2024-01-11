@@ -19,6 +19,7 @@ class CommonRestApi extends BasePipeline {
                 create_blob_and_desiredstate = false
                 verify_device_with_Id = true
                 verify_blob_with_Id = true
+                checkout_scm_stage = true
             ''',
             // the keys exposed to the user for modification
             exposed: [
@@ -26,7 +27,8 @@ class CommonRestApi extends BasePipeline {
                 'verify_device_with_Id',
                 'verify_blob_with_Id',
                 'blob_Id',
-                'device_Id' 
+                'device_Id',
+                'checkout_scm_stage' 
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
@@ -54,7 +56,8 @@ class CommonRestApi extends BasePipeline {
         }
         logger.info("stageInput")
         logger.info(stageInput.inspect())
-        commonGitStages.stageCheckoutSCM(env, stageInput)
+        if (stageInput.checkout_scm_stage == "true")
+            commonGitStages.stageCheckoutSCM(env, stageInput)
         if (stageInput.verify_device_with_Id == "true")    
             commonRestApiStages.verifyDeviceStatus(env, stageInput)
         if (stageInput.verfy_blob_with_Id == "true")
