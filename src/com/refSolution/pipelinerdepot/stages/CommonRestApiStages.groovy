@@ -31,11 +31,11 @@ class CommonRestApiStages {
     def createBlobAndDesiredState(Map env, Map stageInput = [:]){
         script.stage("Upload blob and create desired state"){
             script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
-                print 'username=' + PANT_USERNAME + 'password=' + PANT_PASSWORD
+                
                 logger.info("calling python script from groovy")
                 script.bat"""
                 cd restapi
-                py createDesiredState.py xMTjYq7Prp2vIETEHYZ4eG6bOUIXIOBD
+                py createDesiredState.py ${script.PANT_PASSWORD}
                 """
             }
             
