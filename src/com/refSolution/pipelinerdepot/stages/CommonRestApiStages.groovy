@@ -30,7 +30,7 @@ class CommonRestApiStages {
 
     def createBlobAndDesiredState(Map env, Map stageInput = [:]){
         script.stage("Upload blob and create desired state"){
-            script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
+            script.withCredentials([$class: 'UsernamePasswordMultiBinding'(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
                 logger.info("calling python script from groovy")
                 script.bat"""
                 cd restapi
