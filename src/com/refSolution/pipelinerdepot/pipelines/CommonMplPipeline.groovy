@@ -3,6 +3,7 @@ package com.refSolution.pipelinerdepot.pipelines
 import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
+import com.refSolution.pipelinerdepot.pipelines.execQnxPipeline
 
 
 
@@ -75,7 +76,7 @@ class CommonMplPipeline extends BasePipeline {
     }
 
 
-
+    
 
   
 
@@ -83,7 +84,11 @@ class CommonMplPipeline extends BasePipeline {
         CommonMplStages customStages = new CommonMplStages(script, env)
 
         
-    }   
+    }
+
+    // Run the pipeline
+    execQnxPipeline pipeline = new execQnxPipeline(this, environment, ioMap)
+    ioMap = pipeline.run()   
 
 }
 
