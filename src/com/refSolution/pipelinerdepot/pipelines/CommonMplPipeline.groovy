@@ -13,6 +13,15 @@ import com.refSolution.pipelinerdepot.stages.CommonStages
 class CommonMplPipeline extends BasePipeline {
       CommonArtifactoryStages commonArtifactoryStages
       CommonStages commonStages
+
+ void execQnxPipeline(Map stageInput) {
+        // Move the logic of execQnxPipeline here
+        // You can use the 'script' object if needed
+        // ...
+
+        // Example:
+        script.echo "Executing QnxPipeline with stageInput: ${stageInput}"
+    }     
       
       
 
