@@ -20,7 +20,7 @@ class CommonRestApi extends BasePipeline {
                 verify_device_with_Id = true
                 verify_blob_with_Id = true
                 checkout_scm_stage = true
-            """ + defaults.defaultInputs,
+            """,
             // the keys exposed to the user for modification
             exposed: [
                 'create_blob_and_desiredstate', 
@@ -29,7 +29,7 @@ class CommonRestApi extends BasePipeline {
                 'blob_Id',
                 'device_Id',
                 'checkout_scm_stage' 
-            ] + defaults.exposed,
+            ],
             // the keys for which pipeline should be parallelized
             parallel: []
         ] as Map, env, ioMap)
