@@ -35,7 +35,7 @@ class CommonMplPipeline extends BasePipeline {
             parallel: [] + defaults.parallel
         ] as Map, env, ioMap)
 
-        //commonArtifactoryStages = new CommonArtifactoryStages(script, env)
+        commonArtifactoryStages = new CommonArtifactoryStages(script, env)
         
 
     }
