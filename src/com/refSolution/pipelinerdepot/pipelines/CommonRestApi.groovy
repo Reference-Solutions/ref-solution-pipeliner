@@ -59,6 +59,7 @@ class CommonRestApi extends BasePipeline {
         if (stageInput.checkout_scm_stage == "true")
             commonGitStages.stageCheckoutSCM(env, stageInput)
             commonRestApiStages.verifyDeviceStatus(env, stageInput)
+            commonRestApiStages.verifyblob(env, stageInput)
         if (stageInput.verify_device_with_Id == "true")    
             commonRestApiStages.verifyDeviceStatus(env, stageInput)
         if (stageInput.verfy_blob_with_Id == "true")
