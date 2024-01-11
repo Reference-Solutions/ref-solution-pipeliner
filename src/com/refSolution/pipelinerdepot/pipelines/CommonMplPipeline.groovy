@@ -16,7 +16,8 @@ class CommonMplPipeline extends BasePipeline {
       CommonStages commonStages
 
  void execQnxPipeline(Map stageInput) {
-        // Move the logic of execQnxPipeline here
+        QnxPipeline pipeline = new QnxPipeline(this, environment, ioMap)
+        ioMap = pipeline.run()
         // You can use the 'script' object if needed
         // ...
 
