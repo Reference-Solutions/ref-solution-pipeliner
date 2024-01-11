@@ -42,8 +42,19 @@ class CommonRestApiStages {
          }
      }
 
-    def listDevicedata(Map env, Map stageInput = [:]){
+    def verifyDeviceStatus(Map env, Map stageInput = [:]){
         logger.info("List devices with device ID")
+        script.stage("Verify device status"){
+            script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
+                
+                logger.info("Verifying device status with device ID")
+                script.bat"""
+                cd restapi
+                py pantaris_api.py -c Get_Device_List -d_id AADemo3 -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
+                """
+            }
+
+        }
 
 
     } 
