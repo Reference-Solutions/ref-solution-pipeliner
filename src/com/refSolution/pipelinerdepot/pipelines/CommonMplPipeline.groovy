@@ -58,6 +58,18 @@ class CommonMplPipeline extends BasePipeline {
         logger.info(stageInput.inspect())
         script.stage("VRTE pull") 
         script.stage("QNX+BSW build and relaese")
+        
+        script.stage("OPD/AVH Applications")
+        script.stage("QEMU Validation")
+        script.stage("Flashing M7 Software Application")
+        script.stage("Validation of HiL")
+        script.stage("Create S/W Package Artifacts")
+        script.stage("Create Vehicle Package Artifacts")
+
+        
+
+        
+
 
     }
 
