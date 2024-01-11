@@ -91,7 +91,7 @@ class CommonMplPipeline extends BasePipeline {
         
     }
      QnxPipeline pipeline = new QnxPipeline(this, environment, ioMap)
-     ioMap = pipeline.run()
+    //  ioMap = pipeline.run()
      
 
 }
