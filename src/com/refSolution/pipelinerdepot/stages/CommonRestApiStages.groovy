@@ -35,7 +35,7 @@ class CommonRestApiStages {
                 logger.info("calling python script from groovy")
                 script.bat"""
                 cd restapi
-                py createDesiredState.py ${script.PANT_PASSWORD}
+                py createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME}
                 """
             }
             
