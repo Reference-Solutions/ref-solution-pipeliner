@@ -56,8 +56,9 @@ class CommonMplPipeline extends BasePipeline {
         }
         logger.info("stageInput")
         logger.info(stageInput.inspect())
-        script.stage("Artifactory Downlaod") 
-        script stage ("QNX+BSW build and release")
+        script.stage("VRTE pull") 
+        script.stage("QNX+BSW build and relaese")
+
     }
 
 
