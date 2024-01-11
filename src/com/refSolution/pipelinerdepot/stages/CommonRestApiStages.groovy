@@ -71,7 +71,7 @@ class CommonRestApiStages {
                     logger.info("verify  and get blob data with ID")
                     script.bat"""
                     cd restapi
-                    py pantaris_api.py -c Blob_Meta_Info -b_id ${blobId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
+                    py pantaris_api.py -c Blob_Meta_Info -b_id Tk_AVH_app_test_install -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
                     """
                 }
         }
