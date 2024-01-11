@@ -59,9 +59,9 @@ class CommonMplPipeline extends BasePipeline {
 
             
            
-            script {
-                    echo "Artifactory stages"
-                  }
+            
+         echo "Artifactory stages"
+                  
 
              
 
