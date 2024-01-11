@@ -63,6 +63,9 @@ class CommonRestApiStages {
     def verifyblob(Map env, Map stageInput = [:]){
         script.stage("verify blob with ID"){
             String blobId = stageInput.blob_Id
+            String deviceId = stageInput.device_Id
+            logger.info(blobId)
+            logger.info(deviceId)
                 script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
                     
                     logger.info("verify  and get blob data with ID")
