@@ -47,7 +47,7 @@ class CommonMplPipeline extends BasePipeline {
     // */
     @Override
     void stages(Map stageInput) {
-        script {
+        
         logger.info("customStages")
         def customStages = getCustomStages()
         // Skip the entire pipeline if we promote and there are no changes
@@ -67,7 +67,7 @@ class CommonMplPipeline extends BasePipeline {
 
             }
 
-    }   
+  
 
     void getCustomStages(){
         CommonMplStages customStages = new CommonMplStages(script, env)
