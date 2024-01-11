@@ -35,7 +35,7 @@ class CommonMplPipeline extends BasePipeline {
             parallel: [] + defaults.parallel
         ] as Map, env, ioMap)
 
-        commonArtifactoryStages = new CommonArtifactoryStages(script, env) ..
+        commonArtifactoryStages = new CommonArtifactoryStages(script, env) 
         
 
     }
@@ -47,7 +47,7 @@ class CommonMplPipeline extends BasePipeline {
     // */
     @Override
     void stages(Map stageInput) {
-        
+        script {
         logger.info("customStages")
         def customStages = getCustomStages()
         // Skip the entire pipeline if we promote and there are no changes
@@ -66,6 +66,8 @@ class CommonMplPipeline extends BasePipeline {
              
 
             }
+
+    }   
 
     void getCustomStages(){
         CommonMplStages customStages = new CommonMplStages(script, env)
