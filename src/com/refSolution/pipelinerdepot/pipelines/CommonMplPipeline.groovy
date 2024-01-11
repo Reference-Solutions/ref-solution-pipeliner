@@ -3,6 +3,8 @@ package com.refSolution.pipelinerdepot.pipelines
 import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
+import com.refSolution.pipelinerdepot.stages.QnxStages
+import com.refSolution.pipelinerdepot.stages.CommonStages
 
 
 
@@ -10,6 +12,7 @@ import com.refSolution.pipelinerdepot.stages.CommonMplStages
 
 class CommonMplPipeline extends BasePipeline {
       CommonArtifactoryStages commonArtifactoryStages
+      CommonStages commonStages
       
       
 
@@ -20,23 +23,19 @@ class CommonMplPipeline extends BasePipeline {
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: """
-               artifactory_stage = true
-               artifactory_pattern = true
-               artifactory_target = true
+               
                """
        + defaults.defaultInputs,
             // the keys exposed to the user for modification
-            exposed:['artifactory_stage',
-                'target',
-                'artifactory_pattern',
-                'artifactory_target',
-                'pattern'
-               ] + defaults.exposed,
+            exposed:[
+
+             ] + defaults.exposed,
              // the keys for which pipeline should be parallelized
             parallel: [] + defaults.parallel
         ] as Map, env, ioMap)
 
         commonArtifactoryStages = new CommonArtifactoryStages(script, env) 
+        commonStages = new CommonStages(script, env)
         
 
     }
