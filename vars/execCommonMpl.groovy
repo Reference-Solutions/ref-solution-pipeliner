@@ -1,5 +1,5 @@
 import com.refSolution.pipelinerdepot.pipelines.CommonMplPipeline
-import com.refSolution.pipelinerdepot.pipelines.QnxPipeline
+
 
 import com.bosch.pipeliner.*
 
@@ -29,6 +29,5 @@ def call(Map stageOverriders=[:]) {
     // Run the pipeline
     CommonMplPipeline pipeline = new CommonMplPipeline(this, defaults, environment, ioMap)
     ioMap = pipeline.run()
-    QnxPipeline pipeline = new QnxPipeline(this, environment, ioMap)
-    ioMap = pipeline.run()
+    
 }
