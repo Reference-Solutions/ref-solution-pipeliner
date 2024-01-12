@@ -30,7 +30,7 @@ class CommonMplStages {
         this.commonStages = new CommonStages(script, env)
     }
 
-    script.stage("Vrte pull"){
+    echo ("Vrte pull"){
          //add vrte stages here
     }
     
