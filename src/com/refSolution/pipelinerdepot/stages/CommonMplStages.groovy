@@ -29,7 +29,11 @@ class CommonMplStages {
         this.utils = new ScriptUtils(script, env)
         this.commonStages = new CommonStages(script, env)
     }
-    script.stage("QNX+BSW build and relaese")
+
+    script.stage("Vrte pull"){
+         //add vrte stages here
+    }
+    
     def stageBuild(Map env, Map stageInput = [:]){
       	
       	String pfeCopy = stageInput.pfe_copy?.trim() ?: 'false'
