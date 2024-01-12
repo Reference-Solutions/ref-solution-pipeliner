@@ -18,13 +18,19 @@ class CommonMplPipeline extends CommonPipeline {
                 archive_patterns = qnx-hv-nxp-s32g/images/*.ui
                 custom_scm_checkout_dir = qnx-hv-nxp-s32g
                 qnx_sdk_path = C:/Users/zrd2kor/qnx710
+                arcbsw_binary_dir = C:/FlashScriptsS32G2/Final_Auto/binary/vip_int.bin
+                qnx_binary_dir = C:/FlashScriptsS32G2/Final_Auto/binary/ifs-s32g-vip.ui
+                custom_scm_checkout_dir = vip_flashing
             ''',
             // the keys exposed to the user for modification
             exposed: [
                 'archive_patterns',
                 'custom_scm_checkout_dir',
                 'qnx_sdk_path',
-              	'pfe_copy'
+              	'pfe_copy',
+                'arcbsw_binary_dir',
+                'custom_scm_checkout_dir',
+                'qnx_binary_dir'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
