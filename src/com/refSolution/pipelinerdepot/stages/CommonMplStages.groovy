@@ -30,7 +30,7 @@ class CommonMplStages {
         this.commonStages = new CommonStages(script, env)
     }
 
-    def vrtePull() {
+    def vrtePull(Map env, Map stageInput = [:]) {
         // add vrte pull stages here
         script.echo "Vrte pull"
     }
