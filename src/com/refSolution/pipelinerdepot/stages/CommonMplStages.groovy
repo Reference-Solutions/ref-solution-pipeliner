@@ -31,7 +31,7 @@ class CommonMplStages {
     }
 
     def vrtePull() {
-        // add vrte stages here
+        // add vrte pull stages here
         script.echo "Vrte pull"
     }
     
@@ -67,6 +67,39 @@ class CommonMplStages {
             Copy-Item -Path 'pfe_1_1_0/*' -Destination 'pfe/' -Recurse -force
         """
     }
+    
+    def OPDAVHApplications() {
+        // add OPD/AVH Applications stages here
+        script.echo "OPD/AVH Applications"
+    }
+
+
+    def OQEMUValidation() {
+        // add QEMU Validation stages here
+        script.echo "QEMU Validation"
+    }
+
+    def FlashingM7() {
+        // add Flashing M7 Software Application stages here
+        script.echo "Flashing M7 Software Application"
+    }
+
+    def ValidationHiL() {
+        // add Validation of HiL stages here
+        script.echo "Validation of HiL"
+    }
+
+    def Softwarepackage() {
+        // add S/W Package Artifacts stages here
+        script.echo "S/W Package Artifacts"
+    }
+
+    def Vehiclepackage() {
+        // add S/W Package Artifacts stages here
+        script.echo "Vehicle Package Artifacts"
+    }
+    
+
 }
 
 
