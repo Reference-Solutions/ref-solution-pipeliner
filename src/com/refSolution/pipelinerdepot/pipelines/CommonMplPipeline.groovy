@@ -2,6 +2,7 @@ package com.refSolution.pipelinerdepot.pipelines
 import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
 
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
+import com.refSolution.pipelinerdepot.stages.CommonStages
 // import com.refSolution.pipelinerdepot.stages.CommonVrteStages
 // import com.refSolution.pipelinerdepot.stages.CommonQnxStage
 // import com.refSolution.pipelinerdepot.stages.CommonOpdAvhStages
@@ -20,20 +21,16 @@ class CommonMplPipeline extends CommonPipeline {
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: '''
-            vrtepull_stage = true
             qnx_stage = true
-            opd-avh_stage = true
-            qemu_stage = true
-            flashing_stage = true
                 
                 
             ''',
             // the keys exposed to the user for modification
             exposed: [
-                'vrtepull_stage',
-                'qnx_stage' ,
-                'opd-avh_stage',
-                'qemu_stage',
+               'qnx_stage',
+               'qnx_sdk_path',
+               'custom_scm_checkout_dir',
+               'pfe_copy'
 
 
               
@@ -48,7 +45,7 @@ class CommonMplPipeline extends CommonPipeline {
         nodeLabelExpr = "windows-kiran"
 
     //  commonVrteStages = new  CommonVrteStages(script, env)
-    //  commonQnxStage = new CommonQnxStage(script, env)
+        commonStages = new CommonStages(script, env)
     //  commonOpdAvhStages = new CommonOpdAvhStages(script, env)
     //  commonQemuStages = new CommonQemuStages (script, env)
     //  commonFlashStages = new CommonFlashStages (script, env)
@@ -76,16 +73,18 @@ class CommonMplPipeline extends CommonPipeline {
         }
         logger.info("stageInput")
         logger.info(stageInput.inspect())
-        if (stageInput.vrtepull_stage == "true")
-            commonVrteStages.vrtePull(env, stageInput)
+        //if (stageInput.vrtepull_stage == "true")
+            //commonVrteStages.vrtePull(env, stageInput)
         if (stageInput.qnx_stage == "true")
-            commonQnxStages.qnxBuild(env, stageInput)
-        if (stageInput.opd-avh_stage == "true")
-            commonOpdAvhStages.opdAVHApplications(env, stageInput) 
-        if (stageInput.qemu_stage == "true")
-            commonQemuStages.qemuValidation(env, stageInput)  
-        if (stageInput.flashing_stage == "true")
-            commonFlashStages.flashingM7(env, stageInput)     
+           commonStages.stageBuild(env, stageInput)
+           commonStages.makeBuild(env, stageInput)
+           commonStages.copyPFE(env, stageInput)
+        //if (stageInput.opd-avh_stage == "true")
+            //commonOpdAvhStages.opdAVHApplications(env, stageInput) 
+        //if (stageInput.qemu_stage == "true")
+            //commonQemuStages.qemuValidation(env, stageInput)  
+        //if (stageInput.flashing_stage == "true")
+            //commonFlashStages.flashingM7(env, stageInput)     
                       
             
 
