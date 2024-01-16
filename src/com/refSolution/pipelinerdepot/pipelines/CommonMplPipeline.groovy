@@ -94,7 +94,6 @@ class CommonMplPipeline extends BasePipeline {
        
     }
 
-    @Override
     void getCustomStages(){
         CommonMplStages customStages = new CommonMplStages(script, env)
     }
