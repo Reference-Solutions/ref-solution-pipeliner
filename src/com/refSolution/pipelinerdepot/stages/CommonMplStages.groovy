@@ -2,7 +2,7 @@ package com.refSolution.pipelinerdepot.stages
 
 import com.bosch.pipeliner.LoggerDynamic
 import com.bosch.pipeliner.ScriptUtils
-import com.refSolution.pipelinerdepot.stages.CommonStages
+
 
 
 /**
@@ -14,7 +14,7 @@ class CommonMplStages {
     private Map env
     private LoggerDynamic logger
     private ScriptUtils utils
-    private CommonStages commonStages
+   
 
     /**
      * Constructor
@@ -27,7 +27,7 @@ class CommonMplStages {
         this.env = env
         this.logger = new LoggerDynamic(script)
         this.utils = new ScriptUtils(script, env)
-        this.commonStages = new CommonStages(script, env)
+       
     }
 
     def vrtePull(Map env, Map stageInput = [:]) {

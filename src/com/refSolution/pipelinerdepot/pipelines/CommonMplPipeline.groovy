@@ -1,7 +1,6 @@
 package com.refSolution.pipelinerdepot.pipelines
 
-import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
-import com.refSolution.pipelinerdepot.stages.CommonStages
+
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
 
 
