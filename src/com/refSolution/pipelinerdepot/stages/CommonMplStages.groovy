@@ -38,7 +38,7 @@ class CommonMplStages {
     def QnxBuild(Map env, Map stageInput = [:]) {
         // add OPD/AVH Applications stages here
         script.echo "QNX stages add"
-    
+    }
     
     def OPDAVHApplications(Map env, Map stageInput = [:]) {
         // add OPD/AVH Applications stages here
