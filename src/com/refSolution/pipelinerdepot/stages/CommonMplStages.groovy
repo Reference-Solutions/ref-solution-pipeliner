@@ -35,59 +35,59 @@ class CommonMplStages {
         script.echo "Vrte pull"
     }
 
-    def QnxBuild(Map env, Map stageInput = [:]) {
+    def qnxBuild(Map env, Map stageInput = [:]) {
         // add OPD/AVH Applications stages here
         script.echo "QNX stages add"
     }
     
-    def OPDAVHApplications(Map env, Map stageInput = [:]) {
+    def opdAVHApplications(Map env, Map stageInput = [:]) {
         // add OPD/AVH Applications stages here
         script.echo "OPD/AVH Applications"
     }
 
 
-    def OQEMUValidation(Map env, Map stageInput = [:]) {
+    def qemuValidation(Map env, Map stageInput = [:]) {
         // add QEMU Validation stages here
         script.echo "QEMU Validation"
     }
 
-    def FlashingM7(Map env, Map stageInput = [:]) {
+    def flashingM7(Map env, Map stageInput = [:]) {
         // add Flashing M7 Software Application stages here
         script.echo "Flashing M7 Software Application"
         
     }
 
-    def ValidationHiL() {
-        // add Validation of HiL stages here
-        script.echo "Validation of HiL"
-    }
+    // def ValidationHiL() {
+    //     // add Validation of HiL stages here
+    //     script.echo "Validation of HiL"
+    // }
 
-    def Softwarepackage(Map env, Map stageInput = [:]) {
-        // add S/W Package Artifacts stages here
-        script.echo "S/W Package Artifacts"
-    }
+    // def Softwarepackage(Map env, Map stageInput = [:]) {
+    //     // add S/W Package Artifacts stages here
+    //     script.echo "S/W Package Artifacts"
+    // }
 
-    def Vehiclepackage(Map env, Map stageInput = [:]) {
-        // add S/W Package Artifacts stages here
-        script.echo "Vehicle Package Artifacts"
-    }
+    // def Vehiclepackage(Map env, Map stageInput = [:]) {
+    //     // add S/W Package Artifacts stages here
+    //     script.echo "Vehicle Package Artifacts"
+    // }
 
-    def PANveriforVehicle(Map env, Map stageInput = [:]) {
-        // add PANTARIS Integration and verification for Vehiclestages here
-        script.echo "PANTARIS Integration and verification for Vehicle"
-    }
+    // def PANveriforVehicle(Map env, Map stageInput = [:]) {
+    //     // add PANTARIS Integration and verification for Vehiclestages here
+    //     script.echo "PANTARIS Integration and verification for Vehicle"
+    // }
 
-    def PANverififorDevice(Map env, Map stageInput = [:]) {
-        // add PANTARIS Integration and verification for Device here
-        script.echo "PANTARIS Integration and verification for Device"
+    // def PANverififorDevice(Map env, Map stageInput = [:]) {
+    //     // add PANTARIS Integration and verification for Device here
+    //     script.echo "PANTARIS Integration and verification for Device"
 
-    } 
+    // } 
     
-    def PANverififorDesiredStates(Map env, Map stageInput = [:]) {
-        // add PANTARIS Integration and verification for Desired States here
-        script.echo "PANTARIS Integration and verification for Device"
+    // def PANverififorDesiredStates(Map env, Map stageInput = [:]) {
+    //     // add PANTARIS Integration and verification for Desired States here
+    //     script.echo "PANTARIS Integration and verification for Device"
 
-    }
+    // }
 
 
     
