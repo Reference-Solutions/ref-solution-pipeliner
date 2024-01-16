@@ -28,7 +28,7 @@ class CommonPipeline extends BasePipeline {
                 sonar_stage = true
                 archive_stage = true
                 dac_stage = true
-                label = windows-lab-pc
+                label = windows-kiran
             """ + defaults.defaultInputs,
             // the keys exposed to the user for modification
             exposed: [
