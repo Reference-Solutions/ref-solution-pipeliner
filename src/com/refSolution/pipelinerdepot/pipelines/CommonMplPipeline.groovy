@@ -5,7 +5,7 @@ import com.refSolution.pipelinerdepot.stages.CommonMplStages
 
 
 class CommonMplPipeline extends CommonPipeline {
-    CommonStages commonStages
+ 
     
     Boolean skipPipeline = false
 
