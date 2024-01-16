@@ -2,6 +2,12 @@ package com.refSolution.pipelinerdepot.pipelines
 import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
 
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
+import com.refSolution.pipelinerdepot.stages.CommonVrteStages
+import com.refSolution.pipelinerdepot.stages.CommonQnxStage
+import com.refSolution.pipelinerdepot.stages.CommonOpdAvhStages
+import com.refSolution.pipelinerdepot.stages.CommonQemuStages
+import com.refSolution.pipelinerdepot.stages.CommonFlashStages 
+
 
 
 class CommonMplPipeline extends CommonPipeline {
@@ -40,6 +46,15 @@ class CommonMplPipeline extends CommonPipeline {
         // Specify the node label expression
         // Looks like we can't use && syntax due to input parser
         nodeLabelExpr = "windows-kiran"
+
+     commonVrteStages = new  CommonVrteStages(script, env)
+     commonQnxStage = new CommonQnxStage(script, env)
+     commonOpdAvhStages = new CommonOpdAvhStages(script, env)
+     commonQemuStages = new CommonQemuStages (script, env)
+     commonFlashStages = new CommonFlashStages (script, env)
+
+
+
 
 
     }
