@@ -27,7 +27,7 @@ class CommonMplPipeline extends CommonPipeline {
                 'qnx_sdk_path',
               	'pfe_copy'
                 
-            ],
+               ],
             // the keys for which pipeline should be parallelized
             parallel: []
         ] as Map, env, ioMap)
