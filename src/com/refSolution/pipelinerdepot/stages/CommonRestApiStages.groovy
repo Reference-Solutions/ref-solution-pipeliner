@@ -1,4 +1,3 @@
-
 package com.refSolution.pipelinerdepot.stages
 
 import com.bosch.pipeliner.LoggerDynamic
@@ -76,5 +75,19 @@ class CommonRestApiStages {
                 }
         }
     }
+    def listAllVehicleDetails(Map env, Map stageInput = [:]){
+        script.stage("List all the vehicle details"){
+          //  script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
+                
+                logger.info("calling python script from groovy")
+                script.bat"""
+                cd restapi
+                py GetVehicleDetails.py 
+                
+                """
+            }
+            
+         }
+    
  
 }

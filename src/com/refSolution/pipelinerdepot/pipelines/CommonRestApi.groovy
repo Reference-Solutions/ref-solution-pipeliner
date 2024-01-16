@@ -16,6 +16,8 @@ class CommonRestApi extends BasePipeline {
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: """
+		        listAllVehicleDetails = true
+                desired_vehicle_id = "Id not provided"
                 create_blob_and_desiredstate = false
                 verify_device_with_Id = true
                 verify_blob_with_Id = true
@@ -23,12 +25,14 @@ class CommonRestApi extends BasePipeline {
             """,
             // the keys exposed to the user for modification
             exposed: [
+		        'listAllVehicleDetails',
                 'create_blob_and_desiredstate', 
                 'verify_device_with_Id',
                 'verify_blob_with_Id',
                 'blob_Id',
                 'device_Id',
                 'checkout_scm_stage' 
+                'desired_vehicle_id'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
@@ -36,7 +40,7 @@ class CommonRestApi extends BasePipeline {
 
         // Specify the node label expression
         // Looks like we can't use && syntax due to input parser
-        nodeLabelExpr = "Karthick"
+        nodeLabelExpr = "windows-pooja"
 
         commonRestApiStages = new CommonRestApiStages(script, env)
         commonGitStages = new CommonGitStages(script, env)
@@ -67,6 +71,10 @@ class CommonRestApi extends BasePipeline {
             commonRestApiStages.verifyblob(env, stageInput)
         if (stageInput.create_blob_and_desiredstate == "true")
             commonRestApiStages.createBlobAndDesiredState(env, stageInput)
+	    
+        if (stageInput.listAllVehicleDetails=='true')
+        commonRestApiStages.listAllVehicleDetails(env,stageInput)
+
 
     }
 }
