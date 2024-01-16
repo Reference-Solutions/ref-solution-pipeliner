@@ -1,5 +1,6 @@
 package com.refSolution.pipelinerdepot.pipelines
 import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
+import com.bosch.pipeliner.BasePipeline
 
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
 import com.refSolution.pipelinerdepot.stages.QnxStages
@@ -11,7 +12,8 @@ import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
 
-class CommonMplPipeline extends CommonPipeline {
+class CommonMplPipeline extends BasePipeline {
+      QnxStages qnxStages
  
     
     Boolean skipPipeline = false

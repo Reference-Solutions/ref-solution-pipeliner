@@ -6,7 +6,7 @@ import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
 class QnxPipeline extends CommonPipeline {
-    CommonStages commonStages
+    QnxStages qnxStages
     
     Boolean skipPipeline = false
 
@@ -35,7 +35,7 @@ class QnxPipeline extends CommonPipeline {
         nodeLabelExpr = "windows-lab-pc"
 
         
-        commonStages = new CommonStages(script, env)
+        qnxStages = new QnxStages(script, env)
     }
 
     @Override
