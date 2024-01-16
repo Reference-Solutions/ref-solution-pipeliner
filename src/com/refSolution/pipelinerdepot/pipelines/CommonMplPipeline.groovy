@@ -34,7 +34,7 @@ class CommonMplPipeline extends CommonPipeline {
 
         // Specify the node label expression
         // Looks like we can't use && syntax due to input parser
-        nodeLabelExpr = "windows-lab-pc"
+        nodeLabelExpr = "windows-kiran"
 
         
         commonStages = new CommonStages(script, env)
