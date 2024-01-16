@@ -2,7 +2,7 @@ package com.refSolution.pipelinerdepot.pipelines
 import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
 
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
-import com.refSolution.pipelinerdepot.stages.CommonStages
+import com.refSolution.pipelinerdepot.stages.QnxStages
 // import com.refSolution.pipelinerdepot.stages.CommonVrteStages
 // import com.refSolution.pipelinerdepot.stages.CommonQnxStage
 // import com.refSolution.pipelinerdepot.stages.CommonOpdAvhStages
@@ -45,7 +45,7 @@ class CommonMplPipeline extends CommonPipeline {
         nodeLabelExpr = "windows-kiran"
 
     //  commonVrteStages = new  CommonVrteStages(script, env)
-        commonStages = new CommonStages(script, env)
+        qnxStages = new QnxStages(script, env)
     //  commonOpdAvhStages = new CommonOpdAvhStages(script, env)
     //  commonQemuStages = new CommonQemuStages (script, env)
     //  commonFlashStages = new CommonFlashStages (script, env)
