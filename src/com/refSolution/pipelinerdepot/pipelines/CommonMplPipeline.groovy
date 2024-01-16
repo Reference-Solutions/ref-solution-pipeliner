@@ -32,7 +32,7 @@ class CommonMplPipeline extends CommonPipeline {
         nodeLabelExpr = "windows-kiran"
 
         
-        commonStages = new CommonStages(script, env)
+       
     }
 
     @Override
