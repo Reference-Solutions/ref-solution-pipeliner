@@ -47,11 +47,11 @@ class CommonMplPipeline extends CommonPipeline {
         // Looks like we can't use && syntax due to input parser
         nodeLabelExpr = "windows-kiran"
 
-     commonVrteStages = new  CommonVrteStages(script, env)
-     commonQnxStage = new CommonQnxStage(script, env)
-     commonOpdAvhStages = new CommonOpdAvhStages(script, env)
-     commonQemuStages = new CommonQemuStages (script, env)
-     commonFlashStages = new CommonFlashStages (script, env)
+    //  commonVrteStages = new  CommonVrteStages(script, env)
+    //  commonQnxStage = new CommonQnxStage(script, env)
+    //  commonOpdAvhStages = new CommonOpdAvhStages(script, env)
+    //  commonQemuStages = new CommonQemuStages (script, env)
+    //  commonFlashStages = new CommonFlashStages (script, env)
 
 
 
