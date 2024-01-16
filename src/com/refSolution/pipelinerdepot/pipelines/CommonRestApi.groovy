@@ -31,7 +31,7 @@ class CommonRestApi extends BasePipeline {
                 'verify_blob_with_Id',
                 'blob_Id',
                 'device_Id',
-                'checkout_scm_stage' 
+                'checkout_scm_stage', 
                 'desired_vehicle_id'
             ],
             // the keys for which pipeline should be parallelized
