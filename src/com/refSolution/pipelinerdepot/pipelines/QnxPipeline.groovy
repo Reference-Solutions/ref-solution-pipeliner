@@ -1,13 +1,12 @@
 package com.refSolution.pipelinerdepot.pipelines
 
-
-import com.bosch.pipeliner.BasePipeline
-
+import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
+import com.refSolution.pipelinerdepot.stages.CommonStages
 import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
-class QnxPipeline extends BasePipeline {
-      QnxStages qnxStages
+class QnxPipeline extends CommonPipeline {
+    CommonStages commonStages
     
     Boolean skipPipeline = false
 
@@ -36,7 +35,7 @@ class QnxPipeline extends BasePipeline {
         nodeLabelExpr = "windows-lab-pc"
 
         
-        qnxStages = new QnxStages(script, env)
+        commonStages = new CommonStages(script, env)
     }
 
     @Override
