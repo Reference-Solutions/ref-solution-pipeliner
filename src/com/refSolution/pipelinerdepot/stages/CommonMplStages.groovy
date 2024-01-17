@@ -14,6 +14,7 @@ class CommonMplStages {
     private Map env
     private LoggerDynamic logger
     private ScriptUtils utils
+    private CommonStages commonStages
    
 
     /**
@@ -27,6 +28,7 @@ class CommonMplStages {
         this.env = env
         this.logger = new LoggerDynamic(script)
         this.utils = new ScriptUtils(script, env)
+        this.commonStages = new CommonStages(script, env)
        
     }
 
