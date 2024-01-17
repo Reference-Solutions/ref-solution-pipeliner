@@ -69,8 +69,8 @@ class CommonMplPipeline extends BasePipeline {
             //commonVrteStages.vrtePull(env, stageInput)
         if (stageInput.qnx_stage == "true")
            commonStages.stageBuild(env, stageInput)
-           qnxStages.makeBuild(env, stageInput)
-           qnxStages.copyPFE(env, stageInput)
+           commonStages.makeBuild(env, stageInput)
+           commonStages.copyPFE(env, stageInput)
         
                       
             
