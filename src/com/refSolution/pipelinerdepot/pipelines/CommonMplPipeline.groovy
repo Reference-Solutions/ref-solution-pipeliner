@@ -4,16 +4,12 @@ import com.bosch.pipeliner.BasePipeline
 
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
 import com.refSolution.pipelinerdepot.stages.QnxStages
-// import com.refSolution.pipelinerdepot.stages.CommonVrteStages
-// import com.refSolution.pipelinerdepot.stages.CommonQnxStage
-// import com.refSolution.pipelinerdepot.stages.CommonOpdAvhStages
-// import com.refSolution.pipelinerdepot.stages.CommonQemuStages
-// import com.refSolution.pipelinerdepot.stages.CommonFlashStages 
+
 
 
 
 class CommonMplPipeline extends BasePipeline {
-      QnxStages qnxStages
+      CommonStages commonStages
  
     
     Boolean skipPipeline = false
@@ -46,11 +42,9 @@ class CommonMplPipeline extends BasePipeline {
         // Looks like we can't use && syntax due to input parser
         nodeLabelExpr = "windows-lab-pc"
 
-    //  commonVrteStages = new  CommonVrteStages(script, env)
-        qnxStages = new QnxStages(script, env)
-    //  commonOpdAvhStages = new CommonOpdAvhStages(script, env)
-    //  commonQemuStages = new CommonQemuStages (script, env)
-    //  commonFlashStages = new CommonFlashStages (script, env)
+   
+        commonStages = new CommonStages(script, env)
+    
 
 
 
@@ -81,12 +75,7 @@ class CommonMplPipeline extends BasePipeline {
            qnxStages.stageBuild(env, stageInput)
            //qnxStages.makeBuild(env, stageInput)
            //qnxStages.copyPFE(env, stageInput)
-        //if (stageInput.opd-avh_stage == "true")
-            //commonOpdAvhStages.opdAVHApplications(env, stageInput) 
-        //if (stageInput.qemu_stage == "true")
-            //commonQemuStages.qemuValidation(env, stageInput)  
-        //if (stageInput.flashing_stage == "true")
-            //commonFlashStages.flashingM7(env, stageInput)     
+        
                       
             
 

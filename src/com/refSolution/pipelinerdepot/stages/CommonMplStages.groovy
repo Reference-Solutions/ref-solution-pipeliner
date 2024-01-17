@@ -30,32 +30,32 @@ class CommonMplStages {
        
     }
 
-    def vrtePull(Map env, Map stageInput = [:]) {
-        // add vrte pull stages here
-        script.echo "Vrte pull"
-    }
+    // def vrtePull(Map env, Map stageInput = [:]) {
+    //     // add vrte pull stages here
+    //     script.echo "Vrte pull"
+    // }
 
-    def qnxBuild(Map env, Map stageInput = [:]) {
-        // add OPD/AVH Applications stages here
-        script.echo "QNX stages add"
-    }
+     def stageBuild(Map env, Map stageInput = [:]){
+         qnxStages.stageBuild(env, [:])
+
+     }
     
-    def opdAVHApplications(Map env, Map stageInput = [:]) {
-        // add OPD/AVH Applications stages here
-        script.echo "OPD/AVH Applications"
-    }
+    // def opdAVHApplications(Map env, Map stageInput = [:]) {
+    //     // add OPD/AVH Applications stages here
+    //     script.echo "OPD/AVH Applications"
+    // }
 
 
-    def qemuValidation(Map env, Map stageInput = [:]) {
-        // add QEMU Validation stages here
-        script.echo "QEMU Validation"
-    }
+    // def qemuValidation(Map env, Map stageInput = [:]) {
+    //     // add QEMU Validation stages here
+    //     script.echo "QEMU Validation"
+    // }
 
-    def flashingM7(Map env, Map stageInput = [:]) {
-        // add Flashing M7 Software Application stages here
-        script.echo "Flashing M7 Software Application"
+    // def flashingM7(Map env, Map stageInput = [:]) {
+    //     // add Flashing M7 Software Application stages here
+    //     script.echo "Flashing M7 Software Application"
         
-    }
+    // }
 
     // def ValidationHiL() {
     //     // add Validation of HiL stages here
