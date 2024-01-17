@@ -39,7 +39,8 @@ class CommonMplStages {
 
      def stageBuild(Map env, Map stageInput = [:]){
          qnxStages.stageBuild(env, [:])
-
+         qnxStages.makeBuild(env, [:])
+         qnxStages.copyPFE(env, [:])
      }
     
   
