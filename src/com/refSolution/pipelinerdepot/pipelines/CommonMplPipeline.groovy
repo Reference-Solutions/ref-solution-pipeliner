@@ -46,11 +46,7 @@ class CommonMplPipeline extends BasePipeline {
         commonStages = new CommonStages(script, env)
     
 
-
-
-
-
-    }
+       }
 
         
     // /**
@@ -73,8 +69,8 @@ class CommonMplPipeline extends BasePipeline {
             //commonVrteStages.vrtePull(env, stageInput)
         if (stageInput.qnx_stage == "true")
            commonStages.stageBuild(env, stageInput)
-           //qnxStages.makeBuild(env, stageInput)
-           //qnxStages.copyPFE(env, stageInput)
+           qnxStages.makeBuild(env, stageInput)
+           qnxStages.copyPFE(env, stageInput)
         
                       
             
