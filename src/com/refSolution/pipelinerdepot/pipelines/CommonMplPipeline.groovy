@@ -3,7 +3,7 @@ import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
 import com.bosch.pipeliner.BasePipeline
 
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
-import com.refSolution.pipelinerdepot.stages.QnxStages
+import com.refSolution.pipelinerdepot.stages.CommonStages
 
 
 
