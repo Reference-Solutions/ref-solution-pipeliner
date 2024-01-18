@@ -3,7 +3,7 @@ package com.refSolution.pipelinerdepot.stages
 import com.bosch.pipeliner.LoggerDynamic
 import com.bosch.pipeliner.ScriptUtils
 import com.refSolution.pipelinerdepot.stages.CommonStages
-//import com.refSolution.pipelinerdepot.stages.QnxStages
+import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
 /**
@@ -16,7 +16,7 @@ class CommonMplStages {
     private LoggerDynamic logger
     private ScriptUtils utils
     private CommonStages commonStages
-    //private QnxStages qnxStages 
+    private QnxStages qnxStages 
     
    
 
@@ -32,7 +32,7 @@ class CommonMplStages {
         this.logger = new LoggerDynamic(script)
         this.utils = new ScriptUtils(script, env)
         this.commonStages = new CommonStages(script, env)
-        //this.qnxStages = new QnxStages(script, env)
+        this.qnxStages = new QnxStages(script, env)
        
        
     }
@@ -51,7 +51,7 @@ class CommonMplStages {
     // }
 
         def stageBuild(Map env, Map stageInput = [:]){
-        commonStages.stagebuild(env, stageInput)   
+        qnxStages.stagebuild(env, stageInput)   
 
         } 
 
@@ -59,12 +59,12 @@ class CommonMplStages {
         def makeBuild(Map env, Map stageInput = [:]) {
         // Call QnxStages methods
         //qnxStage.stagebuild(env, stageInput)
-        commonStages.makeBuild(env, stageInput)
+        qnxStages.makeBuild(env, stageInput)
         //qnxStages.copyPFE(env, stageInput)
         }
 
         def copyPFE(Map env, Map stageInput = [:]) {
-        commonStages.copyPFE(env, stageInput)   
+        qnxStages.copyPFE(env, stageInput)   
 
         } 
 
