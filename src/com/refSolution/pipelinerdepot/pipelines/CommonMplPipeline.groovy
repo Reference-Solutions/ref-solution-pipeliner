@@ -8,7 +8,7 @@ import com.refSolution.pipelinerdepot.stages.CommonStages
 
 
 
-class CommonMplPipeline extends CommonPipeline {
+class CommonMplPipeline extends BasePipeline {
       CommonStages commonStages
  
     
