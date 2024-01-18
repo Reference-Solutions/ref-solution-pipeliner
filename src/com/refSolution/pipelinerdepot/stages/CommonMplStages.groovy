@@ -39,9 +39,9 @@ class CommonMplStages {
     //     script.echo "Vrte pull"
     // }
 
-    //  def stageBuild(Map env, Map stageInput = [:]){
-    //      qnxStages.stageBuild(env, [:])
-    //       }
+      def stageBuild(Map env, Map stageInput = [:]){
+          commonStages.stageBuild(env, [:])
+          }
       def makeBuild(Map env, Map stageInput = [:]) {
           commonStages.makeBuild(env, stageInput)
     

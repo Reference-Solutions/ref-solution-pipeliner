@@ -98,10 +98,7 @@ class CommonPipeline extends BasePipeline {
         if (stageInput.dac_stage == "true")  
             commonDacStages.stageDacBuild(env, stageInput)
             commonDacStages.stageDacPublish(env, stageInput)
-         if (stageInput.qnx_stage == "true")
-              commonStages.stageBuild(env, stageInput)
-              commonStages.makeBuild(env, stageInput)
-              commonStages.copyPFE(env, stageInput)
+       
 
     }
 
