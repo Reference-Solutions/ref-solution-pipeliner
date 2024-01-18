@@ -15,7 +15,7 @@ class CommonMplStages {
     private LoggerDynamic logger
     private ScriptUtils utils
     private CommonStages commonStages
-    //private QnxStages qnxStages
+    private QnxStages qnxStages
    
 
     /**
@@ -30,7 +30,7 @@ class CommonMplStages {
         this.logger = new LoggerDynamic(script)
         this.utils = new ScriptUtils(script, env)
         this.commonStages = new CommonStages(script, env)
-        //this.qnxStages = new QnxStages(script, env)
+        this.qnxStages = new QnxStages(script, env)
        
     }
 
