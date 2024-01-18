@@ -35,9 +35,22 @@ class CommonStages {
         this.logger = new LoggerDynamic(script)
     }
     
-    def stageBuild(Map env, Map stageInput = [:]){
+    // def stageBuild(Map env, Map stageInput = [:]){
+    //     script.stage("Build") {
+    //          logger.info("Build")
+    //     }
+    // }
+
+      def stageBuild(Map env, Map stageInput = [:]){
+      	
+      	String pfeCopy = stageInput.pfe_copy?.trim() ?: 'false'
+        if(pfeCopy == "true"){
+            script.stage("Copy PFE") {  
+              copyPFE(env, stageInput)
+            }
+        }
         script.stage("Build") {
-             logger.info("Build")
+            makeBuild(env, stageInput)
         }
     }
 
