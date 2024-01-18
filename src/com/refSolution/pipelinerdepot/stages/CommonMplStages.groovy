@@ -15,6 +15,7 @@ class CommonMplStages {
     private LoggerDynamic logger
     private ScriptUtils utils
     private CommonStages commonStages
+    private QnxStages qnxStages 
     
    
 
@@ -30,6 +31,7 @@ class CommonMplStages {
         this.logger = new LoggerDynamic(script)
         this.utils = new ScriptUtils(script, env)
         this.commonStages = new CommonStages(script, env)
+        this.qnxStages = new QnxStages(script, env)
        
        
     }
@@ -39,38 +41,31 @@ class CommonMplStages {
     //     script.echo "Vrte pull"
     // }
 
-    //   def stageBuild(Map env, Map stageInput = [:]){
-    //       commonStages.stageBuild(env, [:])
-         // }
-    //   def makeBuild(Map env, Map stageInput = [:]) {
-    //       commonStages.makeBuild(env, stageInput)
-    
-    //          }
-    //   def copyPFE(Map env, Map stageInput = [:]) {
-    //       commonStages.copyPFE(env, stageInput)
-             
-    //          }
-      def makeBuild(Map env, Map stageInput = [:]){
-        String qnxSdkPath = stageInput.qnx_sdk_path?.trim() ?: 'C:/Users/zrd2kor/qnx710'
-        String scm_checkout_dir = stageInput.custom_scm_checkout_dir?.trim() ?: ''
-        script.bat """
-            echo 'Set QNX env variable'
-            call ${qnxSdkPath}/qnxsdp-env.bat
-            echo 'starting building'
-            cd ${scm_checkout_dir}
-            make all
-        """
+  
+    //   def makeBuild(Map env, Map stageInput = [:]){
+    //     String qnxSdkPath = stageInput.qnx_sdk_path?.trim() ?: 'C:/Users/zrd2kor/qnx710'
+    //     String scm_checkout_dir = stageInput.custom_scm_checkout_dir?.trim() ?: ''
+    //     script.bat """
+    //         echo 'Set QNX env variable'
+    //         call ${qnxSdkPath}/qnxsdp-env.bat
+    //         echo 'starting building'
+    //         cd ${scm_checkout_dir}
+    //         make all
+    //     """
 
-      }
+    //   }
 
-       def copyPFE(Map env, Map stageInput = [:]){
-        String scm_checkout_dir = stageInput.custom_scm_checkout_dir?.trim() ?: 'C:/Users/zrd2kor/qnx710'
-        script.powershell """
-            cd ${scm_checkout_dir}
-            Copy-Item -Path 'pfe_1_1_0/*' -Destination 'pfe/' -Recurse -force
-        """
-    }
-    
+    //    def copyPFE(Map env, Map stageInput = [:]){
+    //     String scm_checkout_dir = stageInput.custom_scm_checkout_dir?.trim() ?: 'C:/Users/zrd2kor/qnx710'
+    //     script.powershell """
+    //         cd ${scm_checkout_dir}
+    //         Copy-Item -Path 'pfe_1_1_0/*' -Destination 'pfe/' -Recurse -force
+    //     """
+    // }
+        def makeBuildAndCopyPFE(Map env, Map stageInput = [:]) {
+        // Call QnxStages methods
+        qnxStages.makeBuild(env, stageInput)
+        qnxStages.copyPFE(env, stageInput)
   
 }
 
