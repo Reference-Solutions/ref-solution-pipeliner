@@ -27,6 +27,7 @@ class CommonMplPipeline extends BasePipeline {
             ''',
             // the keys exposed to the user for modification
             exposed: [
+               'archive_patterns',
                'qnx_stage',
                'qnx_sdk_path',
                'custom_scm_checkout_dir',

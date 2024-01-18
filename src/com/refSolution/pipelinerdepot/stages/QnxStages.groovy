@@ -14,7 +14,7 @@ class QnxStages {
     private Map env
     private LoggerDynamic logger
     private ScriptUtils utils
-    private QnxStages qnxStages
+    private CommonStages commonStages
 
     /**
      * Constructor
@@ -27,7 +27,7 @@ class QnxStages {
         this.env = env
         this.logger = new LoggerDynamic(script)
         this.utils = new ScriptUtils(script, env)
-        this.qnxStages = new QnxStages(script, env)
+        this.commonStages = new CommonStages(script, env)
     }
     
     def stageBuild(Map env, Map stageInput = [:]){
