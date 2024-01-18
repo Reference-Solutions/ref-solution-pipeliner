@@ -87,8 +87,11 @@ class CommonMplPipeline extends BasePipeline {
        
     }
 
-    void getCustomStages(){
-        CommonMplStages customStages = new CommonMplStages(script, env)
+    QnxStages getCustomStages() {
+        return qnxStages
+
+    //void getCustomStages(){
+       // CommonMplStages customStages = new CommonMplStages(script, env)
     }
 }
 
