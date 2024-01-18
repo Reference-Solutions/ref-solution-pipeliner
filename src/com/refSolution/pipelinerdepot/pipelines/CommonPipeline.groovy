@@ -28,6 +28,7 @@ class CommonPipeline extends BasePipeline {
                 sonar_stage = true
                 archive_stage = true
                 dac_stage = true
+                qnx_stage = true
                 label = windows-kiran
             """ + defaults.defaultInputs,
             // the keys exposed to the user for modification
@@ -51,7 +52,12 @@ class CommonPipeline extends BasePipeline {
                 'dac_stage',
                 'doc_build', 
                 'doc_publish',
-                'docsurl'
+                'docsurl',
+                'archive_patterns',
+                'qnx_stage',
+                'qnx_sdk_path',
+                'custom_scm_checkout_dir',
+                'pfe_copy'
             ] + defaults.exposed,
             // the keys for which pipeline should be parallelized
             parallel: [] + defaults.parallel
