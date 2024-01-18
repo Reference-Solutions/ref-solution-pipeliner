@@ -77,9 +77,9 @@ class CommonMplPipeline extends BasePipeline {
         
         if (stageInput.qnx_stage == "true")
             
-            commonStages.makeBuild(env, stageInput)
+            qnxStages.makeBuild(env, stageInput)
           
-            commonStages.copyPFE(env, stageInput)
+            qnxStages.copyPFE(env, stageInput)
            
        
     }
