@@ -1,6 +1,6 @@
 package com.refSolution.pipelinerdepot.pipelines
 import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
-import com.bosch.pipeliner.BasePipeline
+//import com.bosch.pipeliner.BasePipeline
 
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
 import com.refSolution.pipelinerdepot.stages.CommonStages
@@ -9,7 +9,7 @@ import com.refSolution.pipelinerdepot.stages.CommonStages
 
 
 
-class CommonMplPipeline extends BasePipeline {
+class CommonMplPipeline extends CommonPipeline {
       CommonStages commonStages
       //QnxStages qnxStages
       
@@ -77,9 +77,9 @@ class CommonMplPipeline extends BasePipeline {
         
         if (stageInput.qnx_stage == "true")
             
-            qnxStages.makeBuild(env, stageInput)
+            commonStages.makeBuild(env, stageInput)
           
-            qnxStages.copyPFE(env, stageInput)
+            commonStages.copyPFE(env, stageInput)
            
        
     }
