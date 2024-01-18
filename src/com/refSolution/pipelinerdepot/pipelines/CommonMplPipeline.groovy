@@ -12,7 +12,7 @@ import com.refSolution.pipelinerdepot.stages.QnxStages
 
 class CommonMplPipeline extends CommonPipeline {
       CommonStages commonStages
-      QnxStages qnxStages
+    
       
  
     

@@ -3,7 +3,7 @@ package com.refSolution.pipelinerdepot.stages
 import com.bosch.pipeliner.LoggerDynamic
 import com.bosch.pipeliner.ScriptUtils
 import com.refSolution.pipelinerdepot.stages.CommonStages
-import com.refSolution.pipelinerdepot.stages.QnxStages
+
 
 
 /**
@@ -16,7 +16,7 @@ class CommonMplStages {
     private LoggerDynamic logger
     private ScriptUtils utils
     private CommonStages commonStages
-    private QnxStages qnxStages 
+   
     
    
 
@@ -32,8 +32,7 @@ class CommonMplStages {
         this.logger = new LoggerDynamic(script)
         this.utils = new ScriptUtils(script, env)
         this.commonStages = new CommonStages(script, env)
-        this.qnxStages = new QnxStages(script, env)
-       
+        
        
     }
 
