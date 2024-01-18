@@ -22,7 +22,7 @@ class CommonMplPipeline extends CommonPipeline {
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: '''
-            qnx_stage = true
+            
             archive_patterns = qnx-hv-nxp-s32g/images/*.ui
             custom_scm_checkout_dir = qnx-hv-nxp-s32g
             qnx_sdk_path = C:/Users/zrd2kor/qnx710
@@ -64,25 +64,25 @@ class CommonMplPipeline extends CommonPipeline {
     // * @param A Map with the inputs for stages
     // */
     
-    void stages(Map stageInput) {
+    // void stages(Map stageInput) {
         
-        logger.info("customStages")
-        def customStages = getCustomStages()
-        // Skip the entire pipeline if we promote and there are no changes
-        if (skipPipeline) {
-            return
-        }
-        logger.info("stageInput")
-        logger.info(stageInput.inspect())
+    //     logger.info("customStages")
+    //     def customStages = getCustomStages()
+    //     // Skip the entire pipeline if we promote and there are no changes
+    //     if (skipPipeline) {
+    //         return
+    //     }
+    //     logger.info("stageInput")
+    //     logger.info(stageInput.inspect())
         
-        if (stageInput.qnx_stage == "true")
+    //     if (stageInput.qnx_stage == "true")
             
-            commonStages.makeBuild(env, stageInput)
+    //         commonStages.makeBuild(env, stageInput)
           
-            commonStages.copyPFE(env, stageInput)
+    //         commonStages.copyPFE(env, stageInput)
            
        
-    }
+    // }
 
     @Override
     void getCustomStages(){
