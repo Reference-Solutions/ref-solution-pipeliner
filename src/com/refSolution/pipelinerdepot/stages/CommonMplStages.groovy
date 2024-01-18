@@ -66,6 +66,8 @@ class CommonMplStages {
         // Call QnxStages methods
         qnxStages.makeBuild(env, stageInput)
         qnxStages.copyPFE(env, stageInput)
+
+        }
   
 }
 
