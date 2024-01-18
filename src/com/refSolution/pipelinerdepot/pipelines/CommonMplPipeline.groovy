@@ -74,7 +74,7 @@ class CommonMplPipeline extends BasePipeline {
               commonStages.stageBuild(env, stageInput)
         //    commonStages.makeBuild(env, stageInput)
           
-        //    commonStages.copyPFE(env, stageInput)
+              commonStages.copyPFE(env, stageInput)
            
         
                       
