@@ -1,18 +1,17 @@
 package com.refSolution.pipelinerdepot.pipelines
-//import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
+import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
 import com.bosch.pipeliner.BasePipeline
 
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
 import com.refSolution.pipelinerdepot.stages.CommonStages
-import com.refSolution.pipelinerdepot.stages.QnxStages
+
 
 
 
 
 class CommonMplPipeline extends BasePipeline {
       CommonStages commonStages
-      CommonMplStages customStages
-      QnxStages qnxStages
+      
  
     
     Boolean skipPipeline = false
@@ -47,8 +46,7 @@ class CommonMplPipeline extends BasePipeline {
 
    
         commonStages = new CommonStages(script, env)
-        customStages = new CommonMplStages(script, env)
-        qnxStages = new QnxStages(script, env)
+        
     
 
        }
@@ -73,12 +71,11 @@ class CommonMplPipeline extends BasePipeline {
         //if (stageInput.vrtepull_stage == "true")
             //commonVrteStages.vrtePull(env, stageInput)
         if (stageInput.qnx_stage == "true")
-           //commonStages.stageBuild(env, stageInput)
-           commonStages.makeBuild(env, stageInput)
-           customStagesInstance.makeBuild(env, stageInput)
-           commonStages.copyPFE(env, stageInput)
-           customStagesInstance.copyPFE(env, stageInput)
-           qnxStages.stageBuild(env, stageInput)
+              commonStages.stageBuild(env, stageInput)
+        //    commonStages.makeBuild(env, stageInput)
+          
+        //    commonStages.copyPFE(env, stageInput)
+           
         
                       
             
@@ -87,11 +84,9 @@ class CommonMplPipeline extends BasePipeline {
        
     }
 
-    QnxStages getCustomStages() {
-        return qnxStages
 
-    //void getCustomStages(){
-       // CommonMplStages customStages = new CommonMplStages(script, env)
+    void getCustomStages(){
+        CommonMplStages customStages = new CommonMplStages(script, env)
     }
 }
 

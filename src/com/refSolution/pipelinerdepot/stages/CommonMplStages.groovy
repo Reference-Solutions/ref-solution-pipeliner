@@ -15,7 +15,7 @@ class CommonMplStages {
     private LoggerDynamic logger
     private ScriptUtils utils
     private CommonStages commonStages
-    private QnxStages qnxStages
+    
    
 
     /**
@@ -30,7 +30,7 @@ class CommonMplStages {
         this.logger = new LoggerDynamic(script)
         this.utils = new ScriptUtils(script, env)
         this.commonStages = new CommonStages(script, env)
-        this.qnxStages = new QnxStages(script, env)
+       
        
     }
 
@@ -39,18 +39,18 @@ class CommonMplStages {
     //     script.echo "Vrte pull"
     // }
 
-     //def stageBuild(Map env, Map stageInput = [:]){
-         //qnxStages.stageBuild(env, [:])
-         // }
-      def makeBuild(Map env, Map stageInput = [:]) {
-          commonStages.makeBuild(env, stageInput)
-          qnxStages.makeBuild(env, stageInput)
+     def stageBuild(Map env, Map stageInput = [:]){
+         qnxStages.stageBuild(env, [:])
+          }
+    //   def makeBuild(Map env, Map stageInput = [:]) {
+    //       commonStages.makeBuild(env, stageInput)
+    //       qnxStages.makeBuild(env, stageInput)
     
-     }
-      def copyPFE(Map env, Map stageInput = [:]) {
-          commonStages.copyPFE(env, stageInput)
-          qnxStages.copyPFE(env, stageInput)
-    }
+    //  }
+    //   def copyPFE(Map env, Map stageInput = [:]) {
+    //       commonStages.copyPFE(env, stageInput)
+    //       qnxStages.copyPFE(env, stageInput)
+    // }
     
   
 }
