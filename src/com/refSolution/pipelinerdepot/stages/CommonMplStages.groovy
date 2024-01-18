@@ -50,6 +50,11 @@ class CommonMplStages {
     //     }
     // }
 
+        def stageBuild(Map env, Map stageInput = [:]){
+        qnxStage.stagebuild(env, stageInput)   
+
+        } 
+
     
         def makeBuild(Map env, Map stageInput = [:]) {
         // Call QnxStages methods
