@@ -51,13 +51,19 @@ class CommonMplStages {
     // }
 
     
-        def makeBuildAndCopyPFE(Map env, Map stageInput = [:]) {
+        def makeBuild(Map env, Map stageInput = [:]) {
         // Call QnxStages methods
         //qnxStage.stagebuild(env, stageInput)
         qnxStages.makeBuild(env, stageInput)
-        qnxStages.copyPFE(env, stageInput)
-
+        //qnxStages.copyPFE(env, stageInput)
         }
+
+        def copyPFE(Map env, Map stageInput = [:]) {
+        qnxStages.copyPFE(env, stageInput)   
+
+        } 
+
+
 
     //     def makeBuild(Map env, Map stageInput = [:]){
     //     String qnxSdkPath = stageInput.qnx_sdk_path?.trim() ?: 'C:/Users/zrd2kor/qnx710'
