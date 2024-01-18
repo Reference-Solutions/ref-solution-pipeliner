@@ -63,7 +63,7 @@ class CommonMplPipeline extends CommonPipeline {
     // *
     // * @param A Map with the inputs for stages
     // */
-    @Override
+    
     void stages(Map stageInput) {
         
         logger.info("customStages")
@@ -84,7 +84,7 @@ class CommonMplPipeline extends CommonPipeline {
        
     }
 
-
+    @Override
     void getCustomStages(){
         CommonMplStages customStages = new CommonMplStages(script, env)
     }
