@@ -23,6 +23,9 @@ class CommonMplPipeline extends BasePipeline {
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: '''
             qnx_stage = true
+            archive_patterns = qnx-hv-nxp-s32g/images/*.ui
+            custom_scm_checkout_dir = qnx-hv-nxp-s32g
+            qnx_sdk_path = C:/Users/zrd2kor/qnx710
                 
                 
             ''',
