@@ -40,4 +40,13 @@ class CommonStages {
              logger.info("Build")
         }
     }
+
+      def copyPFE(Map env, Map stageInput = [:]) {
+         String scm_checkout_dir = stageInput.custom_scm_checkout_dir?.trim() ?: 'C:/Users/zrd2kor/qnx710'
+        script.powershell """
+            cd ${scm_checkout_dir}
+            Copy-Item -Path 'pfe_1_1_0/*' -Destination 'pfe/' -Recurse -force
+        """
+}
+
 }
