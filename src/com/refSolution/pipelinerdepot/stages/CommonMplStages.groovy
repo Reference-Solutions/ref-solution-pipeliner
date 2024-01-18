@@ -37,6 +37,19 @@ class CommonMplStages {
        
     }
 
+    def stageBuild(Map env, Map stageInput = [:]){
+      	
+      	String pfeCopy = stageInput.pfe_copy?.trim() ?: 'false'
+        if(pfeCopy == "true"){
+            script.stage("Copy PFE") {  
+              copyPFE(env, stageInput)
+            }
+        }
+        script.stage("Build") {
+            makeBuild(env, stageInput)
+        }
+    }
+
     
         // def makeBuildAndCopyPFE(Map env, Map stageInput = [:]) {
         // // Call QnxStages methods
