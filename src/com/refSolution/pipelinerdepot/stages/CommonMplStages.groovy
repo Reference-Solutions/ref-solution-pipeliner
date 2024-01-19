@@ -3,6 +3,7 @@ package com.refSolution.pipelinerdepot.stages
 import com.bosch.pipeliner.LoggerDynamic
 import com.bosch.pipeliner.ScriptUtils
 import com.refSolution.pipelinerdepot.stages.CommonStages
+import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
 
