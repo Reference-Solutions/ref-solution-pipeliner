@@ -61,7 +61,7 @@ class OtaNgPipeline extends BasePipeline {
         logger.info(stageInput.inspect())
         if (stageInput.checkout_scm_stage == "true")
             commonGitStages.stageCheckoutSCM(env, stageInput)
-            commonGitStages.stageDownloadApplication(env, stageInput)
+        customStages.stageDownloadApplication(env, stageInput)
         customStages.stageSwPackgeCreation(env, stageInput)
         customStages.stageVehicePackgeCreation(env, stageInput)
 
