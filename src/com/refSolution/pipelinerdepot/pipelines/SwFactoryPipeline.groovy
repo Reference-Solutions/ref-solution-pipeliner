@@ -93,7 +93,7 @@ class SwFactoryPipeline extends BasePipeline {
                 'autosar_tool_env',
                 'project_variant',
                 'test'
-            ]
+            ],
             // the keys for which pipeline should be parallelized
             parallel: []
         ] as Map, env, ioMap)
