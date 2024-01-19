@@ -1,48 +1,15 @@
-package com.refSolution.pipelinerdepot.pipelines
+// CommonMplPipeline.groovy
 
-import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
-import com.refSolution.pipelinerdepot.stages.CommonStages
-import com.refSolution.pipelinerdepot.stages.CommonMplStages
+import com.refSolution.pipelinerdepot.pipelines.QnxPipeline
 
+// Create an instance of QnxPipeline
+def qnxPipeline = new QnxPipeline(this, env, ioMap)
 
-class CommonMplPipeline extends CommonPipeline {
-    CommonStages commonStages
-    
-    Boolean skipPipeline = false
+// Access or modify pipeline properties if needed
+qnxPipeline.archive_patterns = 'new-patterns/*.ui'
 
-    CommonMplPipeline(script, Map env, Map ioMap) {
-        super(script, [
-            // the input keys and their default values for the pipeline, can be
-            // overridden by user inputs from either MR message or Jenkins env
-            defaultInputs: '''
-                archive_patterns = qnx-hv-nxp-s32g/images/*.ui
-                custom_scm_checkout_dir = qnx-hv-nxp-s32g
-                qnx_sdk_path = C:/Users/zrd2kor/qnx710
-                
-            ''',
-            // the keys exposed to the user for modification
-            exposed: [
-                'archive_patterns',
-                'custom_scm_checkout_dir',
-                'qnx_sdk_path',
-              	'pfe_copy'
-                
-               ],
-            // the keys for which pipeline should be parallelized
-            parallel: []
-        ] as Map, env, ioMap)
+// Run common stages
+qnxPipeline.commonStages.runCommonStages()
 
-        // Specify the node label expression
-        // Looks like we can't use && syntax due to input parser
-        nodeLabelExpr = "windows-lab-pc"
-
-        
-        commonStages = new CommonStages(script, env)
-    }
-
-    @Override
-    void getCustomStages(){
-        CommonMplStages customStages = new CommonMplStages(script, env)
-    }
-}
-
+// Run custom stages for QNX pipeline
+qnxPipeline.getCustomStages()
