@@ -65,9 +65,12 @@ class CommonArtifactoryStages {
                 String tag = stageInput.github_tag.trim()
                 String owner = stageInput.github_owner.trim()
                 String repo = stageInput.github_repo.trim()
-                String releaseName = stageInput.github__OPD_release_name.trim()
+                String releaseName = stageInput.github_OPD_release_name.trim()
 
-                github.downloadFromArtifactory(tag,owner,repo,releaseName)
+                github.deleteFolderIfExists(releaseName)
+                github.downloadLatestRelease(tag,owner,repo,releaseName)
+                
+    
             }
 
             else{

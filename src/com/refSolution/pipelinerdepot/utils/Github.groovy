@@ -1,5 +1,4 @@
 package com.refSolution.pipelinerdepot.utils
-
 import com.bosch.pipeliner.LoggerDynamic
 import com.bosch.pipeliner.ScriptUtils
 import com.cloudbees.groovy.cps.NonCPS
@@ -50,13 +49,11 @@ public class Github {
         script.sh "gh release download ${tag} -R ${owner}/${repo} --pattern ${releaseName}"
     }
 
-    def deleteFolderIfExists(String folderPath) {
-        if (script.fileExists(folderPath)) {
-            script.sh "rm -rf ${folderPath}"
+    def deleteFolderIfExists(String releaseName) {
+        if (script.fileExists(releaseName)) {
+            script.sh "rm -rf ${releaseName}"
         }
     }
-}    
-    def Github = new Github(this, this.env)
-    Github.folderToDelete = 'OPD_main_v1.0.0.zip'
-    Github.deleteFolderIfExists(Github.folderToDelete)
-    Github.downloadLatestRelease('OPDv1.0.0', 'VVI4KOR', 'opd', 'OPD_main_v1.0.0.zip')
+}
+    
+    
