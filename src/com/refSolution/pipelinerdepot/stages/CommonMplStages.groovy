@@ -56,23 +56,23 @@ class CommonMplStages {
         // } 
 
     
-        // def makeBuild(Map env, Map stageInput = [:]) {
-        // // Call QnxStages methods
-        // //qnxStage.stagebuild(env, stageInput)
-        // commonStages.makeBuild(env, stageInput)
-        // //qnxStages.copyPFE(env, stageInput)
-        // }
+        def makeBuild(Map env, Map stageInput = [:]) {
+        // Call QnxStages methods
+        //qnxStage.stagebuild(env, stageInput)
+        commonStages.makeBuild(env, stageInput)
+        //qnxStages.copyPFE(env, stageInput)
+        }
 
-        // def copyPFE(Map env, Map stageInput = [:]) {
-        // commonStages.copyPFE(env, stageInput)   
+        def copyPFE(Map env, Map stageInput = [:]) {
+        commonStages.copyPFE(env, stageInput)   
 
-        // } 
+        } 
 
-        // Assuming you have an instance of QnxStages
-        def commonMplStagesInstance = new QnxStages(script, env)
+    //     // Assuming you have an instance of QnxStages
+    //     def commonMplStagesInstance = new QnxStages(script, env)
 
-       // Now, you can use commonMplStagesInstance instead of qnxStagesInstance
-        commonMplStagesInstance.stageBuild(env, stageInput)
+    //    // Now, you can use commonMplStagesInstance instead of qnxStagesInstance
+    //     commonMplStagesInstance.stageBuild(env, stageInput)
     
 
 
