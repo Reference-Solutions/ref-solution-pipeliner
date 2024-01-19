@@ -56,7 +56,7 @@ public class Github {
         }
     }
 }    
-    def github = new Github(this, this.env)
-    github.folderToDelete = 'OPD_main_v1.0.0.zip'
-    github.deleteFolderIfExists(github.folderToDelete)
-    github.downloadLatestRelease('OPDv1.0.0', 'VVI4KOR', 'opd', 'OPD_main_v1.0.0.zip')
+    def Github = new Github(this, this.env)
+    Github.folderToDelete = 'OPD_main_v1.0.0.zip'
+    Github.deleteFolderIfExists(Github.folderToDelete)
+    Github.downloadLatestRelease('OPDv1.0.0', 'VVI4KOR', 'opd', 'OPD_main_v1.0.0.zip')
