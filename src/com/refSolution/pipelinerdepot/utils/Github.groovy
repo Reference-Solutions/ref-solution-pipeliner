@@ -46,18 +46,20 @@ public class Github {
         this.utils = new ScriptUtils(script,env)
     }
     
-    def downloadLatestRelease(String tag, String owner, String repo, String releaseName) {     
-            sh "gh release download OPDv1.0.0 -R VVI4KOR/opd --pattern OPD_main_v1.0.0.zip"
+    def downloadLatestRelease(String tag, String owner, String repo, String releaseName) {
+        script.sh "gh release download ${tag} -R ${owner}/${repo} --pattern ${releaseName}"
+    }
 
+
+    def deleteFolderIfExists(String folderPath) {
+        if (script.fileExists(folderPath)) {
+            // Use sh to execute a shell command to delete the folder
+            script.sh "rm -rf ${folderPath}"
+        }
     }
-   
-    def Github = new Github()
-    
-    def folderToDelete = 'OPD_main_v1.0.0.zip'
-    if (fileExists(folderToDelete)) {
-    sh "rm -rf ${folderToDelete}"
-    }
-    
-    Github.downloadLatestRelease(tag, owner, repo, releaseName)
-   
 }
+        
+    def github = new Github(this, this.env)
+    github.folderToDelete = 'OPD_main_v1.0.0.zip'
+    github.deleteFolderIfExists(github.folderToDelete)
+    github.downloadLatestRelease('OPDv1.0.0', 'VVI4KOR', 'opd', 'OPD_main_v1.0.0.zip')
