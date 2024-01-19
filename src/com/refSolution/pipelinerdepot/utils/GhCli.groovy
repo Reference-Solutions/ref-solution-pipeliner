@@ -18,6 +18,7 @@ public class GhCli {
      * Logger object. Needs to be dynamic to display messages after the Jenkins master restart.
      */
     private LoggerDynamic logger
+    private ScriptUtils utils
 
     /**
      * Constructor
@@ -28,6 +29,8 @@ public class GhCli {
     public GhCli(def script, def env) {
         this.script = script
         this.logger = new LoggerDynamic(script)
+        this.logger = new LoggerDynamic(script)
+        this.utils = new ScriptUtils(script,env)
     }
 
     def GhCliReleaseDownload(String releaseTag, String owner, String repo, String pattern){
