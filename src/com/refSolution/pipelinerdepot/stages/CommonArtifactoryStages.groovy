@@ -17,6 +17,7 @@ class CommonArtifactoryStages {
     private LoggerDynamic logger
     private Conan conan
     private Nexus nexus
+    private Jfrog jfrog
     private Github github
 
     /**
