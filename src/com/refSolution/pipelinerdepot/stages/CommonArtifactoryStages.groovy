@@ -5,6 +5,7 @@ import com.bosch.pipeliner.LoggerDynamic
 import com.refSolution.pipelinerdepot.utils.Jfrog
 import com.refSolution.pipelinerdepot.utils.Conan
 import com.refSolution.pipelinerdepot.utils.Nexus
+import com.refSolution.pipelinerdepot.utils.Github
 
 /**
 * Contains stages that can be reused across pipelines
@@ -14,9 +15,9 @@ class CommonArtifactoryStages {
     private def script
     private Map env
     private LoggerDynamic logger
-    private Jfrog jfrog
     private Conan conan
     private Nexus nexus
+    private Github github
 
     /**
      * Constructor
@@ -30,6 +31,7 @@ class CommonArtifactoryStages {
         this.jfrog = new Jfrog(script, env)
         this.conan = new Conan(script, env)
         this.nexus = new Nexus(script, env)
+        this.github = new Github(script, env)
         this.logger = new LoggerDynamic(script)
     }
 
@@ -57,6 +59,17 @@ class CommonArtifactoryStages {
 
                 nexus.download(nexusUrl, repository, groupId, projectName, version, credentialsId, packaging, targetDirectory, fileNameRegex)
             }
+// ***********
+            else if (downloadType == "github"){
+                logger.info('DOWNLOAD FROM  GITHUB RELEASE')
+                String tag = stageInput.github_tag.trim()
+                String owner = stageInput.github_owner.trim()
+                String repo = stageInput.github_repo.trim()
+                String releaseName = stageInput.github__OPD_release_name.trim()
+
+                github.downloadFromArtifactory(tag,owner,repo,releaseName)
+            }
+
             else{
                 logger.warn('Artifactory Download is Skipped since Download Type is not proper. It sould be jfrog/nexus')
             }

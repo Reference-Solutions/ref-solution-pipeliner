@@ -38,7 +38,11 @@ class CommonArtifactory extends BasePipeline {
                 'nexus_classifier',
                 'nexus_file_pattern',
                 'nexus_packaging',
-                'nexus_download_dir'
+                'nexus_download_dir',
+                'github_repo',
+                'github_owner',
+                'github_tag',
+                'github__OPD_release_name'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
