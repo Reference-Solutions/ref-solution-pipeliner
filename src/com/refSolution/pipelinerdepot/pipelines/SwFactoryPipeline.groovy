@@ -40,7 +40,7 @@ class SwFactoryPipeline extends BasePipeline {
                 label = windows-lab-pc
                 artifact_version
                 archive_patterns
-            """ + defaults.defaultInputs,
+            """,
             // the keys exposed to the user for modification
             exposed: [
                 'checkout_scm_stage',
@@ -116,8 +116,6 @@ class SwFactoryPipeline extends BasePipeline {
     // */
     @Override
     void stages(Map stageInput) {
-        
-        logger.info("customStages")
         // Skip the entire pipeline if we promote and there are no changes
         if (skipPipeline) {
             return
