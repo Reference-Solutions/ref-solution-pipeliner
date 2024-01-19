@@ -45,12 +45,23 @@ public class Github {
         script.sh "gh release download ${tag} -R ${owner}/${repo} --pattern ${relname}"
     }
 
+    def downloadAVHLatestRelease(String AVH_tag, String AVH_owner, String AVH_repo, String AVH_relname) {
+        script.sh "gh release download ${AVH_tag} -R ${AVH_owner}/${AVH_repo} --pattern ${AVH_relname}"
+    }
+
     def deleteFolderIfExists(String relname) {
         
         if (script.fileExists(relname)) {
             script.sh "rm -rf ${relname}"
         }
     }
+
+
+    def deleteAVHFolderIfExists(String AVH_relname) {
+        
+        if (script.fileExists(AVH_relname)) {
+            script.sh "rm -rf ${AVH_relname}"
+        }
+    }
 }
-    
     

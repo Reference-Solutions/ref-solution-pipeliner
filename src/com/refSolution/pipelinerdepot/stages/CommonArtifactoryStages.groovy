@@ -69,8 +69,16 @@ class CommonArtifactoryStages {
                 String releaseName = stageInput.github_releaseName?.trim()
                 String relname = "OPD_main_v1.0.0.zip"
 
+                String AVH_tag = stageInput.github_AVH_tag?.trim()
+                String AVH_owner = stageInput.github_AVH_owner?.trim()
+                String AVH_repo = stageInput.github_AVH_repo?.trim()
+                String AVH_releaseName = stageInput.github_AVH_releaseName?.trim()
+                String AVH_relname = "AVH_main_v1.0.0.zip"
+
                 github.deleteFolderIfExists(relname)
+                github.deleteFolderIfExists(AVH_relname)
                 github.downloadLatestRelease(tag,owner,repo,relname)
+                github.downloadLatestRelease(tag,owner,repo,AVH_relname)
             }
 
             else{
