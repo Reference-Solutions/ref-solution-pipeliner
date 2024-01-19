@@ -50,15 +50,12 @@ public class Github {
         script.sh "gh release download ${tag} -R ${owner}/${repo} --pattern ${releaseName}"
     }
 
-
     def deleteFolderIfExists(String folderPath) {
         if (script.fileExists(folderPath)) {
-            // Use sh to execute a shell command to delete the folder
             script.sh "rm -rf ${folderPath}"
         }
     }
-}
-        
+}    
     def github = new Github(this, this.env)
     github.folderToDelete = 'OPD_main_v1.0.0.zip'
     github.deleteFolderIfExists(github.folderToDelete)
