@@ -9,11 +9,7 @@ import groovy.json.JsonSlurperClassic
  */
 
 public class Github {
-    /**
-     * The artifactory object instance from Jenkins
-     */
-    private ArtifactoryServer artifactory = null
-
+    
     /**
      * The script object instance from Jenkins
      */
