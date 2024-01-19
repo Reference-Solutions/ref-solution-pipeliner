@@ -44,9 +44,9 @@ public class Github {
     def downloadLatestRelease(String tag, String owner, String repo, String relname) {
         script.sh "gh release download ${tag} -R ${owner}/${repo} --pattern ${relname}"
     }
-
-    def downloadAVHLatestRelease(String AVH_tag, String AVH_owner, String AVH_repo, String AVH_relname) {
-        script.sh "gh release download ${AVH_tag} -R ${AVH_owner}/${AVH_repo} --pattern ${AVH_relname}"
+ 
+    def downloadAVHLatestRelease(String avh_tag, String avh_owner, String avh_repo, String avh_relname) {
+        script.sh "gh release download ${avh_tag} -R ${avh_owner}/${avh_repo} --pattern ${avh_relname}"
     }
 
     def deleteFolderIfExists(String relname) {
@@ -57,10 +57,10 @@ public class Github {
     }
 
 
-    def deleteAVHFolderIfExists(String AVH_relname) {
+    def deleteAVHFolderIfExists(String avh_relname) {
         
-        if (script.fileExists(AVH_relname)) {
-            script.sh "rm -rf ${AVH_relname}"
+        if (script.fileExists(avh_relname)) {
+            script.sh "rm -rf ${avh_relname}"
         }
     }
 }

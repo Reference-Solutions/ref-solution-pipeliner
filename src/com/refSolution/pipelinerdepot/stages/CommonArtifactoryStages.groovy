@@ -66,19 +66,19 @@ class CommonArtifactoryStages {
                 String tag = stageInput.github_tag?.trim()
                 String owner = stageInput.github_owner?.trim()
                 String repo = stageInput.github_repo?.trim()
-                String releaseName = stageInput.github_releaseName?.trim()
+                String releasename = stageInput.github_releasename?.trim()
                 String relname = "OPD_main_v1.0.0.zip"
-
-                String AVH_tag = stageInput.github_AVH_tag?.trim()
-                String AVH_owner = stageInput.github_AVH_owner?.trim()
-                String AVH_repo = stageInput.github_AVH_repo?.trim()
-                String AVH_releaseName = stageInput.github_AVH_releaseName?.trim()
-                String AVH_relname = "AVH_main_v1.0.0.zip"
+ 
+                String avh_tag = stageInput.github_avh_tag?.trim()
+                String avh_owner = stageInput.github_avh_owner?.trim()
+                String avh_repo = stageInput.github_avh_repo?.trim()
+                String avh_releasename = stageInput.github_avh_releasename?.trim()
+                String avh_relname = "AVH_main_v1.0.0.zip"
 
                 github.deleteFolderIfExists(relname)
-                github.deleteAVHFolderIfExists(AVH_relname)
+                github.deleteAVHFolderIfExists(avh_relname)
                 github.downloadLatestRelease(tag,owner,repo,relname)
-                github.downloadAVHLatestRelease(AVH_tag,AVH_owner,AVH_repo,AVH_relname)
+                github.downloadAVHLatestRelease(avh_tag,avh_owner,avh_repo,avh_relname)
             }
 
             else{
