@@ -37,7 +37,7 @@ class OtaNgStages {
     def stageDownloadApplication(Map env, Map stageInput = [:]){
             script.stage("Download Releases from Github") {
                 String releaseTag = stageInput.Github_releaseTag?.trim()
-                String owner = stageInput.Github_owner?.trim()
+                String owner = stageInput.Github_owner?.trim()        
                 String repo = stageInput.Github_repo?.trim()
                 String pattern = stageInput.Github_pattern?.trim()
 
