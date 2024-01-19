@@ -52,13 +52,12 @@ public class Github {
     }
    
     def Github = new Github()
-    deleteDir()
-
-
+    
     def folderToDelete = 'OPD_main_v1.0.0.zip'
     if (fileExists(folderToDelete)) {
     sh "rm -rf ${folderToDelete}"
     }
+    
     Github.downloadLatestRelease(tag, owner, repo, releaseName)
    
 }
