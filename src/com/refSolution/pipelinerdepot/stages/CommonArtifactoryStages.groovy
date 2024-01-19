@@ -76,9 +76,9 @@ class CommonArtifactoryStages {
                 String AVH_relname = "AVH_main_v1.0.0.zip"
 
                 github.deleteFolderIfExists(relname)
-                github.deleteFolderIfExists(AVH_relname)
+                github.deleteAVHFolderIfExists(AVH_relname)
                 github.downloadLatestRelease(tag,owner,repo,relname)
-                github.downloadLatestRelease(tag,owner,repo,AVH_relname)
+                github.downloadAVHLatestRelease(AVH_tag,AVH_owner,AVH_repo,AVH_relname)
             }
 
             else{
