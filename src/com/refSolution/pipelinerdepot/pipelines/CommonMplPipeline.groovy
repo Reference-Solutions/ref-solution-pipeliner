@@ -12,7 +12,7 @@ import com.refSolution.pipelinerdepot.stages.CommonStages
 
 class CommonMplPipeline extends CommonPipeline {
       CommonStages commonStages
-      CommonMplStages commonMplStages
+      //CommonMplStages commonMplStages
     
       
  
@@ -54,7 +54,7 @@ class CommonMplPipeline extends CommonPipeline {
 
    
         commonStages = new CommonStages(script, env)
-        commonMplStages = new CommonMplStages(script, env)
+        //commonMplStages = new CommonMplStages(script, env)
         //qnxStages = new QnxStages(script, env)
         
     
