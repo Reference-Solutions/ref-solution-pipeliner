@@ -70,8 +70,6 @@ class CommonArtifactoryStages {
 
                 github.deleteFolderIfExists(releaseName)
                 github.downloadLatestRelease(tag,owner,repo,releaseName)
-                
-    
             }
 
             else{
