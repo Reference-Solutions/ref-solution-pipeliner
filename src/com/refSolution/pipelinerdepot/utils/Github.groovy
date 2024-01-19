@@ -41,13 +41,14 @@ public class Github {
         this.utils = new ScriptUtils(script,env)
     }
     
-    def downloadLatestRelease(String tag, String owner, String repo, String releaseName) {
-        script.sh "gh release download ${tag} -R ${owner}/${repo} --pattern ${releaseName}"
+    def downloadLatestRelease(String tag, String owner, String repo, String relname) {
+        script.sh "gh release download ${tag} -R ${owner}/${repo} --pattern ${relname}"
     }
 
-    def deleteFolderIfExists(String releaseName) {
-        if (script.fileExists(releaseName)) {
-            script.sh "rm -rf ${releaseName}"
+    def deleteFolderIfExists(String relname) {
+        
+        if (script.fileExists(relname)) {
+            script.sh "rm -rf ${relname}"
         }
     }
 }
