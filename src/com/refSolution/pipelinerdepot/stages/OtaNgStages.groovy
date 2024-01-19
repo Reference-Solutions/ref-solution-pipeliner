@@ -4,6 +4,8 @@ package com.refSolution.pipelinerdepot.stages
 import com.bosch.pipeliner.LoggerDynamic
 import com.bosch.pipeliner.ScriptUtils
 import java.io.File
+import com.refSolution.pipelinerdepot.utils.GhCli
+
 
 /**
 * Contains stages that can be reused across pipelines
@@ -32,6 +34,15 @@ class OtaNgStages {
         this.logger = new LoggerDynamic(script)
     }
     
+    def stageDownloadApplication(Map env, Map stageInput = [:]){
+            script.stage("Download Releases from Github") {
+                String releaseTag = stageInput.Github_releaseTag?.trim()
+                String owner = stageInput.Github_owner?.trim()
+                String repo = stageInput.Github_repo?.trim()
+                String pattern = stageInput.Github_pattern?.trim()
+
+        def GhCliReleaseDownload(String releaseTag, String owner, String repo, String pattern)
+    }
     def stageSwPackgeCreation(Map env, Map stageInput = [:]){
         script.stage("SW Package Creation") {
             

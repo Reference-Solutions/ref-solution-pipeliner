@@ -5,7 +5,6 @@ import com.bosch.pipeliner.LoggerDynamic
 import com.refSolution.pipelinerdepot.utils.Jfrog
 import com.refSolution.pipelinerdepot.utils.Conan
 import com.refSolution.pipelinerdepot.utils.Nexus
-import com.refSolution.pipelinerdepot.utils.Github
 
 /**
 * Contains stages that can be reused across pipelines
@@ -15,10 +14,9 @@ class CommonArtifactoryStages {
     private def script
     private Map env
     private LoggerDynamic logger
+    private Jfrog jfrog
     private Conan conan
     private Nexus nexus
-    private Jfrog jfrog
-    private Github github
 
     /**
      * Constructor
@@ -32,7 +30,6 @@ class CommonArtifactoryStages {
         this.jfrog = new Jfrog(script, env)
         this.conan = new Conan(script, env)
         this.nexus = new Nexus(script, env)
-        this.github = new Github(script, env)
         this.logger = new LoggerDynamic(script)
     }
 
@@ -60,27 +57,6 @@ class CommonArtifactoryStages {
 
                 nexus.download(nexusUrl, repository, groupId, projectName, version, credentialsId, packaging, targetDirectory, fileNameRegex)
             }
-// ***********
-            else if (downloadType == "github"){
-                logger.info('DOWNLOAD FROM  GITHUB RELEASE')
-                String tag = stageInput.github_tag?.trim()
-                String owner = stageInput.github_owner?.trim()
-                String repo = stageInput.github_repo?.trim()
-                String releasename = stageInput.github_releasename?.trim()
-                String relname = "OPD_main_v1.0.0.zip"
- 
-                String avh_tag = stageInput.github_avh_tag?.trim()
-                String avh_owner = stageInput.github_avh_owner?.trim()
-                String avh_repo = stageInput.github_avh_repo?.trim()
-                String avh_releasename = stageInput.github_avh_releasename?.trim()
-                String avh_relname = "AVH_main_v1.0.0.zip"
-
-                github.deleteFolderIfExists(relname)
-                github.deleteAVHFolderIfExists(avh_relname)
-                github.downloadLatestRelease(tag,owner,repo,relname)
-                github.downloadAVHLatestRelease(avh_tag,avh_owner,avh_repo,avh_relname)
-            }
-
             else{
                 logger.warn('Artifactory Download is Skipped since Download Type is not proper. It sould be jfrog/nexus')
             }

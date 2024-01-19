@@ -28,7 +28,12 @@ class OtaNgPipeline extends BasePipeline {
                 'app_version',
                 'action_type',
                 'vrtefs_tool_path',
-                'vpkg_dir_path'
+                'vpkg_dir_path',
+                'Github_releaseTag',
+                'Github_owner',
+                'Github_repo',
+                'Github_pattern',
+
             ] + defaults.exposed,
             // the keys for which pipeline should be parallelized
             parallel: [] + defaults.parallel
@@ -56,8 +61,10 @@ class OtaNgPipeline extends BasePipeline {
         logger.info(stageInput.inspect())
         if (stageInput.checkout_scm_stage == "true")
             commonGitStages.stageCheckoutSCM(env, stageInput)
+            commonGitStages.stageDownloadApplication(env, stageInput)
         customStages.stageSwPackgeCreation(env, stageInput)
         customStages.stageVehicePackgeCreation(env, stageInput)
+
     }
     
     void getCustomStages(){
