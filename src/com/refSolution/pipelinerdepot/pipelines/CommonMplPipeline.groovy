@@ -4,7 +4,7 @@ import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
 
 import com.refSolution.pipelinerdepot.stages.CommonMplStages
 import com.refSolution.pipelinerdepot.stages.CommonStages
-//import com.refSolution.pipelinerdepot.stages.QnxStages
+import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
 
