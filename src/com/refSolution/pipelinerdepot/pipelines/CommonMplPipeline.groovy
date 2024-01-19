@@ -1,3 +1,4 @@
+package com.refSolution.pipelinerdepot.pipelines
 // CommonMplPipeline.groovy
 
 import com.refSolution.pipelinerdepot.pipelines.QnxPipeline
