@@ -42,7 +42,12 @@ class CommonArtifactory extends BasePipeline {
                 'github_repo',
                 'github_owner',
                 'github_tag',
-                'github_releaseName'
+                'github_releaseName',
+                'github_AVH_repo',
+                'github_AVH_owner',
+                'github_AVH_tag',
+                'github_AVH_releaseName'
+                 
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
