@@ -137,6 +137,5 @@ class SwFactoryPipeline extends BasePipeline {
             commonVersioningStages.stageVersioningArtifacts(env,stageInput)
         if (stageInput.archive_stage == "true")
             commonArchiveStages.stageArchive(stageInput)
-        }
     }
 }
