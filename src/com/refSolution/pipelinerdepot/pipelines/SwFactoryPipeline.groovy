@@ -18,8 +18,10 @@ class SwFactoryPipeline extends BasePipeline {
     CommonArchiveStages commonArchiveStages
     CommonDacStages commonDacStages
     CommonVersioningStages commonVersioningStages
+    CommonArtifactoryStages commonArtifactoryStages
     QnxStages qnxStages
     ArcBswStages arcBswStages
+    
 
     
     Boolean skipPipeline = false

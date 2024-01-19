@@ -16,6 +16,7 @@ class CommonPipeline extends BasePipeline {
     CommonArchiveStages commonArchiveStages
     CommonDacStages commonDacStages
     CommonVersioningStages commonVersioningStages
+    CommonArtifactoryStages commonArtifactoryStages
 
     
     Boolean skipPipeline = false
