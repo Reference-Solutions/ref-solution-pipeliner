@@ -8,6 +8,8 @@ import com.refSolution.pipelinerdepot.stages.CommonArchiveStages
 import com.refSolution.pipelinerdepot.stages.CommonVersioningStages
 import com.refSolution.pipelinerdepot.stages.CommonDacStages
 import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
+import com.refSolution.pipelinerdepot.stages.ArcBswStages
+import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
 class SwFactoryPipeline extends BasePipeline {
