@@ -3,7 +3,7 @@ package com.refSolution.pipelinerdepot.stages
 import com.bosch.pipeliner.LoggerDynamic
 import com.bosch.pipeliner.ScriptUtils
 import com.refSolution.pipelinerdepot.stages.CommonStages
-import com.refSolution.pipelinerdepot.stages.QnxStages
+//import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
 
@@ -37,18 +37,18 @@ class CommonMplStages {
        
     }
 
-    // def stageBuild(Map env, Map stageInput = [:]){
+    def stageBuild(Map env, Map stageInput = [:]){
       	
-    //   	String pfeCopy = stageInput.pfe_copy?.trim() ?: 'false'
-    //     if(pfeCopy == "true"){
-    //         script.stage("Copy PFE") {  
-    //           copyPFE(env, stageInput)
-    //         }
-    //     }
-    //     script.stage("Build") {
-    //         makeBuild(env, stageInput)
-    //     }
-    // }
+      	String pfeCopy = stageInput.pfe_copy?.trim() ?: 'false'
+        if(pfeCopy == "true"){
+            script.stage("Copy PFE") {  
+              copyPFE(env, stageInput)
+            }
+        }
+        script.stage("Build") {
+            makeBuild(env, stageInput)
+        }
+    }
 
         // def stageBuild(Map env, Map stageInput = [:]){
         // commonStages.stagebuild(env, stageInput)   
