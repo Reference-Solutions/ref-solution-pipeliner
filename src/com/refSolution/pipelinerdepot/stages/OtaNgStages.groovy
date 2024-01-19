@@ -41,7 +41,7 @@ class OtaNgStages {
                 String repo = stageInput.Github_repo?.trim()
                 String pattern = stageInput.Github_pattern?.trim()
 
-                GhCli.GhCliReleaseDownload(releaseTag, owner, repo, pattern)
+                GhCli.GhCliReleaseDownload(String releaseTag, String owner, String repo, String pattern)
         }
     }
     def stageSwPackgeCreation(Map env, Map stageInput = [:]){
