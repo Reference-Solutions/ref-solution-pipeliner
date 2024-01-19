@@ -12,6 +12,7 @@ import com.refSolution.pipelinerdepot.stages.CommonStages
 
 class CommonMplPipeline extends CommonPipeline {
       CommonStages commonStages
+      CommonMplStages commonMplStages
     
       
  
@@ -53,6 +54,7 @@ class CommonMplPipeline extends CommonPipeline {
 
    
         commonStages = new CommonStages(script, env)
+        commonMplStages = new CommonMplStages(script, env)
         //qnxStages = new QnxStages(script, env)
         
     
@@ -66,25 +68,25 @@ class CommonMplPipeline extends CommonPipeline {
     // * @param A Map with the inputs for stages
     // */
     
-    void stages(Map stageInput) {
+    // void stages(Map stageInput) {
         
-        logger.info("customStages")
-        def customStages = getCustomStages()
-        // Skip the entire pipeline if we promote and there are no changes
-        if (skipPipeline) {
-            return
-        }
-        logger.info("stageInput")
-        logger.info(stageInput.inspect())
+    //     logger.info("customStages")
+    //     def customStages = getCustomStages()
+    //     // Skip the entire pipeline if we promote and there are no changes
+    //     if (skipPipeline) {
+    //         return
+    //     }
+    //     logger.info("stageInput")
+    //     logger.info(stageInput.inspect())
         
-        if (stageInput.qnx_stage == "true")
+    //     if (stageInput.qnx_stage == "true")
             
-            commonStages.makeBuild(env, stageInput)
+    //         commonStages.makeBuild(env, stageInput)
           
-            commonStages.copyPFE(env, stageInput)
+    //         commonStages.copyPFE(env, stageInput)
            
        
-    }
+    //}
 
     @Override
     void getCustomStages(){
