@@ -49,10 +49,10 @@ class CommonMplStages {
     //     }
     // }
 
-        def stageBuild(Map env, Map stageInput = [:]){
-        commonStages.stagebuild(env, stageInput)   
+        // def stageBuild(Map env, Map stageInput = [:]){
+        // commonStages.stagebuild(env, stageInput)   
 
-        } 
+        // } 
 
     
         def makeBuild(Map env, Map stageInput = [:]) {
