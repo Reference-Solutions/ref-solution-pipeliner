@@ -70,9 +70,10 @@ class ArcBswStages {
         String autosarToolEnv = stageInput.autosar_tool_env.trim()
         String projectVariant = stageInput.project_variant.trim()
         script.bat """
+            mkdir aeee_pro_workspace
             call tini -useEnv:cdg.de ${autosarTool} ${autosarToolVersion}
-            call ${autosarTool} -convertbcttoabacus -p ${autosarProject} -m ${projectVariant}
-            call ${autosarTool} -cdgb rebuild -p ${autosarProject} -m ${projectVariant}
+            call ${autosarTool} -convertbcttoabacus -p ${autosarProject} -m ${projectVariant} -w aeee_pro_workspace
+            call ${autosarTool} -cdgb rebuild -p ${autosarProject} -m ${projectVariant} -w aeee_pro_workspace
         """
     }
 
