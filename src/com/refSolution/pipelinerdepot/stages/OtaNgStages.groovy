@@ -40,7 +40,7 @@ class OtaNgStages {
                 String owner = stageInput.Github_owner?.trim()        
                 String repo = stageInput.Github_repo?.trim()
                 String pattern = stageInput.Github_pattern?.trim()
-
+                logger.info "${releaseTag}"
                 GhCli.GhCliReleaseDownload(releaseTag, owner, repo, pattern)
         }
     }
