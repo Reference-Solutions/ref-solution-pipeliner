@@ -36,11 +36,11 @@ class QnxStages {
         String qnxSrcDir = stageInput.qnx_src_dir.trim()
       	String pfeCopy = stageInput.pfe_copy?.trim() ?: 'false'
         if(pfeCopy == "true"){
-            script.stage("Copy PFE") {
+            script.stage("QNX Copy PFE") {
                 copyPFE(qnxSrcDir)
             }
         }
-        script.stage("Build") {
+        script.stage("QNX Build") {
             makeBuild(qnxSdkPath, qnxSrcDir)
         }
     }

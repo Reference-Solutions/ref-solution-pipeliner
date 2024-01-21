@@ -10,7 +10,7 @@ import com.refSolution.pipelinerdepot.stages.CommonDacStages
 import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
 import com.refSolution.pipelinerdepot.stages.ArcBswStages
 import com.refSolution.pipelinerdepot.stages.QnxStages
-
+import com.refSolution.pipelinerdepot.stages.OtaNgStages
 
 class SwFactoryPipeline extends BasePipeline {
     CommonGitStages commonGitStages
@@ -21,9 +21,8 @@ class SwFactoryPipeline extends BasePipeline {
     CommonArtifactoryStages commonArtifactoryStages
     QnxStages qnxStages
     ArcBswStages arcBswStages
-    
+    OtaNgStages otaNgStages
 
-    
     Boolean skipPipeline = false
 
     SwFactoryPipeline(script, Map env, Map ioMap) {
@@ -39,6 +38,7 @@ class SwFactoryPipeline extends BasePipeline {
                 archive_stage = true
                 dac_stage = true
                 artifactory_upload_stage = true
+                sw_package_creation_stage = true
                 label = windows-lab-pc
                 artifact_version
                 archive_patterns
@@ -52,6 +52,7 @@ class SwFactoryPipeline extends BasePipeline {
                 'versioning_stage',
                 'archive_stage',
                 'artifactory_upload_stage',
+                'sw_package_creation_stage',
                 'submodules_depth',
                 'submodules_shallow',
                 'submodules_disable',
@@ -108,6 +109,7 @@ class SwFactoryPipeline extends BasePipeline {
         commonArtifactoryStages = new CommonArtifactoryStages(script, env)
         qnxStages = new QnxStages(script, env)
         arcBswStages = new ArcBswStages(script, env)
+        otaNgStages = new OtaNgStages(script, env)
 
     }
 
@@ -137,5 +139,10 @@ class SwFactoryPipeline extends BasePipeline {
             commonVersioningStages.stageVersioningArtifacts(env,stageInput)
         if (stageInput.archive_stage == "true")
             commonArchiveStages.stageArchive(stageInput)
+            
+        if (stageInput.sw_package_creation_stage == "true"){
+            otaNgStages.stageSwPackgeCreation(env, stageInput)
+            otaNgStages.stageVehicePackgeCreation(env, stageInput)
+        }
     }
 }

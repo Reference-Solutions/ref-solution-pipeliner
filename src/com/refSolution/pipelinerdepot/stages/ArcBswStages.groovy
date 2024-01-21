@@ -41,7 +41,7 @@ class ArcBswStages {
         script.stage("Generate Libraries") {
             generateLibraries(env, stageInput)
         }
-        script.stage("Build") {
+        script.stage("ARC Build") {
             build(env, stageInput)
         }
     }
