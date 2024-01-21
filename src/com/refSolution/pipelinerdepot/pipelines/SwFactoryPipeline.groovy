@@ -95,7 +95,15 @@ class SwFactoryPipeline extends BasePipeline {
                 'autosar_tool_version',
                 'autosar_tool_env',
                 'project_variant',
-                'qnx_src_dir'
+                'qnx_src_dir',
+                'swc_dir_path',
+                'gen_swp_dir_path',
+                'app_dir_path',
+                'app_name',
+                'app_version',
+                'action_type',
+                'vrtefs_tool_path',
+                'vpkg_dir_path'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
