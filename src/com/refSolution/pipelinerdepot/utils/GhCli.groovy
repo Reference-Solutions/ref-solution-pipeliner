@@ -31,7 +31,7 @@ public class GhCli {
         
     }
 
-    static void  GhCliReleaseDownload(String releasetag, String owner, String repo, String pattern){
+    def  GhCliReleaseDownload(String releasetag, String owner, String repo, String pattern){
 // gh auth login
 // gh auth logout
                 script.sh """
@@ -40,5 +40,5 @@ public class GhCli {
                     
                 """
             
-            }
-        }
+    }
+}
