@@ -29,7 +29,7 @@ class OtaNgPipeline extends BasePipeline {
                 'action_type',
                 'vrtefs_tool_path',
                 'vpkg_dir_path',
-                'github_releaseTag',
+                'github_releasetag',
                 'github_owner',
                 'github_repo',
                 'github_pattern',

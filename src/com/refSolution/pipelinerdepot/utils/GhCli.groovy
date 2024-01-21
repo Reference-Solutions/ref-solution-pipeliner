@@ -31,12 +31,12 @@ public class GhCli {
         
     }
 
-    def GhCliReleaseDownload(String releaseTag, String owner, String repo, String pattern){
+    def GhCliReleaseDownload(String releasetag, String owner, String repo, String pattern){
 // gh auth login
 // gh auth logout
                 script.sh """
                     rm -rf ${pattern}"
-                    gh release download ${releaseTag} -R ${owner}/${repo} --pattern ${pattern}"
+                    gh release download ${releasetag} -R ${owner}/${repo} --pattern ${pattern}"
                     
                 """
             
