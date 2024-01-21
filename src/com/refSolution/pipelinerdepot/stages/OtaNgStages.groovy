@@ -36,10 +36,10 @@ class OtaNgStages {
     
     def stageDownloadApplication(Map env, Map stageInput = [:]){
             script.stage("Download Releases from Github") {
-                String releaseTag = stageInput.Github_releaseTag?.trim()
-                String owner = stageInput.Github_owner?.trim()        
-                String repo = stageInput.Github_repo?.trim()
-                String pattern = stageInput.Github_pattern?.trim()
+                String releaseTag = stageInput.github_releaseTag?.trim()
+                String owner = stageInput.github_owner?.trim()        
+                String repo = stageInput.github_repo?.trim()
+                String pattern = stageInput.github_pattern?.trim()
                 logger.info "${releaseTag}"
                 GhCli.GhCliReleaseDownload(releaseTag, owner, repo, pattern)
         }

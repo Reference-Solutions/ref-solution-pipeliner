@@ -29,10 +29,10 @@ class OtaNgPipeline extends BasePipeline {
                 'action_type',
                 'vrtefs_tool_path',
                 'vpkg_dir_path',
-                'Github_releaseTag',
-                'Github_owner',
-                'Github_repo',
-                'Github_pattern',
+                'github_releaseTag',
+                'github_owner',
+                'github_repo',
+                'github_pattern',
 
             ] + defaults.exposed,
             // the keys for which pipeline should be parallelized
