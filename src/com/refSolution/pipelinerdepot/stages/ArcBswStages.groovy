@@ -72,8 +72,12 @@ class ArcBswStages {
         script.bat """
             mkdir aeee_pro_workspace
             call tini -useEnv:cdg.de ${autosarTool} ${autosarToolVersion}
+            sleep 5
             call ${autosarTool} -convertbcttoabacus -p ${autosarProject} -m ${projectVariant} -w aeee_pro_workspace
-            call ${autosarTool} -cdgb rebuild -p ${autosarProject} -m ${projectVariant} -w aeee_pro_workspace
+            sleep 5
+            call ${autosarTool} -cdgb clean -p ${autosarProject} -m ${projectVariant} -w aeee_pro_workspace
+            sleep 5
+            call ${autosarTool} -cdgb build -p ${autosarProject} -m ${projectVariant} -w aeee_pro_workspace
         """
     }
 
