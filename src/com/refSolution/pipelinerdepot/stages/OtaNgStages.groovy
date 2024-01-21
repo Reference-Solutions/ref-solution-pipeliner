@@ -42,7 +42,6 @@ class OtaNgStages {
                 String pattern = stageInput.github_pattern?.trim()
                 logger.info "${releasetag}"
                 GhCli.GhCliReleaseDownload("${releasetag}", "${owner}", "${repo}, "${pattern})
-        }
     }
     def stageSwPackgeCreation(Map env, Map stageInput = [:]){
         script.stage("SW Package Creation") {
