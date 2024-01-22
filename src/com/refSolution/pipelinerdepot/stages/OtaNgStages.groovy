@@ -41,6 +41,8 @@ class OtaNgStages {
                 String repo = stageInput.github_repo?.trim()
                 String pattern = stageInput.github_pattern?.trim()
                 logger.info "${releasetag}"
+                // 
+                // GhCli ghCli = new GhCli(script, env)
                 GhCli.GhCliReleaseDownload(releasetag, owner, repo, pattern)
             }
     }
