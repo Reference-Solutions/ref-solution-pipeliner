@@ -19,35 +19,18 @@ class CommonMplPipeline extends BasePipeline {
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: """
-                checkout_scm_stage = true
-                checkout_stage = true
-                build_stage = true
-                versioning_stage = true
-                archive_stage = true
+                qnx_build_stage = true
                 label = windows-lab-pc
-                artifact_version
-                archive_patterns
+                
             """,
             // the keys exposed to the user for modification
             exposed: [
-                'checkout_scm_stage',
-                'checkout_stage',
+                
                 'custom_scm_checkout_dir',
                 'qnx_sdk_path',
               	'pfe_copy',
-                'build_dir_path',
-                'bsw_dir_path',
-                'bsw_pre_build_file_name',
-                'project_variant',
-                'qnx_src_dir',
-                'swc_dir_path',
-                'gen_swp_dir_path',
-                'app_dir_path',
-                'app_name',
-                'app_version',
-                'action_type',
-                'vrtefs_tool_path',
-                'vpkg_dir_path'
+                'build_dir_path'
+                
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
@@ -76,8 +59,8 @@ class CommonMplPipeline extends BasePipeline {
        
         if (stageInput.qnx_build_stage == "true")
             qnxStages.stageBuild(env,stageInput)
-        if (stageInput.m7_build_stage == "true")
-            arcBswStages.stageBuild(env,stageInput)
+        //if (stageInput.m7_build_stage == "true")
+            //arcBswStages.stageBuild(env,stageInput)
         
     }
 }
