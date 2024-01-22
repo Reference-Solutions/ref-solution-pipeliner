@@ -122,7 +122,10 @@ class SwFactoryPipeline extends BasePipeline {
                 'vpkg_dir_path',
                 'blob_Id',
                 'device_Id',
-                'vehicle_Id'
+                'vehicle_Id',
+                'script_path',
+                'swpkg_file_upload',
+                'vhpkg_file_upload'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []

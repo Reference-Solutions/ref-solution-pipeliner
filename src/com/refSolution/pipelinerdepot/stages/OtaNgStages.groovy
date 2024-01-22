@@ -64,9 +64,9 @@ class OtaNgStages {
             String appName = stageInput.app_name.trim()
             String appVersion = stageInput.app_version?.trim() ?: '1.0.0'
             String actionType = stageInput.action_type?.trim() ?: 'INSTALL'
-            String swpkgFile2Upload = "install_swc_app_opd.swpkg"
-            String vhpkgFile2Upload = "vehiclepkg_install_swc_app_opd.tar"
-            String scriptPath = stageInput.script_path?.trim() ?:'ota-ng/pantaris/scripts'
+            String swpkgFile2Upload = stageInput.swpkg_file_upload?.trim() ?: 'install_swc_app_opd.swpkg'
+            String vhpkgFile2Upload = stageInput.vhpkg_file_upload?.trim() ?: 'vehiclepkg_install_swc_app_opd.tar'
+            String scriptPath = stageInput.script_path?.trim() ?: 'ota-ng/pantaris/scripts'
             def swpkgBlobId = "india_swpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
             def vhpkgBlobId = "india_vhpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
             def desiredStateName = "India_ds_${appName}_${appVersion}_${actionType}_${buildNumber}"
@@ -87,12 +87,12 @@ class OtaNgStages {
         script.stage("Device Creation") {
             logger.info("List devices with device ID")
             String deviceId = stageInput.device_Id?.trim() ?: 'deviceIdtest2'
+            String scriptPath = stageInput.script_path?.trim() ?:'ota-ng/pantaris/scripts'
                 script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
                     
                     logger.info("Verifying device status with device ID")
                     script.bat"""
-                    cd ota-ng/pantaris/scripts
-                    py pantaris_api.py -c Get_Device_List -d_id ${deviceId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
+                    py ${scriptPath}/pantaris_api.py -c Get_Device_List -d_id ${deviceId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
                     """
                 }    
         }
@@ -102,12 +102,12 @@ class OtaNgStages {
         script.stage("Vehicle Creation") {
             logger.info("List vehicle with vehicle ID")
             String vehicleId = stageInput.vehicle_Id?.trim() ?: '43717197-bc95-49bf-b82f-1505d33c14b2'
+            String scriptPath = stageInput.script_path?.trim() ?:'ota-ng/pantaris/scripts'
                 script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
                     
                     logger.info("Verifying vehicle status with vehicle ID")
                     script.bat"""
-                    cd ota-ng/pantaris/scripts
-                    py vehicleDetails.py -c Get_vehicle_list -v_id ${vehicleId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
+                    py ${scriptPath}/vehicleDetails.py -c Get_vehicle_list -v_id ${vehicleId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
                     """
                 }     
         }
