@@ -3,6 +3,7 @@ package com.refSolution.pipelinerdepot.stages
 
 import com.bosch.pipeliner.LoggerDynamic
 import com.refSolution.pipelinerdepot.utils.ota.SwPackage
+import com.refSolution.pipelinerdepot.utils.ota.pantaris
 
 /**
 * Contains stages that can be reused across pipelines
@@ -13,6 +14,7 @@ class OtaNgStages {
     private Map env
     private LoggerDynamic logger
     private SwPackage swPackage
+    private Pantaris pantaris
     
     private def appName
     private def appVersion
@@ -29,6 +31,7 @@ class OtaNgStages {
         this.script = script
         this.env = env
         this.swPackage = new SwPackage(script, env)
+        this.pantaris = new Pantaris(script,env)
         this.logger = new LoggerDynamic(script)
     }
     
@@ -67,19 +70,10 @@ class OtaNgStages {
             String swpkgFile2Upload = stageInput.swpkg_file_upload?.trim() ?: 'install_swc_app_opd.swpkg'
             String vhpkgFile2Upload = stageInput.vhpkg_file_upload?.trim() ?: 'vehiclepkg_install_swc_app_opd.tar'
             String scriptPath = stageInput.script_path?.trim() ?: 'ota-ng/pantaris/scripts'
-            def swpkgBlobId = "india_swpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
-            def vhpkgBlobId = "india_vhpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
-            def desiredStateName = "India_ds_${appName}_${appVersion}_${actionType}_${buildNumber}"
-
-            logger.info(swpkgBlobId)
-            logger.info(vhpkgBlobId)
-            script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
-                
-                logger.info("calling python script from groovy")
-                script.bat"""
-                py ${scriptPath}/createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME} ${swpkgBlobId} ${vhpkgBlobId} ${desiredStateName} ${appName} ${appVersion} ${swpkgFile2Upload} ${vhpkgFile2Upload}
-                """
-            }     
+            String swpkgBlobId = "india_swpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
+            String vhpkgBlobId = "india_vhpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
+            String desiredStateName = "India_ds_${appName}_${appVersion}_${actionType}_${buildNumber}"
+            pantaris.createBlobAndDesiredState(scriptPath, swpkgBlobId, vhpkgBlobId, desiredStateName, appName, appVersion, swpkgFile2Upload, vhpkgFile2Upload)    
         }
     }
 
