@@ -64,9 +64,12 @@ class OtaNgStages {
             String appName = stageInput.app_name.trim()
             String appVersion = stageInput.app_version?.trim() ?: '1.0.0'
             String actionType = stageInput.action_type?.trim() ?: 'INSTALL'
+            String swpkgFile2Upload = "install_swc_app_opd.swpkg"
+            String vhpkgFile2Upload = "vehiclepkg_install_swc_app_opd.tar"
             def swpkgBlobId = "india_swpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
             def vhpkgBlobId = "india_vhpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
             def desiredStateName = "India_ds_${appName}_${appVersion}_${actionType}_${buildNumber}"
+
             logger.info(swpkgBlobId)
             logger.info(vhpkgBlobId)
             script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
@@ -74,7 +77,7 @@ class OtaNgStages {
                 logger.info("calling python script from groovy")
                 script.bat"""
                 cd restapi
-                py createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME} ${swpkgBlobId} ${vhpkgBlobId} ${desiredStateName} ${appName} ${appVersion}
+                py createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME} ${swpkgBlobId} ${vhpkgBlobId} ${desiredStateName} ${appName} ${appVersion} ${swpkgFile2Upload} ${vhpkgBlobId}
                 """
             }     
         }
