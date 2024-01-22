@@ -3,7 +3,7 @@ package com.refSolution.pipelinerdepot.stages
 
 import com.bosch.pipeliner.LoggerDynamic
 import com.refSolution.pipelinerdepot.utils.ota.SwPackage
-import com.refSolution.pipelinerdepot.utils.ota.pantaris
+import com.refSolution.pipelinerdepot.utils.ota.Pantaris
 
 /**
 * Contains stages that can be reused across pipelines
