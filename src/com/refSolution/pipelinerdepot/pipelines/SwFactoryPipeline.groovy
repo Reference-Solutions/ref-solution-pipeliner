@@ -119,7 +119,10 @@ class SwFactoryPipeline extends BasePipeline {
                 'app_version',
                 'action_type',
                 'vrtefs_tool_path',
-                'vpkg_dir_path'
+                'vpkg_dir_path',
+                'blob_Id',
+                'device_Id',
+                'vehicle_Id'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []

@@ -56,4 +56,58 @@ class OtaNgStages {
             swPackage.vehicePackgeCreation(vpkgDirPath, packageName, appName)
         }
     }
+
+    def stageDesiredStateCreation(Map env, Map stageInput = [:]){
+        script.stage("Desired State Creation") {
+            String buildName = env.JOB_NAME
+            String buildNumber = env.BUILD_NUMBER
+            String appName = stageInput.app_name.trim()
+            String appVersion = stageInput.app_version?.trim() ?: '1.0.0'
+            String actionType = stageInput.action_type?.trim() ?: 'INSTALL'
+            def swpkgBlobId = "india_swpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
+            def vhpkgBlobId = "india_vhpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
+            def desiredStateName = "India_ds_${appName}_${appVersion}_${actionType}_${buildNumber}"
+            logger.info(swpkgBlobId)
+            logger.info(vhpkgBlobId)
+            script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
+                
+                logger.info("calling python script from groovy")
+                script.bat"""
+                cd restapi
+                py createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME} ${swpkgBlobId} ${vhpkgBlobId} ${desiredStateName} ${appName} ${appVersion}
+                """
+            }     
+        }
+    }
+
+    def stageDeviceCreation(Map env, Map stageInput = [:]){
+        script.stage("Device Creation") {
+            logger.info("List devices with device ID")
+            String deviceId = stageInput.device_Id?.trim() ?: 'deviceIdtest2'
+                script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
+                    
+                    logger.info("Verifying device status with device ID")
+                    script.bat"""
+                    cd restapi
+                    py pantaris_api.py -c Get_Device_List -d_id ${deviceId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
+                    """
+                }    
+        }
+    }
+
+     def stageVehicleCreation(Map env, Map stageInput = [:]){
+        script.stage("Vehicle Creation") {
+            logger.info("List vehicle with vehicle ID")
+            String vehicleId = stageInput.vehicle_Id?.trim() ?: '43717197-bc95-49bf-b82f-1505d33c14b2'
+                script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
+                    
+                    logger.info("Verifying vehicle status with vehicle ID")
+                    script.bat"""
+                    cd restapi
+                    py vehicleDetails.py -c Get_vehicle_list -v_id ${vehicleId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
+                    """
+                }     
+        }
+    }
+
 }
