@@ -66,7 +66,7 @@ public class Notification {
 ********************************/
 	
 
-def sendEmail(String from, String mimeType, String subject, String to) {
+def sendEmail(String subject, String to) {
 	script.emailext(	
 		mimeType: 'text/html',
 		subject: subject,

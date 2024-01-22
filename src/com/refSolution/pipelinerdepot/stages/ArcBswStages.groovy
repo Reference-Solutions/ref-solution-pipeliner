@@ -29,8 +29,11 @@ class ArcBswStages {
     }
     
     def stageBuild(Map env, Map stageInput = [:]){
-        script.stage("BSW Apply Patches") {
-            bswPatches(env, stageInput)
+        String bswPatchStage = stageInput.bsw_patch_stage?.trim() ?: "false"
+        if(bswPatchStage == "true"){
+            script.stage("BSW Apply Patches") {
+                bswPatchesAeeePro(env, stageInput)
+            }
         }
         script.stage("BSW Generation") {
             String autosarTool = stageInput.autosar_tool.trim()
@@ -41,7 +44,7 @@ class ArcBswStages {
         script.stage("Generate Libraries") {
             generateLibraries(env, stageInput)
         }
-        script.stage("Build") {
+        script.stage("ARC Build") {
             build(env, stageInput)
         }
     }
@@ -54,12 +57,25 @@ class ArcBswStages {
         """
     }
 
-    def bswPatches(Map env, Map stageInput = [:]){
+    def bswPatchesAeeePro(Map env, Map stageInput = [:]){
         String bswDirPath = stageInput.bsw_dir_path.trim()
         String bswPreBuildFileName = stageInput.bsw_pre_build_file_name?.trim() ?: "PreBuild.bat"
+        
+        String autosarProject = stageInput.bsw_dir_path.trim()
+        String autosarTool = stageInput.autosar_tool.trim()
+        String autosarToolVersion = stageInput.autosar_tool_version.trim()
+        String autosarToolEnv = stageInput.autosar_tool_env.trim()
+        String projectVariant = stageInput.project_variant.trim()
+        
         script.bat """
             cd ${bswDirPath}
             call ${bswPreBuildFileName}
+        """
+        script.bat """
+            rm -rf %APPDATA%/workspace/BBM/${autosarTool}/${autosarTool}
+            mkdir aeee_pro_workspace
+            call tini -useEnv:cdg.de ${autosarTool} ${autosarToolVersion}
+            call ${autosarTool} -convertbcttoabacus -p ${autosarProject} -m ${projectVariant} -w aeee_pro_workspace
         """
     }
 
@@ -69,10 +85,12 @@ class ArcBswStages {
         String autosarToolVersion = stageInput.autosar_tool_version.trim()
         String autosarToolEnv = stageInput.autosar_tool_env.trim()
         String projectVariant = stageInput.project_variant.trim()
+        
         script.bat """
+            rm -rf %APPDATA%/workspace/BBM/aeee_pro/2022.2.2
+            mkdir aeee_pro_workspace
             call tini -useEnv:cdg.de ${autosarTool} ${autosarToolVersion}
-            call ${autosarTool} -convertbcttoabacus -p ${autosarProject} -m ${projectVariant}
-            call ${autosarTool} -cdgb rebuild -p ${autosarProject} -m ${projectVariant}
+            call ${autosarTool} -cdgb rebuild -p ${autosarProject} -m ${projectVariant} -w aeee_pro_workspace
         """
     }
 

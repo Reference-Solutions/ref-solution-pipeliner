@@ -9,7 +9,7 @@ import com.cloudbees.groovy.cps.NonCPS
 
  */
 
-public class Sonar {
+public class GhCli {
     /**
      * The script object instance from Jenkins
      */
@@ -25,22 +25,14 @@ public class Sonar {
      * @param script Reference to the Jenkins scripted environment
      * @param env Reference to the Jenkins environment
      */
-    public Sonar(def script, def env) {
+    public GhCli(def script, def env) {
         this.script = script
         this.logger = new LoggerDynamic(script)
     }
 
-    def sonarAnalysis(String sonarPropertyFilePath){
-        script.withSonarQubeEnv('SonarQube') {
-            if (script.isUnix()){
-                script.sh """
-                    sonar-scanner -Dproject.settings=${sonarPropertyFilePath}
-                """
-            }else{
-                script.bat """
-                    sonar-scanner -Dproject.settings=${sonarPropertyFilePath}
-                """
-            }
-        }
+    def pullArtifactfromRelease(def releasetag, def owner, def repo, def pattern){
+        script.sh """
+            gh release download ${releasetag} -R ${owner}/${repo} --pattern ${pattern} --clobber
+        """
     }
 }

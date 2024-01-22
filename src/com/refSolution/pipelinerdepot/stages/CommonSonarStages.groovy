@@ -30,9 +30,16 @@ class CommonSonarStages {
     def stageSonarAnalysis(Map env, Map stageInput = [:]){
         script.stage("Sonar Analysis") { 
             logger.info('SONAR ANALYSIS STAGE')
-            String sonarPropertyFilePath = stageInput.sonarPropertyFilePath?.trim() ?: 'sonar.properties'
-            logger.info("sonarPropertyFilePath : " + sonarPropertyFilePath)
-            sonar.sonarAnalysis(sonarPropertyFilePath)
+            if (stageInput.containsKey("sonar_property_file_path")){
+                ArrayList<String> sonarPropertyFilePaths = stageInput.sonar_property_file_path.split(" ")
+                for (sonarPropertyFilePath in sonarPropertyFilePaths) {
+                    logger.info("sonarPropertyFilePath : " + sonarPropertyFilePath)
+                    sonar.sonarAnalysis(sonarPropertyFilePath)
+                }
+            }
+            else{
+                logger.info('No sonar Property File Path  Provided..., So it is skipped')
+            }
         }
     }
 }

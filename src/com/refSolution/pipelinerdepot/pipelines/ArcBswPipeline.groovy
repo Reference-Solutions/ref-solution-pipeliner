@@ -33,7 +33,8 @@ class ArcBswPipeline extends CommonPipeline {
                 'autosar_tool',
                 'autosar_tool_version',
                 'autosar_tool_env',
-                'project_variant'
+                'project_variant',
+                'bsw_patch_stage'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []

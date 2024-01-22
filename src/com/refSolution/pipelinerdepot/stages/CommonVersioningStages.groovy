@@ -29,9 +29,9 @@ class CommonVersioningStages {
 
     def stageVersioningArtifacts(Map env, Map stageInput = [:]) {
         script.stage("Versioning") {
-            if (stageInput.containsKey("archive_patterns") && stageInput.containsKey("artifact_version")){
+            if (stageInput.containsKey("archive_patterns") && stageInput.containsKey("build_version")){
                 ArrayList<String> patterns = stageInput.archive_patterns.split(" ")
-                String artifactVersion = stageInput.artifact_version
+                String artifactVersion = stageInput.build_version
                 String buildEnvironment = stageInput.build_env?.trim() ?: "Nightly"
                 String buildDate = versioning.buildDate()
                 if (buildEnvironment == "Nightly"){

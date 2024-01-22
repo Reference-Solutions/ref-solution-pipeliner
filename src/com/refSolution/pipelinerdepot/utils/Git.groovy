@@ -75,4 +75,24 @@ public class Git {
 
         logger.info("Checkout complete")
     }
+
+    def tag(def repo, def tagName) {
+        if (tagName) {
+            script.dir(repo){
+                if (script.isUnix()){
+                    script.sh """
+                        git tag $tagName
+                        git push origin $tagName
+                    """
+                }else{
+                    script.bat """
+                        git tag $tagName
+                        git push origin $tagName
+                    """
+                }
+            }
+        }else{
+            logger.warn("Tag Name is null, So Git Tag Skipped")
+        }
+    }
 }
