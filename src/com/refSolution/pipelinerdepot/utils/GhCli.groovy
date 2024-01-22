@@ -1,4 +1,5 @@
 package com.refSolution.pipelinerdepot.utils
+import com.bosch.pipeliner.ScriptUtils
 
 import com.bosch.pipeliner.LoggerDynamic
 import com.cloudbees.groovy.cps.NonCPS
