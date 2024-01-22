@@ -77,7 +77,7 @@ class OtaNgStages {
                 logger.info("calling python script from groovy")
                 script.bat"""
                 cd restapi
-                py createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME} ${swpkgBlobId} ${vhpkgBlobId} ${desiredStateName} ${appName} ${appVersion} ${swpkgFile2Upload} ${vhpkgBlobId}
+                py createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME} ${swpkgBlobId} ${vhpkgBlobId} ${desiredStateName} ${appName} ${appVersion} ${swpkgFile2Upload} ${vhpkgFile2Upload}
                 """
             }     
         }
