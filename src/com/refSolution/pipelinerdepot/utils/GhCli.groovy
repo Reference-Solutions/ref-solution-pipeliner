@@ -31,7 +31,7 @@ public class GhCli {
         
     }
 
-    void  GhCliReleaseDownload(String releasetag, String owner, String repo, deString  pattern){
+    void  GhCliReleaseDownload(String releasetag, String owner, String repo, String  pattern){
 // gh auth login
 // gh auth logout
                 script.sh """
