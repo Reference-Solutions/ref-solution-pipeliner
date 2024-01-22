@@ -35,8 +35,8 @@ class VrteStages {
         this.logger = new LoggerDynamic(script)
     }
     
-    def vrte_pull_stage(Map env, Map stageInput = [:]){
-        script.stage("Flashing VIP") {
+    def stagePullArtifact(Map env, Map stageInput = [:]){
+        script.stage("Vrte Pull Artifacts") {
              logger.warn("### Script for this Process Need to be Included ###")
         }
     }
