@@ -76,7 +76,7 @@ class OtaNgStages {
                 
                 logger.info("calling python script from groovy")
                 script.bat"""
-                cd restapi
+                cd pantaris/scripts
                 py createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME} ${swpkgBlobId} ${vhpkgBlobId} ${desiredStateName} ${appName} ${appVersion} ${swpkgFile2Upload} ${vhpkgFile2Upload}
                 """
             }     
@@ -91,7 +91,7 @@ class OtaNgStages {
                     
                     logger.info("Verifying device status with device ID")
                     script.bat"""
-                    cd restapi
+                    cd pantaris/scripts
                     py pantaris_api.py -c Get_Device_List -d_id ${deviceId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
                     """
                 }    
@@ -106,7 +106,7 @@ class OtaNgStages {
                     
                     logger.info("Verifying vehicle status with vehicle ID")
                     script.bat"""
-                    cd restapi
+                    cd pantaris/scripts
                     py vehicleDetails.py -c Get_vehicle_list -v_id ${vehicleId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
                     """
                 }     
