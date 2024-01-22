@@ -32,7 +32,7 @@ class OtaNgPipeline extends BasePipeline {
                 'github_releasetag',
                 'github_owner',
                 'github_repo',
-                'github_pattern',
+                'github_pattern'
 
             ] + defaults.exposed,
             // the keys for which pipeline should be parallelized
