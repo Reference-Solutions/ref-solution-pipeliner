@@ -66,7 +66,7 @@ class OtaNgStages {
             String actionType = stageInput.action_type?.trim() ?: 'INSTALL'
             String swpkgFile2Upload = "install_swc_app_opd.swpkg"
             String vhpkgFile2Upload = "vehiclepkg_install_swc_app_opd.tar"
-            String scriptPath = "ota-ng/pantaris/scripts"
+            String scriptPath = stageInput.script_path?.trim() ?:'ota-ng/pantaris/scripts'
             def swpkgBlobId = "india_swpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
             def vhpkgBlobId = "india_vhpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
             def desiredStateName = "India_ds_${appName}_${appVersion}_${actionType}_${buildNumber}"
