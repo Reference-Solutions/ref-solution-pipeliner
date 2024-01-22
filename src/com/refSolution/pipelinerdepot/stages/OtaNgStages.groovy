@@ -82,13 +82,7 @@ class OtaNgStages {
             logger.info("List devices with device ID")
             String deviceId = stageInput.device_Id?.trim() ?: 'deviceIdtest2'
             String scriptPath = stageInput.script_path?.trim() ?:'ota-ng/pantaris/scripts'
-                script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
-                    
-                    logger.info("Verifying device status with device ID")
-                    script.bat"""
-                    py ${scriptPath}/pantaris_api.py -c Get_Device_List -d_id ${deviceId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
-                    """
-                }    
+            pantaris.verifyDeviceStatus(scriptPath, deviceId)  
         }
     }
 
@@ -97,13 +91,7 @@ class OtaNgStages {
             logger.info("List vehicle with vehicle ID")
             String vehicleId = stageInput.vehicle_Id?.trim() ?: '43717197-bc95-49bf-b82f-1505d33c14b2'
             String scriptPath = stageInput.script_path?.trim() ?:'ota-ng/pantaris/scripts'
-                script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
-                    
-                    logger.info("Verifying vehicle status with vehicle ID")
-                    script.bat"""
-                    py ${scriptPath}/vehicleDetails.py -c Get_vehicle_list -v_id ${vehicleId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
-                    """
-                }     
+            pantaris.verifyVehicleStatus(scriptPath, vehicleId)        
         }
     }
 

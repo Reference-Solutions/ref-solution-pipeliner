@@ -51,5 +51,29 @@ public class Pantaris {
 
     }
 
+    def verifyDeviceStatus(String scriptPath,String deviceId){
+        logger.info("verification of device in progress")
+        script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
+                    
+                    logger.info("Verifying device status with device ID")
+                    script.bat"""
+                    py ${scriptPath}/pantaris_api.py -c Get_Device_List -d_id ${deviceId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
+                    """
+                } 
+
+    }
+
+    def verifyVehicleStatus(String scriptPath,String vehicleId){
+        logger.info("verification of vehicle in progress")
+        script.withCredentials([script.usernamePassword(credentialsId: 'pantaris_tech_user', passwordVariable: "PANT_PASSWORD", usernameVariable: 'PANT_USERNAME')]) {
+                    
+                    logger.info("Verifying vehicle status with vehicle ID")
+                    script.bat"""
+                    py ${scriptPath}/vehicleDetails.py -c Get_vehicle_list -v_id ${vehicleId} -c_s ${script.PANT_PASSWORD} -c_id ${script.PANT_USERNAME}
+                    """
+                }  
+
+    }
+
  
 }
