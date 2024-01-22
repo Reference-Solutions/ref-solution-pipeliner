@@ -33,7 +33,8 @@ class SwFactoryPipeline extends BasePipeline {
                 checkout_scm_stage = true
                 checkout_stage = true
                 sonar_stage = true
-                build_stage = true
+                qnx_build_stage = true
+                arc_build_stage = true
                 versioning_stage = true
                 archive_stage = true
                 dac_stage = true
@@ -48,7 +49,8 @@ class SwFactoryPipeline extends BasePipeline {
                 'checkout_scm_stage',
                 'checkout_stage',
                 'sonar_stage',
-                'build_stage',
+                'qnx_build_stage',
+                'arc_build_stage',
                 'versioning_stage',
                 'archive_stage',
                 'artifactory_upload_stage',
@@ -142,7 +144,7 @@ class SwFactoryPipeline extends BasePipeline {
             commonSonarStages.stageSonarAnalysis(env,stageInput)
         if (stageInput.qnx_build_stage == "true")
             qnxStages.stageBuild(env,stageInput)
-        if (stageInput.m7_build_stage == "true")
+        if (stageInput.arc_build_stage == "true")
             arcBswStages.stageBuild(env,stageInput)
         if (stageInput.versioning_stage == "true")
             commonVersioningStages.stageVersioningArtifacts(env,stageInput)
