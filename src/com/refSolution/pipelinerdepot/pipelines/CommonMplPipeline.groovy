@@ -1,96 +1,83 @@
 package com.refSolution.pipelinerdepot.pipelines
-import com.refSolution.pipelinerdepot.pipelines.CommonPipeline
-//import com.bosch.pipeliner.BasePipeline
 
-import com.refSolution.pipelinerdepot.stages.CommonMplStages
+import com.bosch.pipeliner.BasePipeline
 import com.refSolution.pipelinerdepot.stages.CommonStages
-//import com.refSolution.pipelinerdepot.stages.QnxStages
+import com.refSolution.pipelinerdepot.stages.CommonGitStages
+import com.refSolution.pipelinerdepot.stages.ArcBswStages
+import com.refSolution.pipelinerdepot.stages.QnxStages
 
 
+class CommonMplPipeline extends BasePipeline {
+    QnxStages qnxStages
+    ArcBswStages arcBswStages
+   
 
-
-
-class CommonMplPipeline extends CommonPipeline {
-      CommonStages commonStages
-      //CommonMplStages commonMplStages
-    
-      
- 
-    
     Boolean skipPipeline = false
 
     CommonMplPipeline(script, Map env, Map ioMap) {
         super(script, [
             // the input keys and their default values for the pipeline, can be
             // overridden by user inputs from either MR message or Jenkins env
-            defaultInputs: '''
-
-          
-            archive_patterns = qnx-hv-nxp-s32g/images/*.ui
-            custom_scm_checkout_dir = qnx-hv-nxp-s32g
-            qnx_sdk_path = C:/Users/zrd2kor/qnx710
-                
-                
-            ''',
+            defaultInputs: """
+                checkout_scm_stage = true
+                checkout_stage = true
+                build_stage = true
+                versioning_stage = true
+                archive_stage = true
+                label = windows-lab-pc
+                artifact_version
+                archive_patterns
+            """,
             // the keys exposed to the user for modification
             exposed: [
-               'archive_patterns',
-               'qnx_stage',
-               'qnx_sdk_path',
-               'custom_scm_checkout_dir',
-               'pfe_copy'
-
-
-              
-                
+                'checkout_scm_stage',
+                'checkout_stage',
+                'custom_scm_checkout_dir',
+                'qnx_sdk_path',
+              	'pfe_copy',
+                'build_dir_path',
+                'bsw_dir_path',
+                'bsw_pre_build_file_name',
+                'project_variant',
+                'qnx_src_dir',
+                'swc_dir_path',
+                'gen_swp_dir_path',
+                'app_dir_path',
+                'app_name',
+                'app_version',
+                'action_type',
+                'vrtefs_tool_path',
+                'vpkg_dir_path'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
         ] as Map, env, ioMap)
 
-        // Specify the node label expression
-        // Looks like we can't use && syntax due to input parser
-        nodeLabelExpr = "windows-lab-pc"
-
-   
-        commonStages = new CommonStages(script, env)
-        //commonMplStages = new CommonMplStages(script, env)
-        //qnxStages = new QnxStages(script, env)
         
-    
-
-       }
-
+        qnxStages = new QnxStages(script, env)
+        arcBswStages = new ArcBswStages(script, env)
         
+
+    }
+
     // /**
     // * Provides implementation for stages
     // *
     // * @param A Map with the inputs for stages
     // */
-    
-    // void stages(Map stageInput) {
-        
-    //     logger.info("customStages")
-    //     def customStages = getCustomStages()
-    //     // Skip the entire pipeline if we promote and there are no changes
-    //     if (skipPipeline) {
-    //         return
-    //     }
-    //     logger.info("stageInput")
-    //     logger.info(stageInput.inspect())
-        
-    //     if (stageInput.qnx_stage == "true")
-            
-    //         commonStages.makeBuild(env, stageInput)
-          
-    //         commonStages.copyPFE(env, stageInput)
-           
-       
-    //}
-
     @Override
-    void getCustomStages(){
-        CommonMplStages customStages = new CommonMplStages(script, env)
+    void stages(Map stageInput) {
+        // Skip the entire pipeline if we promote and there are no changes
+        if (skipPipeline) {
+            return
+        }
+        logger.info("stageInput")
+        logger.info(stageInput.inspect())
+       
+        if (stageInput.qnx_build_stage == "true")
+            qnxStages.stageBuild(env,stageInput)
+        if (stageInput.m7_build_stage == "true")
+            arcBswStages.stageBuild(env,stageInput)
+        
     }
 }
-
