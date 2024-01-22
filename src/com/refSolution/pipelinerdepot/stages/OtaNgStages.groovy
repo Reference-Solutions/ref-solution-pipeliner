@@ -43,7 +43,7 @@ class OtaNgStages {
                 logger.info "${releasetag}"
                 // 
                 // GhCli ghCli = new GhCli(script, env)
-                GhCli.GhCliReleaseDownload(script,releasetag, owner, repo, pattern)
+                GhCli.GhCliReleaseDownload(releasetag, owner, repo, pattern)
             }
     }
     def stageSwPackgeCreation(Map env, Map stageInput = [:]){
