@@ -76,7 +76,8 @@ class OtaNgStages {
                 
                 logger.info("calling python script from groovy")
                 script.bat"""
-                py ota-ng/pantaris/scripts/createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME} ${swpkgBlobId} ${vhpkgBlobId} ${desiredStateName} ${appName} ${appVersion} ${swpkgFile2Upload} ${vhpkgFile2Upload}
+                cd ota-ng/pantaris/scripts
+                py createDesiredState.py ${script.PANT_PASSWORD} ${script.PANT_USERNAME} ${swpkgBlobId} ${vhpkgBlobId} ${desiredStateName} ${appName} ${appVersion} ${swpkgFile2Upload} ${vhpkgFile2Upload}
                 """
             }     
         }
