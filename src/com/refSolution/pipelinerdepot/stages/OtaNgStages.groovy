@@ -46,8 +46,8 @@ class OtaNgStages {
             actionType =  stageInput.action_type?.trim() ?: 'INSTALL'
             packageName = "${actionType.toLowerCase()}_swc_app".toLowerCase()
             
-            //updateArxmlWithAppDetails(swcDirPath + "software_cluster.arxml")
-            //updateArxmlWithAppDetails(swcDirPath + "software_package.arxml")
+            updateArxmlWithAppDetails(swcDirPath + "software_cluster.arxml")
+            updateArxmlWithAppDetails(swcDirPath + "software_package.arxml")
             generateFlatbufferConfigFiles(swcDirPath, vrtefsToolPath.trim())
             removeKeyFromFlatCfgJson(swcDirPath + "gen/${packageName}/upd__${packageName}_flatcfg.json")
             copyfilestoGenerateSWPackageFolder(swcDirPath, appDirPath, genSwpDirPath )
@@ -59,6 +59,27 @@ class OtaNgStages {
         script.stage("Vehice Package Creation") {
             String vpkgDirPath = stageInput.vpkg_dir_path?.trim() ?: 'ota-ng/vpkg/'
             vehicePackgeCreation(vpkgDirPath)
+        }
+    }
+
+    
+    def stageDesiredStateCreation(Map env, Map stageInput = [:]){
+        script.stage("Flashing VIP") {
+             logger.warn("### Script for this Process Need to be Included ###")
+        }
+    }
+
+    
+    def stageDeviceCreation(Map env, Map stageInput = [:]){
+        script.stage("Flashing VIP") {
+             logger.warn("### Script for this Process Need to be Included ###")
+        }
+    }
+
+    
+    def stageVehicleCreation(Map env, Map stageInput = [:]){
+        script.stage("Flashing VIP") {
+             logger.warn("### Script for this Process Need to be Included ###")
         }
     }
 
@@ -90,28 +111,6 @@ class OtaNgStages {
         """
         
         logger.info("Flatbuffer config files Generation Completed...")
-    }
-    def removeKeyFromFlatCfgFile(def filePath){
-        
-        def keyToRemove = 'keyValueStorage'
-        if (script.fileExists(filePath)) {
-            // Read the file content
-            def fileContent = script.readFile(file: filePath).trim()
-            
-            // Replace all occurrences of the search string
-            //fileContent = fileContent.replaceAll(',.*PersistencyKeyValueStorage[0]"', packageName)
-            
-            //  Remove the key-value pair using replaceAll
-            fileContent = fileContent.replaceAll(",\\s*\"${keyToRemove}\":\\s*\"[^\"]*\"")
-            
-            // Write the modified content back to the file
-            script.writeFile(file: filePath, text: fileContent)
-
-            logger.info("Updated Application Details in SW cluster and package Arxml files.")
-        }
-        else{
-            logger.error("file : $filePath not exists")
-        }
     }
     def removeKeyFromFlatCfgJson(def jsonFilePath){        
         

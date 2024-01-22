@@ -10,6 +10,8 @@ import com.refSolution.pipelinerdepot.stages.CommonDacStages
 import com.refSolution.pipelinerdepot.stages.CommonArtifactoryStages
 import com.refSolution.pipelinerdepot.stages.ArcBswStages
 import com.refSolution.pipelinerdepot.stages.QnxStages
+import com.refSolution.pipelinerdepot.stages.VrteStages
+import com.refSolution.pipelinerdepot.stages.FlashingStages
 import com.refSolution.pipelinerdepot.stages.OtaNgStages
 
 class SwFactoryPipeline extends BasePipeline {
@@ -21,6 +23,8 @@ class SwFactoryPipeline extends BasePipeline {
     CommonArtifactoryStages commonArtifactoryStages
     QnxStages qnxStages
     ArcBswStages arcBswStages
+    VrteStages vrteStages
+    FlashingStages flashingStages
     OtaNgStages otaNgStages
 
     Boolean skipPipeline = false
@@ -35,11 +39,16 @@ class SwFactoryPipeline extends BasePipeline {
                 sonar_stage = true
                 qnx_build_stage = true
                 arc_build_stage = true
+                vrte_pull_stage = true
+                flashing_vip_stage = true
                 versioning_stage = true
                 archive_stage = true
                 dac_stage = true
                 artifactory_upload_stage = true
                 sw_package_creation_stage = true
+                desired_state_creation_stage = true
+                device_creation_stage = true
+                vehicle_creation_stage = true
                 label = windows-lab-pc
                 artifact_version
                 archive_patterns
@@ -51,10 +60,15 @@ class SwFactoryPipeline extends BasePipeline {
                 'sonar_stage',
                 'qnx_build_stage',
                 'arc_build_stage',
+                'vrte_pull_stage',
+                'flashing_vip_stage',
                 'versioning_stage',
                 'archive_stage',
                 'artifactory_upload_stage',
                 'sw_package_creation_stage',
+                'desired_state_creation_stage',
+                'device_creation_stage',
+                'vehicle_creation_stage',
                 'submodules_depth',
                 'submodules_shallow',
                 'submodules_disable',
@@ -119,8 +133,9 @@ class SwFactoryPipeline extends BasePipeline {
         commonArtifactoryStages = new CommonArtifactoryStages(script, env)
         qnxStages = new QnxStages(script, env)
         arcBswStages = new ArcBswStages(script, env)
+        vrteStages = new VrteStages(script, env)
+        flashingStages = new FlashingStages(script, env)
         otaNgStages = new OtaNgStages(script, env)
-
     }
 
     // /**
@@ -146,14 +161,28 @@ class SwFactoryPipeline extends BasePipeline {
             qnxStages.stageBuild(env,stageInput)
         if (stageInput.arc_build_stage == "true")
             arcBswStages.stageBuild(env,stageInput)
+        if (stageInput.vrte_pull_stage == "true")
+            vrteStages.stagePullArtifact(env,stageInput)
+        if (stageInput.flashing_vip_stage == "true"){
+            flashingStages.stageVerifyT32(env, stageInput)
+            flashingStages.stageFlashingVIP(env, stageInput)
+        }
         if (stageInput.versioning_stage == "true")
             commonVersioningStages.stageVersioningArtifacts(env,stageInput)
         if (stageInput.archive_stage == "true")
             commonArchiveStages.stageArchive(stageInput)
-            
         if (stageInput.sw_package_creation_stage == "true"){
             otaNgStages.stageSwPackgeCreation(env, stageInput)
             otaNgStages.stageVehicePackgeCreation(env, stageInput)
+        }
+        if (stageInput.desired_state_creation_stage == "true"){
+            otaNgStages.stageDesiredStateCreation(env, stageInput)
+        }
+        if (stageInput.device_creation_stage == "true"){
+            otaNgStages.stageDeviceCreation(env, stageInput)
+        }
+        if (stageInput.vehicle_creation_stage == "true"){
+            otaNgStages.stageVehicleCreation(env, stageInput)
         }
     }
 }
