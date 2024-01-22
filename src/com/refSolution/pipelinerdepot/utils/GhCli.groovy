@@ -33,6 +33,10 @@ public class GhCli {
     }
 
     def GhCliReleaseDownload(String releasetag, String owner, String repo, String  pattern){
+         logger.info "${releasetag}"
+         logger.info "${owner}"
+         logger.info "${repo}"
+         logger.info "${pattern}"
 // gh auth login
 // gh auth logout
                 script.sh """
