@@ -23,7 +23,8 @@ class PullGithubReleases extends BasePipeline {
                 'app_pattern',
                 'app_name',
                 'app_path',
-                'app_folder'
+                'app_folder',
+                'pat_token'
 
             ],
             // the keys for which pipeline should be parallelized

@@ -35,9 +35,10 @@ class PullAppStages {
         String appName = stageInput.app_name?.trim()
         String appPath = stageInput.app_path?.trim()
         String appFolder = stageInput.app_folder?.trim()
+        String patToken = stageInput.pat_token?.trim()
 
         script.stage("Pull Application") { 
-            ghCli.pullArtifactfromRelease( releaseTag, owner, repo, pattern, appName, appPath, appFolder)
+            ghCli.pullArtifactfromRelease( releaseTag, owner, repo, pattern, appName, appPath, appFolder, patToken)
         }
     }
 }

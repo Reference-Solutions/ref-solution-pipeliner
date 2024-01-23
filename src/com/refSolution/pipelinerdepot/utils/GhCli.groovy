@@ -30,8 +30,10 @@ public class GhCli {
         this.logger = new LoggerDynamic(script)
     }
 
-    def pullArtifactfromRelease(def releasetag, def owner, def repo, def pattern , def appName, def appPath, def appFolder){
+    def pullArtifactfromRelease(def releasetag, def owner, def repo, def pattern , def appName, def appPath, def appFolder, def patToken){
         script.sh """
+            gh auth login -h github.boschdevcloud.com --with-token ${patToken}
+            gh auth status
 
             gh release download ${releasetag} -R ${owner}/${repo} --pattern ${pattern} --clobber
             unzip -o ${pattern} -d \${WORKSPACE} 
