@@ -72,7 +72,7 @@ class OtaNgStages {
             String scriptPath = stageInput.script_path?.trim() ?: 'ota-ng/pantaris/scripts'
             String swpkgBlobId = "india_swpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
             String vhpkgBlobId = "india_vhpkg_${appName}_${appVersion}_${actionType}_${buildNumber}"
-            String desiredStateName = "India_ds_${appName}_${appVersion}_${actionType}_${buildNumber}"
+            String desiredStateName = "India_ds_${appName}_${actionType}_${buildNumber}"
             pantaris.createBlobAndDesiredState(scriptPath, swpkgBlobId, vhpkgBlobId, desiredStateName, appName, appVersion, swpkgFile2Upload, vhpkgFile2Upload)    
         }
     }
