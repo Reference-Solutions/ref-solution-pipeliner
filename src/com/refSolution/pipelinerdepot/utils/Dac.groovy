@@ -39,7 +39,7 @@ public class Dac {
     }
     def ghPublishDac (String docsurl,String ghFolder, String html_source_path, String html_destination_path){
         logger.info("Dac publish ")
-        script.withCredentials([script.usernamePassword(credentialsId: 'DAC', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
+        script.withCredentials([script.usernamePassword(credentialsId: 'hari-user-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
             script.bat """
                 git clone ${docsurl}
                 robocopy ${html_source_path} ${html_destination_path} /COPYALL /E

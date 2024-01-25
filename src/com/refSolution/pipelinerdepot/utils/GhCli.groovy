@@ -31,9 +31,9 @@ public class GhCli {
     }
 
     def pullArtifactfromRelease(def releasetag, def owner, def repo, def pattern , def appName, def appPath, def appFolder, def patToken){
+        script.withCredentials([script.usernamePassword(credentialsId: 'hari-user-github', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
         script.sh """
-           
-
+        
             gh release download ${releasetag} -R ${owner}/${repo} --pattern ${pattern} --clobber
             unzip -o ${pattern} -d \${WORKSPACE} 
             unzip -o ${appFolder} -d \${WORKSPACE}
@@ -43,5 +43,6 @@ public class GhCli {
             """
             // gh auth login -h github.boschdevcloud.com --with-token ${patToken}
             // gh auth status
+    }
     }
 }
