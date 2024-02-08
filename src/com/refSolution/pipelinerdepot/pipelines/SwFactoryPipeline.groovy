@@ -12,7 +12,9 @@ import com.refSolution.pipelinerdepot.stages.ArcBswStages
 import com.refSolution.pipelinerdepot.stages.QnxStages
 import com.refSolution.pipelinerdepot.stages.VrteStages
 import com.refSolution.pipelinerdepot.stages.FlashingStages
+import com.refSolution.pipelinerdepot.stages.CommonVerificationStages
 import com.refSolution.pipelinerdepot.stages.OtaNgStages
+import com.refSolution.pipelinerdepot.stages.CommonNotificationStages
 
 class SwFactoryPipeline extends BasePipeline {
     CommonGitStages commonGitStages
@@ -26,6 +28,8 @@ class SwFactoryPipeline extends BasePipeline {
     VrteStages vrteStages
     FlashingStages flashingStages
     OtaNgStages otaNgStages
+    CommonVerificationStages commonVerificationStages
+    CommonNotificationStages commonNotificationStages
 
     Boolean skipPipeline = false
 
@@ -36,35 +40,39 @@ class SwFactoryPipeline extends BasePipeline {
             defaultInputs: """
                 checkout_scm_stage = true
                 checkout_stage = true
+                git_tag_stage = false
                 sonar_stage = true
                 qnx_build_stage = true
                 arc_build_stage = true
                 vrte_pull_stage = true
                 flashing_vip_stage = true
+                verification_stage = true
                 versioning_stage = true
                 archive_stage = true
                 dac_stage = true
                 artifactory_upload_stage = true
+                app_pull_stage = true
                 sw_package_creation_stage = true
                 desired_state_creation_stage = true
                 device_creation_stage = true
                 vehicle_creation_stage = true
                 label = windows-lab-pc
-                artifact_version
-                archive_patterns
             """,
             // the keys exposed to the user for modification
             exposed: [
                 'checkout_scm_stage',
                 'checkout_stage',
+                'git_tag_stage',
                 'sonar_stage',
                 'qnx_build_stage',
                 'arc_build_stage',
                 'vrte_pull_stage',
                 'flashing_vip_stage',
+                'verification_stage',
                 'versioning_stage',
                 'archive_stage',
                 'artifactory_upload_stage',
+                'app_pull_stage',
                 'sw_package_creation_stage',
                 'desired_state_creation_stage',
                 'device_creation_stage',
@@ -79,8 +87,9 @@ class SwFactoryPipeline extends BasePipeline {
                 'clone_shallow',
                 'clone_no_tags',
                 'clone_reference',
-                'sonarPropertyFilePath',
-                'artifact_version',
+                'sonar_property_file_path',
+                'build_version',
+                'build_env',
                 'archive_patterns',
                 'dac_stage',
                 'doc_build', 
@@ -105,6 +114,7 @@ class SwFactoryPipeline extends BasePipeline {
                 'qnx_sdk_path',
               	'pfe_copy',
                 'build_dir_path',
+                'bsw_patch_stage',
                 'bsw_dir_path',
                 'bsw_pre_build_file_name',
                 'autosar_tool',
@@ -112,6 +122,20 @@ class SwFactoryPipeline extends BasePipeline {
                 'autosar_tool_env',
                 'project_variant',
                 'qnx_src_dir',
+                'vrte_artifactory_server_id',
+                'vrte_artifact_pattern',
+                'vrte_artifact_download_path',
+                'robot_manifest_file_path',
+                'robot_url',
+                'robot_branch',
+                'robot_checkout_credentials',
+                'robotframework_stage',
+                'robot_jenkins_file_path',
+                'gh_release_tag',
+                'gh_owner',
+                'gh_repo',
+                'gh_pattern',
+                'app_zip_sub_folder',
                 'swc_dir_path',
                 'gen_swp_dir_path',
                 'app_dir_path',
@@ -119,7 +143,14 @@ class SwFactoryPipeline extends BasePipeline {
                 'app_version',
                 'action_type',
                 'vrtefs_tool_path',
-                'vpkg_dir_path'
+                'vpkg_dir_path',
+                'pantaris_node',
+                'pantaris_script_path',
+                'vehicle_id',
+                'device_id',
+                'webhookurl',
+                'to',
+                'from'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
@@ -135,7 +166,9 @@ class SwFactoryPipeline extends BasePipeline {
         arcBswStages = new ArcBswStages(script, env)
         vrteStages = new VrteStages(script, env)
         flashingStages = new FlashingStages(script, env)
+        commonVerificationStages = new CommonVerificationStages(script, env)
         otaNgStages = new OtaNgStages(script, env)
+        commonNotificationStages = new CommonNotificationStages(script, env)
     }
 
     // /**
@@ -149,8 +182,7 @@ class SwFactoryPipeline extends BasePipeline {
         if (skipPipeline) {
             return
         }
-        logger.info("stageInput")
-        logger.info(stageInput.inspect())
+        logger.info("stageInput : "+ stageInput.inspect())
         if (stageInput.checkout_scm_stage == "true")
             commonGitStages.stageCheckoutSCM(env, stageInput)
         if (stageInput.checkout_stage == "true")
@@ -167,10 +199,12 @@ class SwFactoryPipeline extends BasePipeline {
             flashingStages.stageVerifyT32(env, stageInput)
             flashingStages.stageFlashingVIP(env, stageInput)
         }
-        if (stageInput.versioning_stage == "true")
-            commonVersioningStages.stageVersioningArtifacts(env,stageInput)
-        if (stageInput.archive_stage == "true")
-            commonArchiveStages.stageArchive(stageInput)
+        if (stageInput.verification_stage == "true"){
+            commonVerificationStages.stageVerification(env, stageInput)
+        }
+        if (stageInput.app_pull_stage == "true"){
+            otaNgStages.stagePullAppFromGithub(env, stageInput)
+        }
         if (stageInput.sw_package_creation_stage == "true"){
             otaNgStages.stageSwPackgeCreation(env, stageInput)
             otaNgStages.stageVehicePackgeCreation(env, stageInput)
@@ -183,6 +217,28 @@ class SwFactoryPipeline extends BasePipeline {
         }
         if (stageInput.vehicle_creation_stage == "true"){
             otaNgStages.stageVehicleCreation(env, stageInput)
+        }
+        if (stageInput.versioning_stage == "true")
+            commonVersioningStages.stageVersioningArtifacts(env,stageInput)
+        if (stageInput.archive_stage == "true")
+            commonArchiveStages.stageArchive(stageInput)
+        if (stageInput.artifactory_upload_stage == "true")
+            commonArtifactoryStages.stageArtifactoryUpload(env, stageInput)
+        if (stageInput.git_tag_stage == "true")  
+            commonGitStages.stageTag(env, stageInput)
+    }
+
+    
+    @Override
+    void postParallel(Map stageInput) {
+        if (skipPipeline) {
+            return
+        }
+
+        script.stage("Post") {
+            logger.info("Mail and Teams Notification")
+            commonNotificationStages.stageNotificationTeams(env, stageInput)
+            commonNotificationStages.stageNotificationEmail(env, stageInput)
         }
     }
 }

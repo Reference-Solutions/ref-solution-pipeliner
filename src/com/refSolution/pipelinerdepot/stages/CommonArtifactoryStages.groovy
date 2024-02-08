@@ -38,9 +38,11 @@ class CommonArtifactoryStages {
             String downloadType = stageInput.artifactory_download_type?.trim()
             if (downloadType == "jfrog"){
                 logger.info('DOWNLOAD FROM ARTIFACTORY STAGE')
-                String pattern = stageInput.artifactory_pattern.trim()
-                String target = stageInput.artifactory_target.trim()
-                jfrog.downloadFromArtifactory(pattern, target)
+                Map config = [:]
+                config["artifactoryServerId"] = stageInput.artifactory_server_id?.trim() ?: 'artifactory-boschdevcloud'
+                config["pattern"] = stageInput.artifactory_pattern.trim()
+                config["target"] = stageInput.artifactory_target.trim()
+                jfrog.downloadFromArtifactory(config)
             }
             else if (downloadType == "nexus"){
                 logger.info('DOWNLOAD FROM NEXUS ARTIFACTORY STAGE')
@@ -69,9 +71,11 @@ class CommonArtifactoryStages {
             String uploadType = stageInput.artifactory_upload_type?.trim()
             if (uploadType == "jfrog"){
                 logger.info('Upload To Jfrog Artifactpty')
-                String pattern = stageInput.artifactory_upload_pattern.trim()
-                String target = stageInput.artifactory_upload_target.trim()
-                jfrog.uploadToArtifactory(pattern, target)
+                Map config = [:]
+                config["artifactoryServerId"] = stageInput.artifactory_server_id?.trim() ?: 'artifactory-boschdevcloud'
+                config["pattern"] = stageInput.artifactory_pattern.trim()
+                config["target"] = stageInput.artifactory_target.trim()
+                jfrog.uploadToArtifactory(config)
             }
             else if (uploadType == "nexus"){
                 logger.info('Upload to Nexus Artifactory')

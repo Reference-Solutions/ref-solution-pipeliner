@@ -1,77 +1,100 @@
+package com.refSolution.pipelinerdepot.pipelines
 
-package com.refSolution.pipelinerdepot.stages
+import com.bosch.pipeliner.BasePipeline
+import com.refSolution.pipelinerdepot.stages.OtaNgStages
+import com.refSolution.pipelinerdepot.stages.CommonGitStages
 
-import com.bosch.pipeliner.LoggerDynamic
-import com.refSolution.pipelinerdepot.utils.ota.SwPackage
 
-/**
-* Contains stages that can be reused across pipelines
-*/
-class OtaNgStages {
+class OtaNgPipeline extends BasePipeline {
+    CommonGitStages commonGitStages
 
-    private def script
-    private Map env
-    private LoggerDynamic logger
-    private SwPackage swPackage
     
-    private def appName
-    private def appVersion
-    private def actionType
-    private def packageName
+    Boolean skipPipeline = false
 
-    /**
-     * Constructor
-     *
-     * @param script Reference to the Jenkins scripted environment
-     * @param env Map of Jenkins environment files
-     */
-    OtaNgStages(script, Map env) {
-        this.script = script
-        this.env = env
-        this.swPackage = new SwPackage(script, env)
-        this.logger = new LoggerDynamic(script)
+    OtaNgPipeline(script, Map defaults, Map env, Map ioMap) {
+        super(script, [
+            // the input keys and their default values for the pipeline, can be
+            // overridden by user inputs from either MR message or Jenkins env
+            defaultInputs: """
+                checkout_scm_stage = true
+                app_pull_stage = true
+                sw_package_creation_stage = true
+                desired_state_creation_stage = true
+                device_creation_stage = true
+                vehicle_creation_stage = true
+            """ + defaults.defaultInputs,
+            // the keys exposed to the user for modification
+            exposed: [
+                'checkout_scm_stage',
+                'app_pull_stage',
+                'sw_package_creation_stage',
+                'desired_state_creation_stage',
+                'device_creation_stage',
+                'vehicle_creation_stage',
+                'gh_release_tag',
+                'gh_owner',
+                'gh_repo',
+                'gh_pattern',
+                'app_zip_sub_folder',
+                'swc_dir_path',
+                'gen_swp_dir_path',
+                'app_dir_path',
+                'app_name',
+                'app_version',
+                'action_type',
+                'vrtefs_tool_path',
+                'vpkg_dir_path',
+                'pantaris_node',
+                'pantaris_script_path',
+                'vehicle_id',
+                'device_id'
+
+            ] + defaults.exposed,
+            // the keys for which pipeline should be parallelized
+            parallel: [] + defaults.parallel
+        ] as Map, env, ioMap)
+
+        commonGitStages = new CommonGitStages(script, env)
+
+    }
+
+    // /**
+    // * Provides implementation for stages
+    // *
+    // * @param A Map with the inputs for stages
+    // */
+    @Override
+    void stages(Map stageInput) {
+        
+        def customStages = getCustomStages()
+
+        // Skip the entire pipeline if we promote and there are no changes
+        if (skipPipeline) {
+            return
+        }
+        logger.info("stageInput")
+        logger.info(stageInput.inspect())
+        if (stageInput.checkout_scm_stage == "true")
+            commonGitStages.stageCheckoutSCM(env, stageInput)
+        if (stageInput.app_pull_stage == "true"){
+            customStages.stagePullAppFromGithub(env, stageInput)
+        }
+        if (stageInput.sw_package_creation_stage == "true"){
+            customStages.stageSwPackgeCreation(env, stageInput)
+            customStages.stageVehicePackgeCreation(env, stageInput)
+        }
+        if (stageInput.desired_state_creation_stage == "true"){
+            customStages.stageDesiredStateCreation(env, stageInput)
+        }
+        if (stageInput.device_creation_stage == "true"){
+            customStages.stageDeviceCreation(env, stageInput)
+        }
+        if (stageInput.vehicle_creation_stage == "true"){
+            customStages.stageVehicleCreation(env, stageInput)
+        }
     }
     
-    def stageSwPackgeCreation(Map env, Map stageInput = [:]){
-        script.stage("SW Package Creation") {
-            
-            String swcDirPath = stageInput.swc_dir_path?.trim() ?: 'ota-ng/swpkg/install_swc/'
-            String genSwpDirPath = stageInput.gen_swp_dir_path?.trim() ?: 'ota-ng/swpkg/gen_swp_fb/'
-            String appDirPath = stageInput.app_dir_path.trim()
-            String vrtefsToolPath = stageInput.vrtefs_tool_path?.trim() ?: 'C:/toolbase/vrte_adaptive_studio/r23-08/vrte_fs/'
-            
-            appName = stageInput.app_name.trim()
-            appVersion = stageInput.app_version?.trim() ?: '1.0.0'
-            actionType =  stageInput.action_type?.trim() ?: 'INSTALL'
-            packageName = "${actionType.toLowerCase()}_swc_app".toLowerCase()
-            
-            swPackage.swPackgeCreation(swcDirPath, genSwpDirPath, appDirPath, vrtefsToolPath, appName, appVersion, actionType, packageName)
-        }
-    }
-
-    def stageVehicePackgeCreation(Map env, Map stageInput = [:]){
-        script.stage("Vehice Package Creation") {
-
-            String vpkgDirPath = stageInput.vpkg_dir_path?.trim() ?: 'ota-ng/vpkg/'
-            swPackage.vehicePackgeCreation(vpkgDirPath, packageName, appName)
-        }
-    }
-
-    def stageDesiredStateCreation(Map env, Map stageInput = [:]){
-        script.stage("Desired State Creation") {
-            logger.warn("### Script for this Process Need to be Included ###")
-        }
-    }
-
-    def stageDeviceCreation(Map env, Map stageInput = [:]){
-        script.stage("Device Creation") {
-            logger.warn("### Script for this Process Need to be Included ###")
-        }
-    }
-
-    def stageVehicleCreation(Map env, Map stageInput = [:]){
-        script.stage("Vehicle Creation") {
-            logger.warn("### Script for this Process Need to be Included ###")
-        }
+    void getCustomStages(){
+        OtaNgStages customStages = new OtaNgStages(script, env)
     }
 }

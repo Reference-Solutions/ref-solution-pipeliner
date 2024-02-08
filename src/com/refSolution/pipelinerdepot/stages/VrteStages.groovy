@@ -2,7 +2,7 @@
 package com.refSolution.pipelinerdepot.stages
 
 import com.bosch.pipeliner.LoggerDynamic
-import com.bosch.pipeliner.ScriptUtils
+import com.refSolution.pipelinerdepot.utils.Jfrog
 
 /**
 * Contains stages that can be reused across pipelines
@@ -20,7 +20,7 @@ class VrteStages {
     private def script
     private Map env
     private LoggerDynamic logger
-    private ScriptUtils utils
+    private Jfrog jfrog
 
     /**
      * Constructor
@@ -31,13 +31,17 @@ class VrteStages {
     VrteStages(script, Map env) {
         this.script = script
         this.env = env
-        this.utils = new ScriptUtils(script, env)
+        this.jfrog = new Jfrog(script, env)
         this.logger = new LoggerDynamic(script)
     }
     
     def stagePullArtifact(Map env, Map stageInput = [:]){
         script.stage("Vrte Pull Artifacts") {
-             logger.warn("### Script for this Process Need to be Included ###")
+            Map config = [:]
+            config["artifactoryServerId"] = stageInput.vrte_artifactory_server_id?.trim() ?: 'artifactory-boschdevcloud'
+            config["pattern"] = stageInput.vrte_artifact_pattern.trim()
+            config["target"] = stageInput.vrte_artifact_download_path.trim()
+            jfrog.downloadFromArtifactory(config)
         }
     }
 }

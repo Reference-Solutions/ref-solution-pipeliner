@@ -27,6 +27,7 @@ class CommonPipeline extends BasePipeline {
             defaultInputs: """
                 checkout_scm_stage = true
                 checkout_stage = true
+                git_tag_stage = false
                 sonar_stage = true
                 build_stage = true
                 versioning_stage = true
@@ -34,13 +35,12 @@ class CommonPipeline extends BasePipeline {
                 dac_stage = true
                 artifactory_upload_stage = true
                 label = windows-lab-pc
-                artifact_version
-                archive_patterns
             """ + defaults.defaultInputs,
             // the keys exposed to the user for modification
             exposed: [
                 'checkout_scm_stage',
                 'checkout_stage',
+                'git_tag_stage',
                 'sonar_stage',
                 'build_stage',
                 'versioning_stage',
@@ -56,8 +56,9 @@ class CommonPipeline extends BasePipeline {
                 'clone_shallow',
                 'clone_no_tags',
                 'clone_reference',
-                'sonarPropertyFilePath',
-                'artifact_version',
+                'sonar_property_file_path',
+                'build_version',
+                'build_env',
                 'archive_patterns',
                 'dac_stage',
                 'doc_build', 
@@ -126,6 +127,8 @@ class CommonPipeline extends BasePipeline {
         }
         if (stageInput.artifactory_upload_stage == "true")  
             commonArtifactoryStages.stageArtifactoryUpload(env, stageInput)
+        if (stageInput.git_tag_stage == "true")  
+            commonGitStages.stageTag(env, stageInput)
     }
 
     void getCustomStages(){

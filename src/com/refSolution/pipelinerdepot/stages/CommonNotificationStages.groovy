@@ -30,11 +30,10 @@ class CommonNotificationStages {
     def stageNotificationEmail(Map env, Map stageInput = [:]){
         script.stage("Email Notification") { 
             logger.info('Email Notification')
-            String from = stageInput.from
-            String mimeType = stageInput.mimeType
+            //String from = stageInput.from
             String subject = "Build ${script.currentBuild.currentResult} in Jenkins: ${env.JOB_NAME} #${env.BUILD_NUMBER} - TRIGGERED BY: ${getBuildUser()}"
             String to = stageInput.to
-            notification.sendEmail(from, mimeType, subject, to)
+            notification.sendEmail(subject, to)
             
         }
     }
@@ -45,7 +44,7 @@ class CommonNotificationStages {
             String webhookUrl = stageInput.webhookurl
             String message =  "Build ${env.BUILD_DISPLAY_NAME}<br>Duration: ${script.currentBuild.durationString}<br>Node:${script.env.NODE_NAME} <br>TRIGGERED BY: ${getBuildUser()}<br>Build Url : &QUOT;<a href='${env.BUILD_URL}/console'>${env.JOB_NAME} #${env.BUILD_NUMBER}</a>"
             String status = script.currentBuild.currentResult
-            String color = stageInput.color
+            def color
             logger.info(webhookUrl)
             logger.info(message)
             logger.info(status)
@@ -71,5 +70,5 @@ class CommonNotificationStages {
 		return script.currentBuild.rawBuild.getCause(Cause.UserIdCause).getUserId()
 	else
 		return "Timer"
-}
+    }
 }

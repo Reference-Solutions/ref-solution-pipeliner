@@ -114,7 +114,7 @@ public class SwPackage {
 
     def createSWPackageBinary(def genSwpDirPath){
         script.stash includes: "${genSwpDirPath}**", name: 'gen_swp_fb'
-        script.node("ubuntu-lab-pc"){
+        script.node("linux"){
             script.cleanWs()
             script.unstash "gen_swp_fb"
             script.sh """

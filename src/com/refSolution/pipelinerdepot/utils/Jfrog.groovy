@@ -53,18 +53,18 @@ public class Jfrog {
      *
      * @return Artifactory server instance or null in case of failure
      */
-    ArtifactoryServer initArtifactory() {
+    ArtifactoryServer initArtifactory(Map config = [:]) {
         String artifactoryUrl
         String artifactoryServerId
 
         if (this.artifactory == null) {
-            artifactoryUrl = this.env.ARTIFACTORY_URL ? this.env.ARTIFACTORY_URL : ""
-            artifactoryServerId = this.env.ARTIFACTORY_SERVER_ID ? this.env.ARTIFACTORY_SERVER_ID : ""
+            artifactoryUrl = config.artifactoryUrl ? config.artifactoryUrl : ""
+            artifactoryServerId = config.artifactoryServerId ? config.artifactoryServerId : ""
             ArtifactoryServer server = null
             if (artifactoryUrl != "") {
                 logger.info("Artifactory: " + artifactoryUrl)
                 server = this.script.newArtifactoryServer(url: artifactoryUrl)
-                server.credentialsId = getArtifactoryCredentialsFromEnvironment()
+                server.credentialsId = getArtifactoryCredentialsFromEnvironment(config)
                 server.bypassProxy = true
             } else if (artifactoryServerId != "") {
                 logger.info("Artifactory Server Id: " + artifactoryServerId)
@@ -85,16 +85,17 @@ public class Jfrog {
      *
      * @param buildInfo Build info data
      */
-    void publishBuildInfoToArtifactory(def buildInfo) {
-        script.publishBuildInfo(buildInfo: buildInfo, server: initArtifactory())
+    void publishBuildInfoToArtifactory(Map config = [:]) {
+
+        script.publishBuildInfo(buildInfo: config.buildInfo, server: initArtifactory(config))
     }
 
     /**
      * Enables interactive promotion feature for Jenkins Artifactory plugin.
      * Adds `Artifactory Release Promotion` button to Jenkins user interface for current build.
      */
-    void enableInteractiveArtifactPromotion() {
-        initArtifactory()
+    void enableInteractiveArtifactPromotion(Map config = [:]) {
+        initArtifactory(config)
         PromotionConfig pConfig = new PromotionConfig()
         pConfig.buildName = this.env.JOB_NAME.replaceAll('/', ' :: ')
         pConfig.buildNumber = this.env.BUILD_NUMBER.toString()
@@ -105,20 +106,27 @@ public class Jfrog {
      * Upload files to artifactory server
      * See details:
      * https://javadoc.jenkins.io/plugin/artifactory/org/jfrog/hudson/pipeline/common/types/buildInfo/BuildInfo.html
-     *
+     * 
+     * Config Params:
      * @param target Upload location in Artifactory
      * @param pattern A pattern that defines the files to upload
      * @param flat Boolean to indicate if upload folders are ignored
      * @param failNoOp Boolean to indicate if the function should fail if nothing is uploaded
      * @return BuildInfo for artifactory
      */
-    def uploadToArtifactory(String pattern, String target, boolean flat = false, boolean failNoOp = true) {
+    def uploadToArtifactory(Map config) {
+        
+        String pattern = config.pattern
+        String target = config.target
+        boolean flat = config.flat ? config.flat : false
+        boolean failNoOp = config.failNoOp ? config.failNoOp : true
+        
         boolean recursive = pattern.contains('*') || isDirectory(pattern)
 
         def uploadSpec = """{ "files": [ { "pattern": "${pattern}", "target": "${target}", "excludePatterns": ["*.sha1","*.md5","*.sha256","*.sha512"], "flat": "${flat}", "recursive": "${recursive}" } ] }"""
 
         try {
-            return script.artifactoryUpload(spec: uploadSpec, server: initArtifactory(), failNoOp: failNoOp)
+            return script.artifactoryUpload(spec: uploadSpec, server: initArtifactory(config), failNoOp: failNoOp)
         } catch (Exception ex) {
             logger.error("uploadToArtifactory: pattern: ${pattern} target: ${target} flat: ${flat} failNoOp: ${failNoOp}")
             throw ex
@@ -136,7 +144,13 @@ public class Jfrog {
      * @param failNoOp Boolean to indicate if the function should fail if nothing is downloaded
      * @return BuildInfo for artifactory
      */
-    def downloadFromArtifactory(String pattern, String target, boolean flat = false, boolean failNoOp = true) {
+    def downloadFromArtifactory(Map config) {
+        
+        String pattern = config.pattern
+        String target = config.target
+        boolean flat = config.flat ? config.flat : false
+        boolean failNoOp = config.failNoOp ? config.failNoOp : true
+        
         def downloadSpec = """{
             "files":[
                         {
@@ -148,15 +162,21 @@ public class Jfrog {
             }"""
 
         try {
-            return script.artifactoryDownload(spec: downloadSpec, server: initArtifactory(), failNoOp: failNoOp)
+            return script.artifactoryDownload(spec: downloadSpec, server: initArtifactory(config), failNoOp: failNoOp)
         } catch (Exception ex) {
             logger.error("downloadFromArtifactory: pattern: ${pattern} target: ${target} flat: ${flat} failNoOp: ${failNoOp}")
             throw ex
         }
     }
 
-    def uploadToArtifactoryRaw(String pattern, String target, boolean flat = false, boolean failNoOp = true) {
-        initArtifactory()
+    def uploadToArtifactoryRaw(Map config) {
+        
+        String pattern = config.pattern
+        String target = config.target
+        boolean flat = config.flat ? config.flat : false
+        boolean failNoOp = config.failNoOp ? config.failNoOp : true
+
+        initArtifactory(config)
 
         boolean recursive = pattern.contains('*') || isDirectory(pattern)
 
@@ -185,8 +205,14 @@ public class Jfrog {
         return script.newBuildInfo()
     }
 
-    def downloadFromArtifactoryRaw(String source, String target, boolean flat = false, String exclude = 'index.html*') {
-        initArtifactory()
+    def downloadFromArtifactoryRaw(Map config) {
+        
+        String source = config.source
+        String target = config.target
+        boolean flat = config.flat ? config.flat : false
+        String exclude = config.exclude ? config.exclude : 'index.html*'
+
+        initArtifactory(config)
 
         if (source.contains('*')) {
             script.error("Download source incompatible with wget: ${source}, pattern matching not supported")
@@ -221,8 +247,12 @@ public class Jfrog {
         }
     }
 
-    private void copyMoveRestAPIWrapper(String methodName, String from, String to) {
-        initArtifactory()
+    private void copyMoveRestAPIWrapper(Map config, String methodName) {
+        
+        String from = config.from
+        String to = config.to
+
+        initArtifactory(config)
 
         script.withCredentials([script.usernameColonPassword(credentialsId: this.artifactory.credentialsId, variable: "ARTIFACTORY_USERPASS")]) {
             String urlCmd = "'${this.artifactory.url}/api/${methodName}/${from}?to=${to}'"
@@ -239,8 +269,8 @@ public class Jfrog {
      * @param from From path/file
      * @param to Destination path/file
      */
-    void copyInArtifactory(String from, String to) {
-        copyMoveRestAPIWrapper('copy', from, to)
+    void copyInArtifactory(Map config) {
+        copyMoveRestAPIWrapper(config, 'copy')
     }
 
     /**
@@ -249,8 +279,8 @@ public class Jfrog {
      * @param from From path/file
      * @param to Destination path/file
      */
-    void moveInArtifactory(String from, String to) {
-        copyMoveRestAPIWrapper('move', from, to)
+    void moveInArtifactory(Map config) {
+        copyMoveRestAPIWrapper(config, 'move', from, to)
     }
 
     /**
@@ -258,8 +288,10 @@ public class Jfrog {
      *
      * @param path Path of files to delete
      */
-    void deleteInArtifactory(String path) {
-        initArtifactory()
+    void deleteInArtifactory(Map config) {
+        String path = config.path
+
+        initArtifactory(config)
 
         script.withCredentials([script.usernameColonPassword(credentialsId: this.artifactory.credentialsId, variable: "ARTIFACTORY_USERPASS")]) {
             String urlCmd = "'${this.artifactory.url}/${path}'"
@@ -275,8 +307,10 @@ public class Jfrog {
      *
      * @param url of location
      */
-    Boolean checkInArtifactory(String url) {
-        initArtifactory()
+    Boolean checkInArtifactory(Map config ) {
+        String url = config.url
+
+        initArtifactory(config)
 
         Integer status = -1
 
@@ -316,8 +350,13 @@ public class Jfrog {
      * @param properties Map<String,String> of property key-value pairs
      * @param recursive Boolean value indicating if properties should be applied recursively
      */
-    void addPropertiesInArtifactory(String path, Map<String,String> properties, Boolean recursive = false) {
-        initArtifactory()
+    void addPropertiesInArtifactory(Map config) {
+        
+        String path = config.path
+        Map<String,String> properties = config.properties
+        Boolean recursive = config.recursive ?: false
+
+        initArtifactory(config)
 
         script.withCredentials([script.usernameColonPassword(credentialsId: this.artifactory.credentialsId, variable: "ARTIFACTORY_USERPASS")]) {
             String urlCmd = "'${this.artifactory.url}/api/storage/${path}?properties=${propertyMapToString(properties)}&recursive=${recursive ? 1 : 0}'"
@@ -332,10 +371,10 @@ public class Jfrog {
      * Initialize internal Artifactory credential id from environment
      * @return artifactoryCredentialsId
      */
-    def getArtifactoryCredentialsFromEnvironment() {
+    def getArtifactoryCredentialsFromEnvironment(Map config = [:]) {
         String artifactoryCredentialsId = ""
         try {
-            artifactoryCredentialsId = this.env.ARTIFACTORY_CREDENTIALS_ID ? this.env.ARTIFACTORY_CREDENTIALS_ID : ""
+            artifactoryCredentialsId = config.artifactoryCredentialsId ? config.artifactoryCredentialsId.trim() : ""
             if (artifactoryCredentialsId.isEmpty()) {
                 def split = this.env.JOB_NAME.tokenize("./")
                 artifactoryCredentialsId = split[0] + "-artifactory"

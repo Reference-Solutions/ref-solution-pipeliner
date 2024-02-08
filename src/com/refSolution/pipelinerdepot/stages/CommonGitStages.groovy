@@ -74,7 +74,13 @@ class CommonGitStages {
      */
     def stageCheckout(Map env, Map stageInput = [:]) {
         script.stage("Checkout") {
-            processInputsAndDoCheckout(env, stageInput)
+            processInputsAndExecuteGit(env, stageInput, "checkout")
+        }
+    }
+
+    def stageTag(Map env, Map stageInput = [:]) {
+        script.stage("Git Tag") {
+            processInputsAndExecuteGit(env, stageInput, "tag")
         }
     }
 
@@ -132,14 +138,7 @@ class CommonGitStages {
      * @param env Map of Jenkins environment files
      * @param stageInput Map of input parameters
      */
-    def checkout(Map env, Map stageInput = [:]) {
-        String url = env.CHECKOUT_URL
-        String branch = env.CHECKOUT_BRANCH ?: "master"
-        String checkoutCredentialsId = env.CHECKOUT_CREDENTIALS_ID ?: ""
-        String repoName = url.replaceAll(".*/|.git","")
-        ArrayList extensions = getSCMExtensions(stageInput, repoName)
-        git.checkout(url , branch, checkoutCredentialsId, extensions)
-    }
+
 
     def stageCheckoutSCM(Map env, Map stageInput = [:]){
         script.stage("checkout SCM") {
@@ -147,9 +146,9 @@ class CommonGitStages {
         }
     }
 
-    def  processInputsAndDoCheckout(Map env, Map stageInput = [:]){
+    def  processInputsAndExecuteGit(Map env, Map stageInput = [:], def gitOption = "checkout"){
         def checkoutCount = env.CHECKOUT_COUNT ?env.CHECKOUT_COUNT.toInteger(): 1
-        
+
         logger.info("env : " + env)
         String url
         String branch
@@ -163,18 +162,35 @@ class CommonGitStages {
 
             
             if(url != null){
-                branch = env["CHECKOUT_BRANCH_${i}"] ?: "master"
-                checkoutCredentialsId = env["CHECKOUT_CREDENTIALS_ID_${i}"] ?: ""
                 repoName = url.replaceAll(".*/|.git","")
-                extensions = getSCMExtensions(stageInput, repoName)
-                logger.info("url : "+ url)
+                if (gitOption == "checkout"){
+                    branch = env["CHECKOUT_BRANCH_${i}"] ?: "master"
+                    checkoutCredentialsId = env["CHECKOUT_CREDENTIALS_ID_${i}"] ?: ""
+                    extensions = getSCMExtensions(stageInput, repoName)
 
-                git.checkout(url , branch, checkoutCredentialsId, extensions)
+                    git.checkout(url , branch, checkoutCredentialsId, extensions)
+                }
+                else if (gitOption == "tag"){
+                    String tagVersion = stageInput.build_version
+                    String buildEnvironment = stageInput.build_env?.trim() ?: "Nightly"
+                    if (buildEnvironment == "Nightly"){
+                        tagVersion = "tag_" + tagVersion + "_" + buildDate() + "_N"
+                    }
+                    else if (buildEnvironment == "Dev"){
+                        tagVersion = "tag_" + tagVersion + "_" + buildDate() + "_Dev"
+                    }
+                    else if (buildEnvironment == "Release"){
+                        tagVersion = "tag_" + tagVersion
+                    }
+                    git.tag(repoName, tagVersion)
+                }
             }
             else {
-                logger.info("checkout url not provided, so checkout scm is triggered")
-                git.checkout()
+                logger.warn("### Git url not provided, So Git Stage is skipped ###")
             }
         }
+    }
+    String buildDate(String formatString = "yyyyMMddHHmmss") {
+        return new Date(script.currentBuild.getStartTimeInMillis()).format(formatString).toString().trim()
     }
 }

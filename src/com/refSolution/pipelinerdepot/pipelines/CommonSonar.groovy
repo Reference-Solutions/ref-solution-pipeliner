@@ -16,7 +16,7 @@ class CommonSonar extends BasePipeline {
             // overridden by user inputs from either MR message or Jenkins env
             defaultInputs: '',
             // the keys exposed to the user for modification
-            exposed: ['sonarPropertyFilePath'],
+            exposed: ['sonar_property_file_path'],
             // the keys for which pipeline should be parallelized
             parallel: []
         ] as Map, env, ioMap)
