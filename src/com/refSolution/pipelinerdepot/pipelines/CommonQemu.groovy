@@ -73,7 +73,7 @@ class CommonQemu extends BasePipeline {
 
         logger.info("publishHTMLTestReport")
         qemuS = new QemuStages(script, env)
-        // qemuS.stagePublishReport(env, stageInput)
+        qemuS.stagePublishReport(env, stageInput)
                 
             
         }
