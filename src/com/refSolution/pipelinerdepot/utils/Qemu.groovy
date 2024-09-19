@@ -31,15 +31,15 @@ public class Qemu {
     }
 
     def loadVrteOnQemu (String vrte_qemu_dir,String vrte_arch_type,String vrte_script_name){
-            script.bat """
+            script.sh """
                 cd ${vrte_qemu_dir}
-                start ${vrte_script_name} ${vrte_arch_type}
+                sh ${vrte_script_name}
                 sleep 60
             """
     }
 
     def roboTest (String robot_options,String robot_test_dir  ) {
-            script.bat """
+            script.sh """
             robot --outputdir reports ${robot_options} ${robot_test_dir}
             """  
     }
