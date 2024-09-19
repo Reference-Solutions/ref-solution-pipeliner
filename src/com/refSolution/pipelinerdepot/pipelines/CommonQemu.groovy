@@ -21,6 +21,7 @@ class CommonQemu extends BasePipeline {
                 robot_test_dir = ""
                 repo_name = ""
 	            robot_options = ""
+                vrte_script_name = ""
 
             ''',
             // the keys exposed to the user for modification
@@ -28,7 +29,8 @@ class CommonQemu extends BasePipeline {
                 'vrte_qemu_dir',
                 'robot_options',
                 'robot_test_dir',
-                'vrte_arch_type'
+                'vrte_arch_type',
+                'vrte_script_name'
             ],
             // the keys for which pipeline should be parallelized
             parallel: []
