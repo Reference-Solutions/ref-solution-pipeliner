@@ -34,9 +34,8 @@ public class Qemu {
             script.sh """
                 cd ${vrte_qemu_dir}
                 chmod +x ${vrte_script_name}
-                ls -ltrh
-                sh ${vrte_script_name}
-                sleep 60
+                nohup ./${vrte_script_name} &> qemu.log &
+                sleep 20
             """
     }
 
