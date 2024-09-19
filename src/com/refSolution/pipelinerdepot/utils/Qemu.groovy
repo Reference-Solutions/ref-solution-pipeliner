@@ -33,6 +33,8 @@ public class Qemu {
     def loadVrteOnQemu (String vrte_qemu_dir,String vrte_arch_type,String vrte_script_name){
             script.sh """
                 cd ${vrte_qemu_dir}
+                chmod +x ${vrte_script_name}
+                ls -ltrh
                 sh ${vrte_script_name}
                 sleep 60
             """
