@@ -63,6 +63,7 @@ class QemuStages {
         script.stage("Publish HTML Report") { 
             logger.info("Post stage Test")
             script.publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports/', reportFiles: 'report.xml', reportName: 'HTML Report', reportTitles: 'VRTE Report', useWrapperFileDirectly: true])
+            script.robot(outputPath: 'reports/')
         }
     }
     
