@@ -62,9 +62,8 @@ class QemuStages {
     def stagePublishReport(Map env, Map stageInput = [:]){
         script.stage("Publish HTML Report") { 
             logger.info("Post stage Test")
-            script.publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports/', reportFiles: 'report.xml', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+            script.publishHTML([allowMissing: true, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'reports/', reportFiles: 'report.xml', reportName: 'HTML Report', reportTitles: 'report.html', useWrapperFileDirectly: true])
         }
     }
-    
     
 }
