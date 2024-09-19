@@ -37,6 +37,8 @@ class QemuStages {
         script.stage("Load VRTE to Qemu"){    
             String vrte_qemu_dir = stageInput.vrte_qemu_dir
             String vrte_arch_type = stageInput.vrte_arch_type
+            String vrte_script_name = "qemu-x86_64.sh"
+            qemu.loadVrteOnQemu(vrte_qemu_dir,vrte_arch_type,vrte_script_name)
             if (vrte_arch_type == "qemu-system-x86_64"){
               String vrte_script_name = "qemu-x86_64.sh"  
               qemu.loadVrteOnQemu(vrte_qemu_dir,vrte_arch_type,vrte_script_name)
