@@ -51,7 +51,7 @@ class QemuStages {
     }
 
     def StageTest(Map env, Map stageInput = [:]) {
-        script.stage("Stage Test"){
+        script.stage("Robot Test"){
             String robot_options = stageInput.robot_options
             String robot_test_dir = stageInput.robot_test_dir
             qemu.roboTest(robot_options, robot_test_dir)
